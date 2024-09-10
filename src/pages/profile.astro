@@ -1,0 +1,92 @@
+---
+import { getSession } from 'auth-astro/server';
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+import { getUser } from 'utils/getUser';
+
+const session = await getSession(Astro.request);
+const user = await getUser(session?.user?.id as string);
+console.log( user)
+console.log( session);
+---
+
+<Layout>
+  <section class="user-forms">
+    <h2 class="text-center text-4xl mb-8">User Actions</h2>
+
+    <!-- Edit User Form -->
+    <form id="editUserForm" class="form-container mt-8">
+      <h3>Edit User Info</h3>
+      <label for="id">User ID:</label>
+      <input type="text" id="id" name="id" value={session?.user?.id} required />
+
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" value={session?.user?.name} required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" value={session?.user?.email} required />
+
+      <button type="submit">Edit User</button>
+    </form>
+  </section>
+</Layout>
+
+<script>
+  import { actions } from 'astro:actions';
+  document.addEventListener('DOMContentLoaded', function () {
+    const editUserForm = document.getElementById('editUserForm');
+
+    async function handleEditUser(event: SubmitEvent) {
+      event.preventDefault();
+      const formData = new FormData(editUserForm as HTMLFormElement);
+      const { data, error } = await actions.editProfile(formData);
+
+      if (error) {
+        console.error('Error updating user:', error);
+      } else {
+        console.log('Updated user data:', data);
+      }
+    }
+    editUserForm?.addEventListener('submit', handleEditUser);
+  });
+</script>
+
+<style>
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+
+  .form-container label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: black;
+  }
+
+  .form-container input {
+    margin-bottom: 16px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: black;
+  }
+
+  .form-container button {
+    padding: 10px;
+    background-color: #22a7f0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .form-container button:hover {
+    background-color: #1b91d9;
+  }
+</style>

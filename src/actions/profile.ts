@@ -8,15 +8,13 @@ export const editProfile = defineAction({
   input: z.object({
     name: z.string(),
     email: z.string(),
-    image: z.string(),
   }),
-  handler: async ({ name, email, image }) => {
+  handler: async ({ name, email }) => {
     const userProfile = await db
       .update(userTable)
       .set({
         name: name,
         email: email,
-        image: image,
       })
       .returning({ id: userTable.id });
 
