@@ -11,29 +11,35 @@ import Layout from "@layouts/Layout.astro";
       </div>
       
       <div class="description">
-        <h2 class="text-2xl  font-dirtyline">face painting</h2>
+        <h2 class="text-2xl font-dirtyline">face painting</h2>
         <p style="text-align: left;">Description:</p>
         <p>ahjskhjsdhljdckdjks ahnjsgjdkahjdka Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum id voluptates nostrum veritatis at, accusantium natus incidunt recusandae voluptatum. Porro accusantium pariatur dignissimos iste eveniet odit unde optio laborum vero.</p>
       </div>
       
       <div class="sidebar">
-        <div>
-          <h3>MEET AT</h3>
+        <div class="sidebar-item">
+          <h3 class="text-2xl font-dirtyline">MEET AT</h3>
           <p>Souparnika</p>
           <p>9:00 - 12:00</p>
         </div>
         
-        <div>
-          <p>Rules:</p>
-          <p>resules nd regulation</p>
+        <div class="sidebar-item">
+          <p class="text-2xl font-dirtyline">Rules:</p>
+          <p>resules nd regulation
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex esse quia quam expedita alias voluptates, repudiandae numquam iure libero placeat quibusdam molestiae perferendis nulla rerum quas unde maiores nihil magnam.
+          </p>
         </div>
         
-        <div class="register-button card">
+        <div class="register-button card text-2xl font-dirtyline">
           Register
         </div>
         
-        <div class="organizer card">
-          <p>Organiser details</p>
+        <div class="organizer card ">
+          <p class="text-2xl font-dirtyline">Organiser details</p>
+          <ul>
+            <li>len -- 7892859097</li>
+            <li>karthik -- 7892859097</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -41,7 +47,7 @@ import Layout from "@layouts/Layout.astro";
 </Layout>
 
 <style>
-/* Existing styles */
+
 .wrapper {
   margin: 0 auto;
   padding: 100px 20px 20px 20px;
@@ -59,14 +65,12 @@ import Layout from "@layouts/Layout.astro";
   grid-template-rows: auto auto;
   gap: 10px;
   justify-items: center;
-  /* padding: 10px; */
-  
 }
 
 .poster {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
-  background-color: #bb37378e;
+  background: linear-gradient(transparent, rgba(124, 123, 123, 0.196));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,7 +85,7 @@ import Layout from "@layouts/Layout.astro";
 .poster-img {
   width: 100%;
   height: 100%;
-  object-fit:cover;
+  object-fit: cover;
   border-radius: 10px;
   transition: transform 0.5s cubic-bezier(0.2, 3, 0.340, 3);
 }
@@ -110,7 +114,7 @@ import Layout from "@layouts/Layout.astro";
   background-size: 200%;
   background-position: 0% 0%;
   text-transform: uppercase;
-  transition: 0.4s ease-in-out;
+  transition: background-position 0.4s ease-in-out;
 }
 
 .description:hover {
@@ -120,34 +124,65 @@ import Layout from "@layouts/Layout.astro";
 .sidebar {
   grid-column: 2 / 3;
   grid-row: 1 / 3;
-  background-color: #222;
+  /* background-color: #222; */
   color: white;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 20px; /* Added space between items */
   border-radius: 10px;
   height: auto;
   width: 100%;
+  background: linear-gradient(
+  -135deg,
+    transparent,
+    
+  rgba(37, 51, 92, 0.8), /* Deep Navy Blue */
+  rgba(71, 159, 186, 0.6) 40%, /* Sky Blue */
+  rgba(71, 159, 186, 0.6), /* Sky Blue */
+  rgba(127, 230, 214, 0.6) 60%, /* Aqua Teal */
+  rgba(37, 51, 92, 0.8) ,
+    transparent
+  );
+  background-size: 200%;
+  background-position: 0% 0%;
+  transition: background-position 0.4s ease-in-out;
+}
+
+.sidebar:hover {
+  background-position: 100% 100%;
+}
+
+.sidebar-item {
+  padding: 10px;
+  background-image: linear-gradient(43deg, #2e79cf   0%, #1ea1cc  46%, #0f4fd1 100%);
+  border-radius: 10px;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.320, 1), box-shadow 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+  border: #fff solid 2px;
+}
+
+.sidebar-item:hover {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .register-button, .organizer {
-  margin-top: 20px;
   padding: 10px 20px;
-  background-color: #555;
+  background-color: #ffffff;
   color: white;
   text-align: center;
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
-  background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+  background-image: linear-gradient(43deg, #2e79cf   0%, #1ea1cc  46%, #0f4fd1 100%);
   position: relative;
   overflow: hidden;
+  border: #fff solid 2px;
 }
 
 .register-button:hover, .organizer:hover {
   transform: rotateY(10deg) rotateX(10deg) scale(1.05);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+ 
 }
 
 .register-button:before, .organizer:before {
@@ -157,7 +192,7 @@ import Layout from "@layouts/Layout.astro";
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.1));
+  /* background: linear-gradient(transparent, rgba(0, 0, 0, 0)); */
   transition: transform 0.5s cubic-bezier(0.23, 1, 0.320, 1);
   z-index: 1;
 }
@@ -185,7 +220,7 @@ import Layout from "@layouts/Layout.astro";
 /* New styles for grid cards */
 .card {
   padding: 20px;
-  background-color: #333;
+  
   color: white;
   border-radius: 10px;
   transition: transform 0.5s cubic-bezier(0.23, 1, 0.320, 1), box-shadow 0.5s cubic-bezier(0.23, 1, 0.320, 1);
@@ -229,5 +264,3 @@ import Layout from "@layouts/Layout.astro";
 .card:hover:after {
   transform: translateY(100%);
 }
-
-</style>
