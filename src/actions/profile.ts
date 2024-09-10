@@ -2,6 +2,7 @@ import { db } from '@lib/db';
 import { userTable } from '@lib/db/schema';
 import { ActionError, defineAction } from 'astro:actions';
 import { z } from 'astro:content';
+import { eq } from 'drizzle-orm';
 
 export const editProfile = defineAction({
   accept: 'form',
@@ -15,7 +16,7 @@ export const editProfile = defineAction({
       .set({
         name: name,
         email: email,
-      })
+      }).where(eq(userTable.email ,email ))
       .returning({ id: userTable.id });
 
     if (!userProfile.length) {
