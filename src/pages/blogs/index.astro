@@ -97,25 +97,20 @@ const blogs = [
 <Layout title="blogs">
   <main class="content-container">
     <section class="mt-16 flex flex-col items-center">
-      <div class="lg:py-18 relative py-12 sm:py-14 md:py-16 xl:py-20 flex flex-col items-center gap-6 text-center">
-        <h1 class="fade-up uppercase text-6xl mx-auto max-w-screen-lg font-dirtyline ">ACE BLOGS</h1>
+      <div class="lg:py-18 py-12 sm:py-14 md:py-16 xl:py-20 flex flex-col items-center gap-6 text-center">
+        <h1 class="fade-up uppercase text-6xl mx-auto max-w-screen-lg font-dirtyline">ACE BLOGS</h1>
         <p class="fade-up text-gray-200 font-syne-variable">Where creativity meets curiosity!</p>
       </div>
 
       <div class="flex lg:flex-row flex-col-reverse gap-11">
-        <aside class="lg:w-56 xl:max-w-sm">
+        <aside class="lg:w-56 xl:max-w-sm lg:sticky lg:top-14 h-fit">
           <div class="p-2 lg:p-4 xl:p-8 lg:border-b border-gray-700">
             <h2 class="text-2xl">Popular posts</h2>
             <ul class="mt-4 space-y-4 text-gray-400">
-              <li>
-                <a href="/blog/images/"> Better Images in Astro </a>
-              </li><li>
-                <a href="/blog/images/"> 2023 Web Framework Performance Report </a>
-              </li><li>
-                <a href="/blog/hybrid-rendering/"> Unlock New Possibilities with Hybrid Rendering </a>
-              </li><li>
-                <a href="/blog/netlify-official-deployment-partner/"> Netlify: Our Official Deployment Partner </a>
-              </li>
+              <li><a href="/blog/images/">Better Images in Astro</a></li>
+              <li><a href="/blog/images/">2023 Web Framework Performance Report</a></li>
+              <li><a href="/blog/hybrid-rendering/">Unlock New Possibilities with Hybrid Rendering</a></li>
+              <li><a href="/blog/netlify-official-deployment-partner/">Netlify: Our Official Deployment Partner</a></li>
             </ul>
           </div>
           <div class="lg:border-b border-gray-700 p-2 lg:p-4 xl:p-8">
@@ -127,7 +122,7 @@ const blogs = [
           </div>
         </aside>
 
-        <div class="flex flex-col justify-center items-center gap-8 md:gap-16 max-w-xl pt-6 lg:pt-8 xl:pt-10">
+        <div class="flex flex-col justify-center items-center gap-8 md:gap-16 max-w-xl pt-6 lg:pt-8 xl:pt-10 w-full">
           {blogs.map((blog) => <BlogCard blog={blog} />)}
         </div>
       </div>
