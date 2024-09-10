@@ -2,22 +2,21 @@ import { db } from '@lib/db';
 import { userTable } from '@lib/db/schema';
 import { ActionError, defineAction } from 'astro:actions';
 import { z } from 'astro:content';
+import { eq } from 'drizzle-orm';
 
 export const editProfile = defineAction({
   accept: 'form',
   input: z.object({
     name: z.string(),
     email: z.string(),
-    image: z.string(),
   }),
-  handler: async ({ name, email, image }) => {
+  handler: async ({ name, email }) => {
     const userProfile = await db
       .update(userTable)
       .set({
         name: name,
         email: email,
-        image: image,
-      })
+      }).where(eq(userTable.email ,email ))
       .returning({ id: userTable.id });
 
     if (!userProfile.length) {
