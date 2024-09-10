@@ -8,6 +8,7 @@ import Testimonial from '@components/landing/Testimonials.astro';
 
 <Layout title="ACE">
   <main>
+    <canvas id="fluid"></canvas>
     <!-- hero -->
     <section class="hero content-container flex flex-col items-center justify-between py-6 md:py-16">
       <div></div>
@@ -43,6 +44,13 @@ import Testimonial from '@components/landing/Testimonials.astro';
 </Layout>
 
 <style>
+
+#fluid {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100dvw;
+  height: 100dvh;
+} 
   /* Hero buttons with continuous border animation */
   .animated-btn {
     position: relative;
@@ -127,3 +135,5 @@ import Testimonial from '@components/landing/Testimonials.astro';
     min-height: 400px;
   }
 </style>
+<script src="../script/fluid_anim.js">
+</script>
