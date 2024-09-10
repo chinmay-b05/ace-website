@@ -1,19 +1,36 @@
-<header class="header">
-  <div class="content-container">
+---
+import { getSession } from 'auth-astro/server';
+const session = await getSession(Astro.request);
+---
 
+<header class="header" transition:persist>
+  <div class="content-container">
     <a href="/"><img src="/images/logo.png" alt="ACE" class="h-16 w-auto z-10" /></a>
-    
-    <input type="checkbox" id="check">
+
+    <input type="checkbox" id="check" />
     <label for="check" class="menu">
-      <img src="images/icons8-menu.svg" alt="menu" id="open-menu" class="h-8 w-6 "/>
-      <img src="images/close.svg" alt="close" id="close-menu" class="h-8 w-6"/>
+      <img src="images/icons8-menu.svg" alt="menu" id="open-menu" class="h-8 w-6" />
+      <img src="images/close.svg" alt="close" id="close-menu" class="h-8 w-6" />
     </label>
-    <nav class="navbar">
+    <nav class="flex gap-10 navbar items-center md:justify-between whitespace-nowrap">
       <a href="/" class="nav-link">home</a>
       <a href="/events" class="nav-link">events</a>
       <a href="/team" class="nav-link">Team</a>
       <a href="/gallery" class="nav-link">gallery</a>
       <a href="/developers" class="nav-link">dev-team</a>
+      {
+        session ? (
+          <div class="relative cursor-pointer profile-container" tabindex="0">
+            <img src={session.user?.image} alt={session.user?.name} class="rounded-full w-8 aspect-square" />
+            <div class="profile-dropdown flex flex-col gap-2 absolute p-4 rounded-md">
+              <a href={`/profiles/${session.user?.id}`}>View Profile</a>
+              <button id="logout">Logout</button>
+            </div>
+          </div>
+        ) : (
+          <button id="login">Login</button>
+        )
+      }
     </nav>
   </div>
 </header>
@@ -25,17 +42,15 @@
     left: 0;
     width: 100%;
     z-index: 50;
-   
   }
   .content-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    
   }
 
-  .header::before{
+  .header::before {
     content: '';
     position: absolute;
     top: 0;
@@ -45,11 +60,6 @@
     background-color: #1418234f;
     backdrop-filter: blur(50px);
     z-index: -1;
-  }
-
-  .navbar {
-    display: flex;
-    gap: 2.5rem;
   }
 
   .nav-link {
@@ -94,13 +104,12 @@
     display: none;
   }
 
-  
   @media (max-width: 560px) {
     .menu {
       display: inline-flex;
     }
 
-    #check:checked~.menu #open-menu {
+    #check:checked ~ .menu #open-menu {
       display: none;
     }
 
@@ -108,7 +117,7 @@
       display: block;
     }
 
-    #check:checked~.menu #close-menu {
+    #check:checked ~ .menu #close-menu {
       display: block;
     }
 
@@ -128,11 +137,11 @@
       backdrop-filter: blur(40px);
       gap: 1rem;
       overflow: hidden;
-      transition: .3s ease;
+      transition: 0.3s ease;
     }
 
-    #check:checked~.navbar {
-      padding: 4rem 0 4rem 0; 
+    #check:checked ~ .navbar {
+      padding: 4rem 0 4rem 0;
       height: 100vh;
     }
 
@@ -140,8 +149,30 @@
       display: block;
       align-self: center;
       text-align: center;
-
     }
   }
 
+  .profile-container:focus-within .profile-dropdown {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .profile-dropdown {
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: rgba(2, 25, 71, 0.1) 0px 0.175em 0.5em;
+    background-color: rgba(61, 61, 62, 0.385);
+    transform: translateX(-20%) translateY(8%);
+    transition: opacity 0.15s ease-out;
+  }
 </style>
+
+<script>
+  const { signIn, signOut } = await import('auth-astro/client');
+  document.addEventListener('astro:page-load', () => {
+    document.querySelector<HTMLButtonElement>('#login')?.addEventListener('click', () => {
+      signIn('google');
+    });
+    document.querySelector<HTMLButtonElement>('#logout')?.addEventListener('click', async () => await signOut());
+  });
+</script>

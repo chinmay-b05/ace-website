@@ -9,7 +9,6 @@ let imagesDetails: ResourceApiResponse | null = null;
 try {
   imagesDetails = await getImages('gallery');
 } catch (err) {
-  //handle error
   console.error(err);
 }
 ---
@@ -18,11 +17,15 @@ try {
   <main>
     <GalleryHero />
     <section class="content-container w-full h-fit columns-1 sm:columns-2 md:columns-3 lg:columns-4">
-      {imagesDetails
-        ? imagesDetails.resources.map((image,i) => (
-            <img src={image.url} alt=`galary-image-${i}` class="gallery-image mb-4 rounded-lg" />
+      {
+        imagesDetails ? (
+          imagesDetails.resources.map((image, i) => (
+            <img src={image.url} alt="" class="gallery-image mb-4 rounded-lg" />
           ))
-        : <p>Loading images...</p>}
+        ) : (
+          <p>No Images</p>
+        )
+      }
     </section>
   </main>
 </Layout>
