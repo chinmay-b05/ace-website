@@ -36,15 +36,11 @@ const cards = [
 ---
 
 <section class="content-container event-section h-fit my-8 overflow-hidden">
-  
-  <div class="marquee-container overflow-visible w-[100%] relative whitespace-nowrap h-[70vh] flex justify-center text-9xl flex-col gap-0">
-    <h1 class="marquee-text-1 inline-block  whitespace-nowrap font-dirtyline font-medium">
-      Explore 
-    </h1>
-     <h1 class="marquee-text-2 inline-block whitespace-nowrap font-dirtyline font-medium absolute top-[56%]">
-      More 
-    </h1>
-
+  <div
+    class="marquee-container overflow-visible w-[100%] relative whitespace-nowrap h-[70vh] flex justify-center text-9xl flex-col gap-0"
+  >
+    <h1 class="marquee-text-1 inline-block whitespace-nowrap font-dirtyline font-medium">Explore</h1>
+    <h1 class="marquee-text-2 inline-block whitespace-nowrap font-dirtyline font-medium absolute top-[56%]">More</h1>
   </div>
   <div class="grid grid-cols-1 lg:grid-cols-2 h-fit gap-8 cards-grid">
     {
@@ -93,114 +89,110 @@ const cards = [
     }
   }
 
- .marquee-text-1, .marquee-text-2 {
-  background: linear-gradient(90deg, #e0eeee 50%, #252525 50%, #e0eeee 50%, #252525 50%);
-  background-size: 200% 100%; /* Ensure the background is wide enough to animate */
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  white-space: nowrap;
-}
+  .marquee-text-1,
+  .marquee-text-2 {
+    background: linear-gradient(90deg, #e0eeee 50%, #252525 50%, #e0eeee 50%, #252525 50%);
+    background-size: 200% 100%; /* Ensure the background is wide enough to animate */
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    white-space: nowrap;
+  }
 </style>
 
 <script>
- 
-
-
   document.addEventListener('astro:page-load', () => {
-     gsap.registerPlugin(ScrollTrigger);
-     const start1X = -250;
-  const end1X = -10;
+    gsap.registerPlugin(ScrollTrigger);
+    const start1X = -250;
+    const end1X = -10;
 
-  gsap.fromTo(".marquee-text-1",
-    { 
-      x: start1X,
-      backgroundPosition: "145% 0"  // Start with background far to the right
-    },
-    {
-      x: end1X,
-      backgroundPosition: "55% 0",  // Animate background to the left
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".marquee-container",
-        start: "top bottom",
-        end: "bottom 90%",
-        scrub: 1,
+    gsap.fromTo(
+      '.marquee-text-1',
+      {
+        x: start1X,
+        backgroundPosition: '145% 0', // Start with background far to the right
+      },
+      {
+        x: end1X,
+        backgroundPosition: '55% 0', // Animate background to the left
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.marquee-container',
+          start: 'top bottom',
+          end: 'bottom 90%',
+          scrub: 1,
+        },
       }
-    }
-  );
+    );
 
-  const start2X = 70;
-  const end2X = -10;
+    const start2X = 70;
+    const end2X = -10;
 
-  gsap.fromTo(".marquee-text-2",
-    { 
-      x: start2X,
-      backgroundPosition: "145% 0"  // Same here, start background off-screen
-    },
-    {
-      x: end2X,
-      backgroundPosition: "0% 0",  // Animate it to fill the text
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".marquee-container",
-        start: "top bottom",
-        end: "bottom 90%",
-        scrub: 1,
+    gsap.fromTo(
+      '.marquee-text-2',
+      {
+        x: start2X,
+        backgroundPosition: '145% 0', // Same here, start background off-screen
+      },
+      {
+        x: end2X,
+        backgroundPosition: '0% 0', // Animate it to fill the text
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.marquee-container',
+          start: 'top bottom',
+          end: 'bottom 90%',
+          scrub: 1,
+        },
       }
-    }
-  );
-});
+    );
+  });
 
-   
+  //left cards
+  const leftCards = document.querySelectorAll('.event-card:nth-child(odd)');
 
-    //left cards
-    const leftCards = document.querySelectorAll('.event-card:nth-child(odd)');
-
-    window.gsapContext.add(() => {
-      Array.from(leftCards).forEach((card) => {
-        gsap.fromTo(
-          card,
-          {
-            x: -300,
-            opacity: 0,
-            rotate: '-45deg',
-          },
-          {
-            x: 0,
-            opacity: 1,
-            rotate: '0deg',
-            ease: 'power4.inOut',
-            scrollTrigger: {
-              scrub: 0.3,
-              trigger: card,
-              end: 'center center',
-              start: 'top 100%',
-              toggleActions: 'restart none none none',
-            },
-          }
-        );
-      });
-    });
-
-    //right cards
-    const rightCards = document.querySelectorAll('.event-card:nth-child(even)');
-    window.gsapContext.add(() => {
-      
-      Array.from(rightCards).forEach((card) => {
-        gsap.from(card, {
-          x: 300,
+  window.gsapContext.add(() => {
+    Array.from(leftCards).forEach((card) => {
+      gsap.fromTo(
+        card,
+        {
+          x: -300,
           opacity: 0,
-          rotate: '45deg',
+          rotate: '-45deg',
+        },
+        {
+          x: 0,
+          opacity: 1,
+          rotate: '0deg',
           ease: 'power4.inOut',
           scrollTrigger: {
             scrub: 0.3,
             trigger: card,
             end: 'center center',
-            toggleActions: 'play none none none',
+            start: 'top 100%',
+            toggleActions: 'restart none none none',
           },
-        });
+        }
+      );
+    });
+  });
+
+  //right cards
+  const rightCards = document.querySelectorAll('.event-card:nth-child(even)');
+  window.gsapContext.add(() => {
+    Array.from(rightCards).forEach((card) => {
+      gsap.from(card, {
+        x: 300,
+        opacity: 0,
+        rotate: '45deg',
+        ease: 'power4.inOut',
+        scrollTrigger: {
+          scrub: 0.3,
+          trigger: card,
+          end: 'center center',
+          toggleActions: 'play none none none',
+        },
       });
     });
- 
+  });
 </script>

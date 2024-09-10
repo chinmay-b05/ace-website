@@ -12,4 +12,7 @@ export default defineConfig({
   integrations: [tailwind(), react(), icon({}), auth()],
   output: 'server',
   adapter: vercel(),
+  experimental:{
+    actions:true
+  }
 });
