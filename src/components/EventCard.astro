@@ -1,38 +1,10 @@
 ---
-import { Image } from 'astro:assets';
 
-interface Props {
-  image: ImageMetadata;
-}
 
-const { image } = Astro.props;
+
+
 ---
 
-<!-- <div
-  class="max-w-[300px] overflow-hidden rounded-xl mt-2 bg-[#131821] shadow-sm shadow-[#5d5284] hover:shadow-md hover:shadow-[#5d5284] hover:scale-[1.05]"
->
-  <div class="flex flex-col justify-center">
-    <div class="flex py-4 h-full w-full justify-center">
-      <div class="aspect-square w-[90%] h-full object-fill rounded-lg overflow-hidden">
-        <img src="/images/sample.png" alt="event" class="w-full h-full object-fill" />
-      </div>
-    </div>
-    <div class="flex flex-col justify-center w-full items-center">
-      <div class="w-[90%] h-full">
-        <h1 class="text-lg font-medium">Overseas</h1>
-
-        <p>Venue: Sambhram</p>
-        <p>Date: 12/12/2022</p>
-        <div class="mt-4 mb-6 flex items-center justify-between">
-          <div class="h-10 w-10">
-            <img src="images/logo.png" alt="logo" class="w-full h-full object-fill" />
-          </div>
-          <button class="rounded-full p-2 bg-[#24397f] text-xs">Register</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
 
 <div class="card max-w-[300px] w-[300px] h-[410px] rounded-xl relative bg-[#1b1b1b]">
   <div class="card-image w-full h-[50%] max-h-[50%] overflow-hidden">
@@ -43,7 +15,7 @@ const { image } = Astro.props;
   </div>
    
   <div class="card-price-tag">
-    <span class="price-value">Register now</span>
+    <span class="price-value">view event</span>
   </div>
  
   <div class="card-info">
@@ -67,7 +39,7 @@ const { image } = Astro.props;
     </div>
   </div>
   <div class="add-to-cart-btn">
-    <button class="ml-3">Register</button>
+    <button class=" mr-9"> <a href="">View Event</a></button>
   </div>
 </div>
 
@@ -190,7 +162,7 @@ const { image } = Astro.props;
     position: absolute;
     left: 35%;
     bottom: 12px;
-    margin-top: 20px;
+    margin-top: 30px;
     width: 100%;
   }
 

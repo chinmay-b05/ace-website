@@ -19,25 +19,27 @@ const testimonials = [
   },
 ];
 ---
-
-<section class="content-container columns-1 md:columns-2 lg:columns-3 mx-auto w-fit h-fit">
-  {
-    testimonials.map((testimonial) => (
-      <div class="testimonial-card flex flex-col gap-4 p-8 rounded-lg break-inside-avoid mb-4 hover:scale-105 transition-transform">
-        <div class="flex gap-4 items-center">
-          <img
-            src={testimonial.imageUrl}
-            alt={testimonial.name}
-            class="w-10 aspect-square rounded-full object-cover object-center"
-          />
-          <div>
-            <p class="capitalize">{testimonial.name}</p>
+<!-- use h-fit to make all cards visible -->
+<section class="content-container overflow-hidden h-[70vh]">
+  <ul class="mx-auto w-fit columns-1 md:columns-2 lg:columns-3 ">
+    {
+      testimonials.map((testimonial) => (
+        <li class="testimonial-card flex flex-col gap-4 p-8 rounded-lg break-inside-avoid mb-4 hover:scale-105 transition-transform ">
+          <div class="flex gap-4 items-center">
+            <img
+              src={testimonial.imageUrl}
+              alt={testimonial.name}
+              class="w-10 aspect-square rounded-full object-cover object-center"
+            />
+            <div>
+              <p class="capitalize">{testimonial.name}</p>
+            </div>
           </div>
-        </div>
-        <p class="text-gray-400 ml-2">{testimonial.message}</p>
-      </div>
-    ))
-  }
+          <p class="text-gray-400 ml-2">{testimonial.message}</p>
+        </li>
+      ))
+    }
+  </ul>
 </section>
 
 <style>
@@ -45,5 +47,8 @@ const testimonials = [
     background-color: rgba(243, 244, 246, 0);
     max-width: 320px;
     box-shadow: 0 20px 30px -20px rgba(181, 180, 180, 0.426);
+  }
+  ul{
+    transform: translateY(-100px);
   }
 </style>

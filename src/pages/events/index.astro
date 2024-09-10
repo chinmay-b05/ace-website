@@ -1,0 +1,18 @@
+---
+import EventCard from '@components/EventCard.astro';
+import Layout from '@layouts/Layout.astro';
+
+---
+
+<Layout>
+  <section class="hero content-container min-h-screen mt-20 flex flex-col items-center">
+    <h1 class="text-4xl mb-8 font-dirtyline ">Events</h1>
+
+    <div class="grid  sm:gap-y-8 grid-cols-1 gap-y-8 md:grid-cols-2 md:gap-x-32 lg:grid-cols-3">
+      <EventCard />
+      <EventCard  />
+      <EventCard  />
+      <a href="/events/1"><EventCard /></a>
+    </div>
+  </section>
+</Layout>

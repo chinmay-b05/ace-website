@@ -1,0 +1,294 @@
+---
+import Layout from '@layouts/Layout.astro';
+---
+
+<Layout>
+  <section class="content-container mx-auto mt-28">
+    <h1 class="title text-6xl text-center mb-4 font-dirtyline">Rise and Shine!</h1>
+    <div class="container mx-auto">
+      <div class="poster card">
+        <img src="/images/sample.png" alt="Event Poster" class="poster-img" />
+      </div>
+
+      <div class="description">
+        <h2 class="text-2xl font-dirtyline">face painting</h2>
+        <p class="text-left font-dirtyline text-xl">Description:</p>
+        <p>
+          ahjskhjsdhljdckdjks ahnjsgjdkahjdka Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum id
+          voluptates nostrum veritatis at, accusantium natus incidunt recusandae voluptatum. Porro accusantium pariatur
+          dignissimos iste eveniet odit unde optio laborum vero.
+        </p>
+      </div>
+
+      <div class="sidebar">
+        <div class="sidebar-item">
+          <h3 class="text-2xl font-dirtyline">MEET AT</h3>
+          <p>Souparnika</p>
+          <p>9:00 - 12:00</p>
+        </div>
+
+        <div class="sidebar-item">
+          <p class="text-2xl font-dirtyline">Rules:</p>
+          <p>
+            resules nd regulation Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex esse quia quam expedita
+            alias voluptates, repudiandae numquam iure libero placeat quibusdam molestiae perferendis nulla rerum quas
+            unde maiores nihil magnam.
+          </p>
+        </div>
+
+        <div class="register-button card text-2xl font-dirtyline">Register</div>
+
+        <div class="organizer card">
+          <p class="text-2xl font-dirtyline">Organiser details</p>
+          <ul>
+            <li>len -- 7892859097</li>
+            <li>karthik -- 7892859097</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Existing styles */
+  .container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px;
+    justify-items: center;
+  }
+
+  .poster {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    background: linear-gradient(transparent, rgba(124, 123, 123, 0.196));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    height: 500px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.5s cubic-bezier(0.2, 3, 0.34, 3);
+  }
+
+  .poster:hover .poster-img {
+    transform: scale(1.1);
+  }
+
+  .description {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 16px; /* Adjusted font size for readability */
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(6, 100, 252, 0.6) 40%,
+      rgba(6, 100, 252, 0.6),
+      rgba(176, 209, 255, 0.6) 60%,
+      transparent
+    );
+    background-size: 200%;
+    background-position: 0% 0%;
+    transition: background-position 0.4s ease-in-out;
+  }
+
+  .description:hover {
+    background-position: 100% 0%;
+  }
+
+  .sidebar {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Added space between items */
+    border-radius: 10px;
+    height: auto;
+    width: 100%;
+    background: linear-gradient(
+      -135deg,
+      transparent,
+      rgba(37, 51, 92, 0.8),
+      /* Deep Navy Blue */ rgba(71, 159, 186, 0.6) 40%,
+      /* Sky Blue */ rgba(71, 159, 186, 0.6),
+      /* Sky Blue */ rgba(127, 230, 214, 0.6) 60%,
+      /* Aqua Teal */ rgba(37, 51, 92, 0.8),
+      transparent
+    );
+    background-size: 200%;
+    background-position: 0% 0%;
+    transition: background-position 0.4s ease-in-out;
+  }
+
+  .sidebar:hover {
+    background-position: 100% 100%;
+  }
+
+  .sidebar-item {
+    padding: 10px;
+    background-image: linear-gradient(43deg, #2e79cf 0%, #1ea1cc 46%, #0f4fd1 100%);
+    border-radius: 10px;
+    transition:
+      transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+      box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    border: #fff solid 2px;
+  }
+
+  .sidebar-item:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .register-button,
+  .organizer {
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    background-image: linear-gradient(43deg, #2e79cf 0%, #1ea1cc 46%, #0f4fd1 100%);
+    position: relative;
+    overflow: hidden;
+    border: #fff solid 2px;
+  }
+
+  .register-button:hover,
+  .organizer:hover {
+    transform: rotateY(10deg) rotateX(10deg) scale(1.05);
+  }
+
+  .register-button:before,
+  .organizer:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 1;
+  }
+
+  .register-button:hover:before,
+  .organizer:hover:before {
+    transform: translateX(-100%);
+  }
+
+  .register-button:after,
+  .organizer:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.1));
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 1;
+  }
+
+  .register-button:hover:after,
+  .organizer:hover:after {
+    transform: translateX(100%);
+  }
+
+  /* New styles for grid cards */
+  .card {
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    transition:
+      transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+      box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 1;
+  }
+
+  .card:hover:before {
+    transform: translateY(-100%);
+  }
+
+  .card:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 1;
+  }
+
+  .card:hover:after {
+    transform: translateY(100%);
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .container {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+    }
+
+    .sidebar {
+      grid-column: 1 / 2;
+      grid-row: 3 / 4; /* Ensure the sidebar is below the description */
+    }
+
+    .poster {
+      height: 300px;
+    }
+
+    .description {
+      font-size: 14px; /* Adjusted font size for smaller screens */
+    }
+
+    .sidebar-item {
+      font-size: 14px; /* Adjusted font size for smaller screens */
+    }
+
+    .register-button,
+    .organizer {
+      font-size: 16px; /* Adjusted font size for smaller screens */
+      padding: 8px 16px;
+    }
+  }
+</style>
