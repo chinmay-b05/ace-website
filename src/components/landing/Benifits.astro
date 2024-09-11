@@ -1,41 +1,34 @@
 ---
 const cards = [
   {
-    title: 'jsddsg',
+    title: 'Workshop',
+    content: 'lorem ddh fdg hfdhgfh f fgd',
     image: '/images/sample.png',
   },
   {
     title: 'jsddsg',
+    content: 'lorem ddh fdg hfdhgfh f fgd',
     image: '/images/sample.png',
   },
   {
     title: 'jsddsg',
+    content: 'lorem ddh fdg hfdhgfh f fgd',
     image: '/images/sample.png',
   },
   {
     title: 'jsddsg',
+    content: 'lorem ddh fdg hfdhgfh f fgd',
     image: '/images/sample.png',
   },
   {
     title: 'jsddsg',
-    image: '/images/sample.png',
-  },
-  {
-    title: 'jsddsg',
-    image: '/images/sample.png',
-  },
-  {
-    title: 'jsddsg',
-    image: '/images/sample.png',
-  },
-  {
-    title: 'jsddsg',
+    content: 'lorem ddh fdg hfdhgfh f fgd',
     image: '/images/sample.png',
   },
 ];
 ---
 
-<section class="content-container event-section h-fit my-8 overflow-hidden">
+<section class="benifits-section content-container event-section h-fit mb-16 overflow-hidden">
   <div
     class="marquee-container overflow-visible w-[100%] relative whitespace-nowrap h-[70vh] flex justify-center text-9xl flex-col gap-0"
   >
@@ -46,63 +39,31 @@ const cards = [
     {
       cards.map((card) => (
         <div class="benifit-row flex flex-col md:flex-row items-center justify-between flex-wrap gap-4">
-          <img src={card.image} alt={card.title} class="benifit-card interactable max-w-[600px]" data-type="link" />
-          <div>
-            <p>{card.title}</p>
+          <img
+            src={card.image}
+            alt={card.title}
+            class="benifit-card interactable max-w-[600px] object-cover object-center"
+            data-type="link"
+          />
+          <div class="grid place-content-center">
+            <div class="benifit-text">
+              <h5 class="font-dirtyline text-6xl">{card.title}</h5>
+              <p class="text-lg">{card.content}</p>
+              <button>Test</button>
+            </div>
           </div>
         </div>
       ))
     }
   </div>
-
-  <div class="mx-auto mt-32 w-36 aspect-square bg-white text-black rounded-full grid place-content-center text-center">
-    <span> view more </span>
-  </div>
 </section>
 
 <style>
-  .event-section {
-    --card-height: 400px;
-    margin-bottom: calc(var(--card-height) / 2);
-  }
-
-  .cards-column {
-    @apply flex flex-col gap-8  w-full h-full;
-  }
-
-  .benifit-card {
-    width: 100%;
-    height: var(--card-height);
-    @apply rounded-[25px] flex flex-col gap-2 bg-gray-700;
-  }
-
-  .benifit-card img {
-    @apply w-full h-full object-cover;
-    border-radius: inherit;
-  }
-
   @media (min-width: 1024px) {
-    .benifit-card:nth-child(even) {
-      margin-top: calc(var(--card-height) / 2);
-      margin-bottom: calc(-1 * var(--card-height) / 2);
-    }
-    .cards-grid {
-      padding-bottom: calc(var(--card-height) / 2);
-    }
-
-    .benifit-card:nth-child(even) {
-      margin-top: calc(var(--card-height) / 2);
-      margin-bottom: calc(-1 * var(--card-height) / 2);
-    }
-    .cards-grid {
-      padding-bottom: calc(var(--card-height) / 2);
-    }
-
-    .benifit-row:nth-child(even){
-        flex-direction: row-reverse;
+    .benifit-row:nth-child(even) {
+      flex-direction: row-reverse;
     }
   }
-
   .marquee-text-1,
   .marquee-text-2 {
     background: linear-gradient(90deg, #e0eeee 50%, #252525 50%, #e0eeee 50%, #252525 50%);
@@ -121,7 +82,7 @@ const cards = [
     const end1X = -10;
 
     gsap.fromTo(
-      '.marquee-text-1',
+      '.benifits-section .marquee-text-1',
       {
         x: start1X,
         backgroundPosition: '145% 0', // Start with background far to the right
@@ -131,7 +92,7 @@ const cards = [
         backgroundPosition: '55% 0', // Animate background to the left
         ease: 'none',
         scrollTrigger: {
-          trigger: '.marquee-container',
+          trigger: '.benifits-section .marquee-container',
           start: 'top bottom',
           end: 'bottom 90%',
           scrub: 1,
@@ -160,52 +121,68 @@ const cards = [
         },
       }
     );
-  });
 
-  //left cards
-  const leftCards = document.querySelectorAll('.benifit-row:nth-child(odd) .benifit-card');
+    //left cards
+    const leftCards = document.querySelectorAll('.benifit-row:nth-child(odd) .benifit-card');
 
-  window.gsapContext.add(() => {
-    Array.from(leftCards).forEach((card) => {
-      gsap.fromTo(
-        card,
-        {
-          x: -300,
+    window.gsapContext.add(() => {
+      Array.from(leftCards).forEach((card) => {
+        gsap.fromTo(
+          card,
+          {
+            x: -300,
+            opacity: 0,
+            rotate: '-45deg',
+          },
+          {
+            x: 0,
+            opacity: 1,
+            rotate: '0deg',
+            ease: 'power4.inOut',
+            scrollTrigger: {
+              scrub: 0.3,
+              trigger: card,
+              end: 'center center',
+              start: 'top 100%',
+              toggleActions: 'restart none none none',
+            },
+          }
+        );
+      });
+    });
+    //right cards
+    const rightCards = document.querySelectorAll('.benifit-row:nth-child(even) .benifit-card');
+    window.gsapContext.add(() => {
+      Array.from(rightCards).forEach((card) => {
+        gsap.from(card, {
+          x: 300,
           opacity: 0,
-          rotate: '-45deg',
-        },
-        {
-          x: 0,
-          opacity: 1,
-          rotate: '0deg',
+          rotate: '45deg',
           ease: 'power4.inOut',
           scrollTrigger: {
             scrub: 0.3,
             trigger: card,
             end: 'center center',
-            start: 'top 100%',
-            toggleActions: 'restart none none none',
+            toggleActions: 'play none none none',
           },
-        }
-      );
+        });
+      });
     });
-  });
 
-  //right cards
-  const rightCards = document.querySelectorAll('.benifit-row:nth-child(even) .benifit-card');
-  window.gsapContext.add(() => {
-    Array.from(rightCards).forEach((card) => {
-      gsap.from(card, {
-        x: 300,
-        opacity: 0,
-        rotate: '45deg',
-        ease: 'power4.inOut',
-        scrollTrigger: {
-          scrub: 0.3,
-          trigger: card,
-          end: 'center center',
-          toggleActions: 'play none none none',
-        },
+    const texts = document.querySelectorAll('.benifit-text');
+    window.gsapContext.add(() => {
+      Array.from(texts).forEach((text) => {
+        gsap.from(text, {
+          y: '100%',
+          opacity: 0.2,
+          ease: 'power4.inOut',
+          scrollTrigger: {
+            scrub: 0.3,
+            trigger: text,
+            end: 'center center',
+            toggleActions: 'play none none none',
+          },
+        });
       });
     });
   });
