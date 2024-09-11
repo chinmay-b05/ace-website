@@ -3,19 +3,20 @@ import Gallery from '@components/landing/Gallery.astro';
 import Layout from '../layouts/Layout.astro';
 import Events from '@components/landing/Events.astro';
 import Testimonial from '@components/landing/Testimonials.astro';
-
+import FluidEffect from '@components/FluidEffect.astro';
+import Benifits from '@components/landing/Benifits.astro';
 ---
 
 <Layout title="ACE">
   <main>
-    <canvas id="fluid"></canvas>
     <!-- hero -->
     <section class="hero content-container flex flex-col items-center justify-between py-6 md:py-16">
       <div></div>
       <div class="text-center space-y-4">
         <h3 class="title-glow font-dirtyline text-6xl">Association of computer Engineers</h3>
         <p class="m-auto max-w-80 text-sm">
-           Hub of innovation in Computer Science & Engineering, where we fuel your passion for learning, boost your career, and work together to uplift the community.
+          Hub of innovation in Computer Science & Engineering, where we fuel your passion for learning, boost your
+          career, and work together to uplift the community.
         </p>
       </div>
 
@@ -35,21 +36,24 @@ import Testimonial from '@components/landing/Testimonials.astro';
     <!-- gallery preview -->
     <Gallery />
 
+    <Benifits />
+
     <!-- events -->
     <Events />
     <h3 class="title-glow font-dirtyline lowercase text-6xl" style="text-align: center;">Words from the Wise</h3>
-    <Testimonial/>
+    <Testimonial />
   </main>
 </Layout>
 
 <style>
-
-#fluid {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100dvw;
-  height: 100dvh;
-} 
+  #fluid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    z-index: -10;
+  }
   /* Hero buttons with continuous border animation */
   .animated-btn {
     position: relative;
@@ -76,15 +80,15 @@ import Testimonial from '@components/landing/Testimonials.astro';
   }
 
   .animated-btn::before {
-    content: "";
+    content: '';
     position: absolute;
-    top: -4px; 
+    top: -4px;
     left: -4px;
     right: -4px;
     bottom: -4px;
     border-radius: 9999px;
     border: 2px solid transparent;
-    
+
     background-size: 200%;
     animation: rotate-border 4s linear infinite;
     z-index: 0;
@@ -93,7 +97,9 @@ import Testimonial from '@components/landing/Testimonials.astro';
 
   /* Glow effect on hover */
   .animated-btn:hover::before {
-    box-shadow: 0 0 10px rgba(0, 180, 216, 0.8), 0 0 20px rgba(0, 180, 216, 0.5);
+    box-shadow:
+      0 0 10px rgba(0, 180, 216, 0.8),
+      0 0 20px rgba(0, 180, 216, 0.5);
   }
 
   .animated-btn span:hover {
@@ -108,7 +114,7 @@ import Testimonial from '@components/landing/Testimonials.astro';
   }
 
   .title-glow::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
@@ -116,15 +122,13 @@ import Testimonial from '@components/landing/Testimonials.astro';
     height: 100%;
     background: radial-gradient(circle, rgba(0, 180, 216, 0.4), transparent);
     transform: translate(-50%, -50%) scale(0.8);
-    transition: transform 0.5s ease, opacity 0.5s ease;
+    transition:
+      transform 0.5s ease,
+      opacity 0.5s ease;
     border-radius: 50%;
     z-index: -1;
     opacity: 0;
   }
-
-  
-
-  
 </style>
 
 <style is:global>
@@ -134,5 +138,3 @@ import Testimonial from '@components/landing/Testimonials.astro';
     min-height: 400px;
   }
 </style>
-<script src="../script/fluid_anim.js">
-</script>
