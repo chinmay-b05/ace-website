@@ -1,4 +1,6 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 type Props = {
   blog: {
     id: number;
@@ -20,7 +22,7 @@ const { blog }: Props = Astro.props;
     <header class="flex justify-between items-center">
       <time class="text-gray-200">{blog.createdAt}</time>
       <div class="flex flex-wrap items-center justify-center space-x-2">
-        <span class="text-xs mr-2"> github </span>
+        <button><Icon name="mdi:github" size={30} /></button>
         <div class="flex items-center justify-center">
           <span class="text-xs mr-2">{blog.authorName}</span>
           <div class="w-8 h-8 bg-gray-200 shrink-0 flex justify-center rounded-xl items-start">

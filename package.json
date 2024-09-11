@@ -21,6 +21,7 @@
     "@astrojs/vercel": "^7.8.0",
     "@auth/drizzle-adapter": "^1.4.2",
     "@libsql/client": "^0.10.0",
+    "@tailwindcss/typography": "^0.5.15",
     "astro": "^4.14.5",
     "astro-icon": "^1.1.1",
     "astro-tabs": "^0.1.8",

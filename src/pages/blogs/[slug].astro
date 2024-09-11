@@ -1,4 +1,5 @@
 ---
+import BlogContent from '@components/BlogContent.astro';
 import Layout from '@layouts/Layout.astro';
 // import { Icon } from 'astro-icon/components';
 
@@ -15,26 +16,6 @@ const blog = {
   authorId: 1,
 };
 
-let liked: boolean | null = false;
-let viewStats = {
-  viewCount: 1,
-  likeCount: 0,
-};
-
-let comments: any[] = [
-  {
-    content: 'This is a comment',
-    name: 'John Doe',
-    userId: 1,
-    createdAt: '2022-01-01',
-  },
-  {
-    content: 'This is a comment',
-    name: 'Jane Smith',
-    userId: 2,
-    createdAt: '2022-01-01',
-  },
-];
 // import Layout from '@layouts/Layout.astro';
 // import { db } from '@lib/db';
 // import { and, count, eq } from 'drizzle-orm';
@@ -113,7 +94,7 @@ let comments: any[] = [
 /**********************************************/
 ---
 
-<Layout>
+<!-- <Layout>
   <main class="content-container">
     <div class="mt-32 flex flex-col gap-8 max-w-xl mx-auto">
       <h1 class="text-4xl font-bold">{blog.title}</h1>
@@ -156,9 +137,7 @@ let comments: any[] = [
 
       <div class="space-y-4">
         <h2 class="text-2xl font-semibold">Comments</h2>
-        <hr />
-
-        <!-- {
+        <hr /> --><!-- {
                 <form method="post">
                         <input type="text" name="comment" />
                         <p class="mb-2">Post a comment</p>
@@ -167,29 +146,33 @@ let comments: any[] = [
                             <button class="btn btn-primary">Post</button>
                         </div>
                 </form>
-            } -->
-        {
-          comments.map((comment) => (
-            <div class="">
-              <a class="" href={`profile/${comment.userId}`}>
-                <div class="w-10 rounded-full">
-                  <img alt={comment.name} src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                </div>
-              </a>
-              <div class="">
-                <a href={`/profile/${comment.userId}`}>{comment.name}</a>
-                <time class="text-xs">
-                  {new Intl.DateTimeFormat('en-US', {
-                    dateStyle: 'short',
-                    timeStyle: 'short',
-                  }).format(new Date(comment.createdAt))}
-                </time>
-              </div>
-              <div class="">{comment.content}</div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
+            } --><!--   
+    //           comments.map((comment) => (
+    //             <div class="">
+    //               <a class="" href={`profile/${comment.userId}`}>
+    //                 <div class="w-10 rounded-full">
+    //                   <img alt={comment.name} src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+    //                 </div>
+    //               </a>
+    //               <div class="">
+    //                 <a href={`/profile/${comment.userId}`}>{comment.name}</a>
+    //                 <time class="text-xs">
+    //                   {new Intl.DateTimeFormat('en-US', {
+    //                     dateStyle: 'short',
+    //                     timeStyle: 'short',
+    //                   }).format(new Date(comment.createdAt))}
+    //                 </time>
+    //               </div>
+    //               <div class="">{comment.content}</div>
+    //             </div>
+    //           ))
+    //         }
+    //       </div>
+    //     </div>
+    //   </main>
+    // </Layout> -->
+<Layout>
+  <main class="content-container">
+    <BlogContent blog={blog} />
   </main>
 </Layout>
