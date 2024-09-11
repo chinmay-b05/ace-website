@@ -1,327 +1,343 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { faculty } from '@lib/constants';
+import "../styles/global.css"; 
 
-const teamMembers = [
-  { name: 'James Henry', position: 'HOD', image: '/images/sample.png', startYear: 2023 },
-  { name: 'John Doe', position: 'Assistant Professor', image: '/images/sample.png', startYear: 2023 },
-  { name: 'Srinivasa', position: 'Professor II', image: '/images/sample.png', startYear: 2023 },
-  { name: 'Mykel Smith', position: 'Professor', image: '/images/sample.png', startYear: 2024 },
-  { name: 'Angel Smith', position: 'Professor II', image: '/images/sample.png', startYear: 2024 },
+const teamMembers2023 = [
+  { name: 'James Henry', position: 'HOD', image: '/images/sample.png' },
+  { name: 'John Doe', position: 'Assistant Professor', image: '/images/sample.png' },
+  { name: 'Srinivasa', position: 'Professor II', image: '/images/sample.png' }
 ];
 
-const years = Array.from(new Set(teamMembers.map((member) => member.startYear)));
+const teamMembers2024 = [
+  { name: 'Mykel Smith', position: 'Professor', image: '/images/sample.png' },
+  { name: 'Angel Smith', position: 'Professor II', image: '/images/sample.png' }
+];
+
+const faculty = [
+{ name: 'Dr. Niranjan N. Chiplunkar', position: 'Principal', image: '/images/faculty/prin.jpg' },
+  { name: 'Dr. Jyothi Shetty', position: 'Professor & Head', image: '/images/faculty/hod.jpg' },
+  { name: 'Mr. Piyush Goel', position: 'Pofessor of Practice', image: '/images/faculty/t3.jpg' },
+  { name: 'Dr. D K Sreekantha', position: 'Professor', image: '/images/faculty/t4.jpg' },
+  { name: 'Dr. P V Bhat ', position: 'Professor', image: '/images/faculty/t5.jpg' },
+  { name: 'Dr. Aravind C V', position: 'Professor', image: '/images/faculty/t6.jpg' },
+  { name: 'Dr. Sarika Hegde', position: 'Professor', image: '/images/faculty/t7.jpg' },
+  { name: 'Dr. Sudeepa K B', position: 'Associate Professor', image: '/images/faculty/t8.jpg' },
+  { name: 'Dr. Raju K', position: 'Associate Professor', image: '/images/faculty/t9.jpg' },
+  { name: 'Dr. Anisha P Rodrigues', position: 'Associate Professor', image: '/images/faculty/t10.jpg' },
+  { name: 'Dr. Pallavi K N', position: 'Associate Professor', image: '/images/faculty/t11.jpg' },
+  { name: 'Dr. Sannidhan M S', position: 'Associate Professor', image: '/images/faculty/t12.jpg' },
+  { name: 'Dr. Sandeep Kumar Hegde', position: 'Associate Professor', image: '/images/faculty/t13.jpg' },
+  { name: 'Dr. Shabari Shedthi B', position: 'Associate Professor', image: '/images/faculty/t14.jpg' },
+  { name: 'Dr. Raghunandan K R', position: 'Associate Professor', image: '/images/faculty/t15.jpg' },
+  { name: 'Dr. Rajalaxmi Hegde', position: 'Associate Professor', image: '/images/faculty/t16.jpg' },
+  { name: 'Dr. Vijaya Murari T', position: 'Associate Professor', image: '/images/faculty/t17.jpg' },
+  { name: 'Dr. Pradeep Kanchan', position: 'Assistant Professor Gd-III', image: '/images/faculty/t18.jpg' },
+  { name: 'Dr. Keerthana B Chigateri', position: 'Assistant Professor Gd-III', image: '/images/faculty/t19.jpg' },
+  { name: 'Mr. Guru Prasad', position: 'Assistant Professor Gd-III', image: '/images/faculty/t20.jpg' },
+  { name: 'Dr. Shashank Shetty', position: 'Assistant Professor Gd-III', image: '/images/faculty/t21.jpg' },
+  { name: 'Dr. Asmita Poojary', position: 'Assistant Professor Gd-III', image: '/images/faculty/t22.jpg' },
+  { name: 'Ms. Minu P Abhraham', position: 'Assistant Professor Gd-II', image: '/images/faculty/t23.jpg' },
+  { name: 'Mr. Samapath Kini', position: 'Assistant Professor Gd-II', image: '/images/faculty/t24.jpg' },
+  { name: 'Mr. Pawan Hegde', position: 'Assistant Professor Gd-II', image: '/images/faculty/t25.jpg' },
+  { name: 'Ms. Shwetha G K', position: 'Assistant Professor Gd-II', image: '/images/faculty/t26.jpg' },
+  { name: 'Ms. Savitha Shetty', position: 'Assistant Professor Gd-II', image: '/images/faculty/t27.jpg' },
+  { name: 'Mr. Puneeth R P', position: 'Assistant Professor Gd-II', image: '/images/faculty/t28.jpg' },
+  { name: 'Ms. Manasa G R', position: 'Assistant Professor Gd-II', image: '/images/faculty/t29.jpg' },
+  { name: 'Mr. Sunil Kumar Aithal S', position: 'Assistant Professor Gd-II', image: '/images/faculty/t30.jpg' },
+  { name: 'Ms. Ankitha A Nayak', position: 'Assistant Professor Gd-II', image: '/images/faculty/t31.jpg' },
+  { name: 'Mr. Ashwin Shenoy', position: 'Assistant Professor Gd-II', image: '/images/faculty/t32.jpg' },
+  { name: 'Mrs. Shilpa Karegoudkar', position: 'Assistant Professor Gd-II', image: '/images/faculty/t33.jpg' },
+  { name: 'Mrs. Sowmya P', position: 'Assistant Professor Gd-II', image: '/images/faculty/t34.jpg' },
+  { name: 'Mr. Akhilraj V Gadagkar', position: 'Assistant Professor Gd-II', image: '/images/faculty/t35.jpg' },
+  { name: 'Ms. Jayapadmini Kanchan', position: 'Assistant Professor Gd-II', image: '/images/faculty/t36.jpg' },
+  { name: 'Mr. Prithviraj Jain', position: 'Assistant Professor Gd-II', image: '/images/faculty/t37.jpg' },
+  { name: 'Ms. Sowmya S', position: 'Assistant Professor Gd-II', image: '/images/faculty/t38.jpg' },
+  { name: 'Ms. Rajashree', position: 'Assistant Professor Gd-I', image: '/images/faculty/t39.jpg' },
+  { name: 'Ms. Joylin Priya Pinto', position: 'Assistant Professor Gd-I', image: '/images/faculty/t40.jpg' },
+  { name: 'Ms. Anusha Anchan', position: 'Assistant Professor Gd-I', image: '/images/faculty/t41.jpg' },
+  { name: 'Ms. Aishwarya D Shetty', position: 'Assistant Professor Gd-I', image: '/images/faculty/t42.jpg' },
+  { name: 'Mrs. Soumya Ashwath', position: 'Assistant Professor Gd-I', image: '/images/faculty/t43.jpg' },
+  { name: 'Ms. Vaishali Bangera', position: 'Assistant Professor Gd-I', image: '/images/faculty/t44.jpg' },
+  { name: 'Ms. Anupama H C', position: 'Assistant Professor Gd-I', image: '/images/faculty/t45.jpg' }
+];
 ---
 
 <Layout>
   <section class="tabs">
-    {
-      years.map((year, i) => {
-        return <input type="radio" id="" name="tab-control" checked={i == 0} />;
-      })
-    }
-    <input type="radio" data-index={years.length} name="tab-control" />
-
+  
+    <input type="radio" id="tab1" name="tab-control" checked>
+    <input type="radio" id="tab2" name="tab-control">
+    <input type="radio" id="tab3" name="tab-control">
     <ul>
       <li><label for="tab1" role="button"><span>2023-24</span></label></li>
       <li><label for="tab2" role="button"><span>2024-25</span></label></li>
-
-      {
-        years.map((year, i) => {
-          return (
-            <li>
-              <label role="button">
-                <span>Faculty</span>
-              </label>
-            </li>
-          );
-        })
-      }
-
-      <li><label role="button"><span>Faculty</span></label></li>;
-
+      <li><label for="tab3" role="button"><span>Faculty</span></label></li>
     </ul>
     <div class="content">
+      
       <section>
         <div class="card_Container">
-          {
-            teamMembers2023.map((member) => (
-              <div class="card">
-                <div class="imgBx">
-                  <img src={member.image} alt={member.name} />
-                </div>
-                <div class="content">
-                  <div class="contentBx">
-                    <h3>
-                      {member.name}{' '}
-                      <>
-                        <br />
-                        <span>{member.position}</span>
-                      </>
-                    </h3>
-                  </div>
+          {teamMembers2023.map((member) => (
+            <div class="card">
+              <div class="imgBx">
+                <img src={member.image} alt={member.name} />
+              </div>
+              <div class="content">
+                <div class="contentBx">
+                  <h3>{member.name} <br /><span>{member.position}</span></h3>
                 </div>
               </div>
-            ))
-          }
+            </div>
+          ))}
         </div>
       </section>
 
       <!-- Similar sections for other teams -->
-
+       
       <section>
         <div class="card_Container">
-          {
-            teamMembers2024.map((member) => (
-              <div class="card">
-                <div class="imgBx">
-                  <img src={member.image} alt={member.name} />
-                </div>
-                <div class="content">
-                  <div class="contentBx">
-                    <h3>
-                      {member.name}{' '}
-                      <>
-                        <br />
-                        <span>{member.position}</span>
-                      </>
-                    </h3>
-                  </div>
+          {teamMembers2024.map((member) => (
+            <div class="card">
+              <div class="imgBx">
+                <img src={member.image} alt={member.name} />
+              </div>
+              <div class="content">
+                <div class="contentBx">
+                  <h3>{member.name} <br /><span>{member.position}</span></h3>
                 </div>
               </div>
-            ))
-          }
+            </div>
+          ))}
         </div>
       </section>
 
       <!-- Similar sections for other teams -->
-
+       
       <section>
         <div class="card_Container">
-          {
-            faculty.map((member) => (
-              <div class="card">
-                <div class="imgBx">
-                  <img src={member.image} alt={member.name} />
-                </div>
-                <div class="content">
-                  <div class="contentBx">
-                    <h3>
-                      {member.name}{' '}
-                      <>
-                        <br />
-                        <span>{member.position}</span>
-                      </>
-                    </h3>
-                  </div>
+          {faculty.map((member) => (
+            <div class="card">
+              <div class="imgBx">
+                <img src={member.image} alt={member.name} />
+              </div>
+              <div class="content">
+                <div class="contentBx">
+                  <h3>{member.name} <br /><span>{member.position}</span></h3>
                 </div>
               </div>
-            ))
-          }
+            </div>
+          ))}
         </div>
       </section>
+
+
+      
+
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Tabs Navigation */
-  .tabs {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 100px;
-    align-items: center; /* Center the tabs container */
-  }
 
-  .tabs input[type='radio'] {
-    display: none;
-  }
+ /* Tabs Navigation */
+.tabs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 100px;
+  align-items: center; /* Center the tabs container */
+}
 
-  .tabs ul {
-    display: flex;
-    justify-content: center; /* Center the tabs */
-    gap: 20px; /* Adjust space between tabs */
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+.tabs input[type="radio"] {
+  display: none;
+}
 
-  .tabs ul li {
-    flex: none;
-  }
+.tabs ul {
+  display: flex;
+  justify-content: center; /* Center the tabs */
+  gap: 20px; /* Adjust space between tabs */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  .tabs ul li label {
-    display: block;
-    padding: 10px 15px;
-    text-align: center;
-    cursor: pointer;
-    color: rgb(233, 227, 227);
-    font-size: 24px;
-    background: none;
-    border: none;
-    position: relative;
-    overflow: hidden;
-    transition:
-      color 0.3s,
-      font-weight 0.3s;
-  }
+.tabs ul li {
+  flex: none; 
+}
 
-  .tabs ul li label::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(to right, #00f, rgb(46, 144, 235));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease-out;
-    border-radius: 0 0 5px 5px;
-  }
+.tabs ul li label {
+  display: block;
+  padding: 10px 15px;
+  text-align: center;
+  cursor: pointer;
+  color: rgb(233, 227, 227);
+  font-size: 24px;
+  background: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s, font-weight 0.3s;
+}
 
-  .tabs ul li label:hover::after {
-    transform: scaleX(1);
-  }
+.tabs ul li label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #00f, rgb(46, 144, 235));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+  border-radius: 0 0 5px 5px;
+}
 
-  .tabs input[type='radio']#tab1:checked ~ ul li label[for='tab1']::after,
-  .tabs input[type='radio']#tab2:checked ~ ul li label[for='tab2']::after,
-  .tabs input[type='radio']#tab3:checked ~ ul li label[for='tab3']::after {
-    transform: scaleX(1);
-  }
+.tabs ul li label:hover::after {
+  transform: scaleX(1);
+}
 
-  .tabs input[type='radio']#tab1:checked ~ ul li label[for='tab1'],
-  .tabs input[type='radio']#tab2:checked ~ ul li label[for='tab2'],
-  .tabs input[type='radio']#tab3:checked ~ ul li label[for='tab3'] {
-    color: #edf0f3;
-    font-weight: bold;
-  }
+.tabs input[type="radio"]#tab1:checked ~ ul li label[for="tab1"]::after,
+.tabs input[type="radio"]#tab2:checked ~ ul li label[for="tab2"]::after,
+.tabs input[type="radio"]#tab3:checked ~ ul li label[for="tab3"]::after {
+  transform: scaleX(1);
+}
 
-  .tabs .content section {
-    display: none;
-    padding: 10px;
-  }
+.tabs input[type="radio"]#tab1:checked ~ ul li label[for="tab1"],
+.tabs input[type="radio"]#tab2:checked ~ ul li label[for="tab2"],
+.tabs input[type="radio"]#tab3:checked ~ ul li label[for="tab3"] {
+  color: #edf0f3;
+  font-weight: bold;
+}
 
-  .tabs input[type='radio']#tab1:checked ~ .content section:nth-of-type(1),
-  .tabs input[type='radio']#tab2:checked ~ .content section:nth-of-type(2),
-  .tabs input[type='radio']#tab3:checked ~ .content section:nth-of-type(3) {
-    display: block;
-  }
+.tabs .content section {
+  display: none;
+  padding: 10px;
+}
 
-  .card_Container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 40px 0;
-    gap: 50px; /*gap between the cards*/
-  }
+.tabs input[type="radio"]#tab1:checked ~ .content section:nth-of-type(1),
+.tabs input[type="radio"]#tab2:checked ~ .content section:nth-of-type(2),
+.tabs input[type="radio"]#tab3:checked ~ .content section:nth-of-type(3) {
+  display: block;
+}
 
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(50px); /* Cards start from below */
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0); /* Cards end at their normal position */
-    }
-  }
+.card_Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 40px 0;
+  gap: 50px; /*gap between the cards*/
+  
+}
 
-  .card {
-    position: relative;
-    width: 300px;
-    height: 400px;
-    margin: 20px;
-    overflow: hidden;
-    /* box-shadow: 0 30px 30px -20px rgba(0, 0, 0, 1), inset 0 0 0 1000px rgba(22, 160, 133, .6); */
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(
-      45deg,
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px); /* Cards start from below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Cards end at their normal position */
+  }
+}
+
+.card {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  margin: 20px;
+  overflow: hidden;
+  /* box-shadow: 0 30px 30px -20px rgba(0, 0, 0, 1), inset 0 0 0 1000px rgba(22, 160, 133, .6); */
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+  45deg,
+      
       #64cfe243 40%,
       rgba(6, 100, 252, 0.414),
       rgba(6, 100, 252, 0.317) 60%,
       transparent
     );
-    opacity: 0; /* Initially hidden */
-    /* Start the card slightly below */
-    background-size: 200% 200%;
-    background-position: 100% 0;
-    transition: background-position 0.4s ease-in-out;
-  }
+  opacity: 0; /* Initially hidden */
+  /* Start the card slightly below */
+  background-size: 200% 200%;
+  background-position: 100% 0;
+  transition: background-position 0.4s ease-in-out;
+ 
+}
 
-  .card.show {
-    animation: fadeInUp 0.6s forwards;
-  }
+.card.show {
+  animation: fadeInUp 0.6s forwards;
+}
 
-  .card.visible {
-    opacity: 1; /* Fade-in */
-    transform: translateY(0); /* Slide-up */
-  }
 
-  .card .imgBx {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 7rem;
-  }
 
-  .card .imgBx img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+.card.visible {
+  opacity: 1; /* Fade-in */
+  transform: translateY(0); /* Slide-up */
+}
 
-  .card .content {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 160px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-  }
+.card .imgBx {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 7rem;
+}
 
-  .content .contentBx h3 {
-    text-transform: uppercase;
-    color: #fff;
-    letter-spacing: 2px;
-    font-weight: 500;
-    font-size: 18px;
-    text-align: center;
-    margin: 20px 0 15px;
-    line-height: 1.1em;
-  }
+.card .imgBx img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card .content {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+.content .contentBx h3 {
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 2px;
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  margin: 20px 0 15px;
+  line-height: 1.1em;
+}
+
 </style>
 <script>
-  const cards = document.querySelectorAll('.card');
+const cards = document.querySelectorAll('.card');
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show'); // Add 'show' class when the card is in view
-        }
-      });
-    },
-    {
-      threshold: 0.1, // Trigger when 10% of the card is visible
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show'); // Add 'show' class when the card is in view
     }
-  );
-
-  cards.forEach((card) => {
-    observer.observe(card);
   });
+}, {
+  threshold: 0.1 // Trigger when 10% of the card is visible
+});
+
+cards.forEach((card) => {
+  observer.observe(card);
+});
+
 </script>
