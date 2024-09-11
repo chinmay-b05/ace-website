@@ -7,7 +7,7 @@ type Props = {
   description: string;
   githubLink: string;
   linkedinLink: string;
-  instagramLink: string; 
+  instagramLink: string;
 };
 
 const { name, description, githubLink, linkedinLink }: Props = Astro.props;
@@ -29,62 +29,14 @@ const { name, description, githubLink, linkedinLink }: Props = Astro.props;
     <p class="text-white-700">{description}</p>
     <div class="links">
       <Icon name="mdi:github" size={30} />
-            <a href={githubLink} target="_blank"></a>
-            <Icon name="mdi:linkedin" size={30} />
-            <a href={linkedinLink} target="_blank"></a>
-            <Icon name="mdi:instagram" size={30} />
-            <a href={instagramLink} target="_blank"></a>
+      <a href={githubLink} target="_blank"></a>
+      <Icon name="mdi:linkedin" size={30} />
+      <a href={linkedinLink} target="_blank"></a>
+      <Icon name="mdi:instagram" size={30} />
+      <a href={instagramLink} target="_blank"></a>
     </div>
   </div>
 </div>
-
-<!-- /* 2nd card */
-
-  <div class="card-item">
-    <div class="scene">
-      <div class="card">
-        <div class="card__face card__face--front">
-          <img src="/images/varshithitis.jpeg" alt="Front Image" />
-        </div>
-        <div class="card__face card__face--back">
-          <img src="/images/varshithitis1.png" alt="Back Image" />
-        </div>
-      </div>
-    </div>
-    <div class="info-box">
-      <h3 class="text-xl font-bold text-white-700">{name}</h3>
-      <p class="text-white-700">{description}</p>
-      <div class="links">
-        <a href={githubLink} class="text-white-500 hover:underline">GitHub</a>
-        <a href={linkedinLink} class="text-white-500 hover:underline">LinkedIn</a>
-      </div>
-    </div>
-  </div>
-
-    
-
-
-
-    <div class="card-item">
-      <div class="scene">
-        <div class="card">
-          <div class="card__face card__face--front">
-            <img src="/images/varshithitis.jpeg" alt="Front Image" />
-          </div>
-          <div class="card__face card__face--back">
-            <img src="/images/varshithitis1.png" alt="Back Image" />
-          </div>
-        </div>
-      </div>
-      <div class="info-box">
-        <h3 class="text-xl font-bold text-white-700">{name}</h3>
-        <p class="text-white-700">{description}</p>
-        <div class="links">
-          <a href={githubLink} class="text-white-500 hover:underline">GitHub</a>
-          <a href={linkedinLink} class="text-white-500 hover:underline">LinkedIn</a>
-        </div>
-      </div>
-    </div> -->
 
 <style>
   .cards-container {
@@ -164,6 +116,6 @@ const { name, description, githubLink, linkedinLink }: Props = Astro.props;
   .info-box a {
     display: flex;
     align-items: center;
-    color: white;/* Space between GitHub and LinkedIn links */
+    color: white; /* Space between GitHub and LinkedIn links */
   }
 </style>
