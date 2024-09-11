@@ -1,10 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
+import { Icon } from 'astro-icon/components';
 
 const user = {
   name: "Ameesha",
-  usn: "NNM22CS000",
+  usn: "NNM22CS00",
   branch: "---------",
   socialLinks: {
     linkedin: "https://linkedin.com",
@@ -15,26 +16,31 @@ const user = {
 ---
 
 <Layout>
-  <section class="profile-container">
-    <!-- Profile Header -->
-    <div class="profile-header">
+  <section class="profile-container ">
     
-      <div class="profile-pic"  >
+    <div class="profile-header  " style="background: linear-gradient(to right, transparent, rgb(6, 100, 252), #08388f, transparent);">
+    
+      <div class="profile-pic"   >
+        <img src="/images/sample.png" alt=" my pic">
         
       </div>
       <div class="profile-info">
-        <h1>{ user.name }</h1>
-        <p>USN: { user.usn }</p>
-        <p>Branch: { user.branch }</p>
+        <h1 class="font-dirtyline">{ user.name }</h1>
+        <p class="font-dirtyline">USN: { user.usn }</p>
+        <p class="font-dirtyline">Branch: { user.branch }</p>
       </div>
       <div class="profile-actions">
         <button class="edit-btn">Edit</button>
       
+        <br>
+        
         <!-- Social Links -->
         <div class="social-links">
-          <a href={user.socialLinks.linkedin} target="_blank" class="social-icon linkedin"></a>
-          <a href={user.socialLinks.github} target="_blank" class="social-icon github"></a>
-          <a href={user.socialLinks.twitter} target="_blank" class="social-icon twitter"></a>
+          <Icon name="mdi:github" size={30} />
+    <a href={user.socialLinks.github} target="_blank"></a>
+      <Icon name="mdi:linkedin" size={30} />
+      <a href={user.socialLinks.linkedin} target="_blank"></a>
+      
         </div>
       </div>
     </div>
@@ -47,14 +53,41 @@ const user = {
     </div>
 
   </section>
-  <div class="profile-content">
-    <div class="blogs">Blogs Posted</div>
-    <div class="events">Event Card</div>
-    <div class="certificates">Certificates</div>
-  </div>
+  <section class="tabs">
+  
+    <input type="radio" id="tab1" name="tab-control" checked>
+    <input type="radio" id="tab2" name="tab-control">
+    <input type="radio" id="tab3" name="tab-control">
+    <ul>
+      <li><label for="tab1" role="button"><span>2023-24</span></label></li>
+      <li><label for="tab2" role="button"><span>2024-25</span></label></li>
+      <li><label for="tab3" role="button"><span>Faculty</span></label></li>
+    </ul>
+    <div class="content">
+      
+     
+
+      <!-- Similar sections for other teams -->
+       
+     
+      <!-- Similar sections for other teams -->
+       
+      
+
+
+      
+
+    </div>
+  </section>
 </Layout>
 
 <style>
+
+  
+    p {
+      text-transform: lowercase;
+    }
+  
  .profile-container {
     padding: 40px 20px;
     background-color: #0000; /* Transparent background */
@@ -74,9 +107,9 @@ const user = {
     max-width: 900px;
     padding: 30px;
     background-color: #0000;
-    border-radius: 50px;
     color: white;
     gap: 10%;
+    padding-top: 4rem;
 }
 
 .profile-pic {
@@ -90,6 +123,11 @@ const user = {
     z-index: 1;
 }
 
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
 .profile-info {
     flex-grow: 1;
@@ -109,16 +147,26 @@ const user = {
 }
 
 .edit-btn {
-    background-color: #22a7f0;
-    padding: 10px 15px;
+  background: linear-gradient(
+      135deg,
+      transparent,
+      rgb(6, 209, 254) 40%,
+      rgb(6, 100, 252),
+      #03306e 60%,
+      transparent
+    );
+    background-size: 200% 200%; /* Extend the size to enable animation */
+    background-position: 0 0; /* Initial position */
+    padding: 0.6rem 2rem;
     border: none;
     color: white;
-    border-radius: 5px;
+    border-radius: 50px;
     cursor: pointer;
+    transition: background-position 0.4s ease-in-out;
 }
 
 .edit-btn:hover {
-    background-color: #1b91d9;
+  background-position: 100% 100%;
 }
 
 /* Social Links */
@@ -211,5 +259,90 @@ const user = {
 .blogs:hover, .events:hover, .certificates:hover {
     transform: scale(1.1);
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.87);
+
+
+
+}
+
+.tabs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 100px;
+  align-items: center; /* Center the tabs container */
+}
+
+.tabs input[type="radio"] {
+  display: none;
+}
+
+.tabs ul {
+  display: flex;
+  justify-content: center; /* Center the tabs */
+  gap: 20px; /* Adjust space between tabs */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tabs ul li {
+  flex: none; 
+}
+
+.tabs ul li label {
+  display: block;
+  padding: 10px 15px;
+  text-align: center;
+  cursor: pointer;
+  color: rgb(233, 227, 227);
+  font-size: 24px;
+  background: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s, font-weight 0.3s;
+}
+
+.tabs ul li label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #00f, rgb(46, 144, 235));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+  border-radius: 0 0 5px 5px;
+}
+
+.tabs ul li label:hover::after {
+  transform: scaleX(1);
+}
+
+.tabs input[type="radio"]#tab1:checked ~ ul li label[for="tab1"]::after,
+.tabs input[type="radio"]#tab2:checked ~ ul li label[for="tab2"]::after,
+.tabs input[type="radio"]#tab3:checked ~ ul li label[for="tab3"]::after {
+  transform: scaleX(1);
+}
+
+.tabs input[type="radio"]#tab1:checked ~ ul li label[for="tab1"],
+.tabs input[type="radio"]#tab2:checked ~ ul li label[for="tab2"],
+.tabs input[type="radio"]#tab3:checked ~ ul li label[for="tab3"] {
+  color: #edf0f3;
+  font-weight: bold;
+}
+
+.tabs .content section {
+  display: none;
+  padding: 10px;
+}
+
+.tabs input[type="radio"]#tab1:checked ~ .content section:nth-of-type(1),
+.tabs input[type="radio"]#tab2:checked ~ .content section:nth-of-type(2),
+.tabs input[type="radio"]#tab3:checked ~ .content section:nth-of-type(3) {
+  display: block;
 }
 </style>
