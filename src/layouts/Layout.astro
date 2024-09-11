@@ -59,6 +59,7 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 <script>
   import gsap from 'gsap';
   import ScrollTrigger from 'gsap/ScrollTrigger';
+import { initFluid } from 'script/fluid_anim';
 
   window.gsap = gsap;
   window.ScrollTrigger = ScrollTrigger;
@@ -73,5 +74,6 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
     if (ctx != null) {
       ctx.revert();
     }
+    initFluid()
   });
 </script>

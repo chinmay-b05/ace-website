@@ -18,7 +18,7 @@ const faculty = [
   { name: 'Dr. Jyothi Shetty', position: 'Professor & Head', image: '/images/faculty/hod.jpg' },
   { name: 'Mr. Piyush Goel', position: 'Pofessor of Practice', image: '/images/faculty/t3.jpg' },
   { name: 'Dr. D K Sreekantha', position: 'Professor', image: '/images/faculty/t4.jpg' },
-  { name: 'Dr. Venkatramanan Bhat P', position: 'Professor', image: '/images/faculty/t5.jpg' },
+  { name: 'Dr. P V Bhat ', position: 'Professor', image: '/images/faculty/t5.jpg' },
   { name: 'Dr. Aravind C V', position: 'Professor', image: '/images/faculty/t6.jpg' },
   { name: 'Dr. Sarika Hegde', position: 'Professor', image: '/images/faculty/t7.jpg' },
   { name: 'Dr. Sudeepa K B', position: 'Associate Professor', image: '/images/faculty/t8.jpg' },
@@ -68,7 +68,6 @@ const faculty = [
     <input type="radio" id="tab1" name="tab-control" checked>
     <input type="radio" id="tab2" name="tab-control">
     <input type="radio" id="tab3" name="tab-control">
-    <input type="radio" id="tab4" name="tab-control">
     <ul>
       <li><label for="tab1" role="button"><span>2023-24</span></label></li>
       <li><label for="tab2" role="button"><span>2024-25</span></label></li>
@@ -80,7 +79,7 @@ const faculty = [
         <div class="card_Container">
           {teamMembers2023.map((member) => (
             <div class="card">
-              <div class="imbBx">
+              <div class="imgBx">
                 <img src={member.image} alt={member.name} />
               </div>
               <div class="content">
@@ -93,12 +92,13 @@ const faculty = [
         </div>
       </section>
 
-      
+      <!-- Similar sections for other teams -->
+       
       <section>
         <div class="card_Container">
           {teamMembers2024.map((member) => (
             <div class="card">
-              <div class="imbBx">
+              <div class="imgBx">
                 <img src={member.image} alt={member.name} />
               </div>
               <div class="content">
@@ -111,12 +111,13 @@ const faculty = [
         </div>
       </section>
 
-      
+      <!-- Similar sections for other teams -->
+       
       <section>
         <div class="card_Container">
           {faculty.map((member) => (
             <div class="card">
-              <div class="imbBx">
+              <div class="imgBx">
                 <img src={member.image} alt={member.name} />
               </div>
               <div class="content">
@@ -128,12 +129,17 @@ const faculty = [
           ))}
         </div>
       </section>
+
+
+      
+
     </div>
   </section>
 </Layout>
 
 <style>
-/* Tabs Navigation */
+
+ /* Tabs Navigation */
 .tabs {
   position: relative;
   display: flex;
@@ -188,12 +194,19 @@ const faculty = [
   border-radius: 0 0 5px 5px;
 }
 
-.tabs ul li label:hover::after,
-.tabs input[type="radio"]:checked + ul label::after {
+.tabs ul li label:hover::after {
   transform: scaleX(1);
 }
 
-.tabs input[type="radio"]:checked + ul label {
+.tabs input[type="radio"]#tab1:checked ~ ul li label[for="tab1"]::after,
+.tabs input[type="radio"]#tab2:checked ~ ul li label[for="tab2"]::after,
+.tabs input[type="radio"]#tab3:checked ~ ul li label[for="tab3"]::after {
+  transform: scaleX(1);
+}
+
+.tabs input[type="radio"]#tab1:checked ~ ul li label[for="tab1"],
+.tabs input[type="radio"]#tab2:checked ~ ul li label[for="tab2"],
+.tabs input[type="radio"]#tab3:checked ~ ul li label[for="tab3"] {
   color: #edf0f3;
   font-weight: bold;
 }
@@ -209,17 +222,25 @@ const faculty = [
   display: block;
 }
 
-
-
-
-/* Card styles */
 .card_Container {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   margin: 40px 0;
+  gap: 50px; /*gap between the cards*/
+  
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px); /* Cards start from below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Cards end at their normal position */
+  }
 }
 
 .card {
@@ -228,21 +249,56 @@ const faculty = [
   height: 400px;
   margin: 20px;
   overflow: hidden;
-  box-shadow: 0 30px 30px -20px rgba(0, 0, 0, 1), inset 0 0 0 1000px rgba(22, 160, 133, .6);
+  /* box-shadow: 0 30px 30px -20px rgba(0, 0, 0, 1), inset 0 0 0 1000px rgba(22, 160, 133, .6); */
   border-radius: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(
+  45deg,
+      
+      #64cfe243 40%,
+      rgba(6, 100, 252, 0.414),
+      rgba(6, 100, 252, 0.317) 60%,
+      transparent
+    );
+  opacity: 0; /* Initially hidden */
+  /* Start the card slightly below */
+  background-size: 200% 200%;
+  background-position: 100% 0;
+  transition: background-position 0.4s ease-in-out;
+ 
 }
 
-.card .imbBx, .imbBx img {
+.card.show {
+  animation: fadeInUp 0.6s forwards;
+}
+
+
+
+.card.visible {
+  opacity: 1; /* Fade-in */
+  transform: translateY(0); /* Slide-up */
+}
+
+.card .imgBx {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 7rem;
+}
+
+.card .imgBx img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .card .content {
   position: absolute;
-  bottom: -160px;
+  bottom: 0;
   width: 100%;
   height: 160px;
   display: flex;
@@ -253,13 +309,6 @@ const faculty = [
   box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 15px;
-  transition: bottom 0.5s;
-  transition-delay: 0.65s;
-}
-
-.card:hover .content {
-  bottom: 0;
-  transition-delay: 0s;
 }
 
 .content .contentBx h3 {
@@ -271,34 +320,24 @@ const faculty = [
   text-align: center;
   margin: 20px 0 15px;
   line-height: 1.1em;
-  transition: 0.5s;
-  transition-delay: 0.6s;
-  opacity: 0;
-  transform: translateY(-20px);
-}
-
-.card:hover .content .contentBx h3 {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Mobile view styles */
-@media (max-width: 768px) {
-  .card .content {
-    bottom: 0 !important;
-    transition: none; /* Disable transition on mobile to make it always visible */
-  }
-  
-  .card:hover .content {
-    bottom: 0; /* Ensure it's always visible */
-    transition-delay: 0; /* Disable the transition delay on hover for mobile */
-  }
-
-  .content .contentBx h3 {
-    opacity: 1;
-    transform: translateY(0);
-    transition: none; /* Disable transition for mobile */
-  }
 }
 
 </style>
+<script>
+const cards = document.querySelectorAll('.card');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show'); // Add 'show' class when the card is in view
+    }
+  });
+}, {
+  threshold: 0.1 // Trigger when 10% of the card is visible
+});
+
+cards.forEach((card) => {
+  observer.observe(card);
+});
+
+</script>

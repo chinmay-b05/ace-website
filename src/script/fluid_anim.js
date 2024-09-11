@@ -2,10 +2,11 @@ import $ from 'jquery';
 
 // put the animation on load, otherwise it bugs out
 
-export const  initFluid = () => {
-  // anim setup || in an active project you can set this to the html body. however ive found a bound box to the viewport looks + performs better
-  const canvas = document.getElementById('fluid');
-  resizeCanvas();
+const initFluid = () => {
+
+// anim setup || in an active project you can set this to the html body. however ive found a bound box to the viewport looks + performs better
+const canvas = document.getElementById('fluid');
+resizeCanvas();
 
   let config = {
     SIM_RESOLUTION: 128,
@@ -1140,5 +1141,5 @@ export const  initFluid = () => {
       hash |= 0; // Convert to 32bit integer
     }
     return hash;
-  }
+};
 };
