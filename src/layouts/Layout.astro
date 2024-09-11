@@ -6,6 +6,7 @@ import MouseTrailer from '@components/MouseTrailer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '@lib/constants';
 import { ViewTransitions } from 'astro:transitions';
 import '@styles/global.css';
+import FluidEffect from '@components/FluidEffect.astro';
 
 interface Props {
   title?: string;
@@ -27,6 +28,7 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
   </head>
   <body class="font-syne-variable">
     <MouseTrailer />
+    <FluidEffect/>
     <Header />
     <slot />
     <Footer />

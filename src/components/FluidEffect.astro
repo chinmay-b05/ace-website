@@ -1,4 +1,5 @@
 <canvas id="fluid"></canvas>
+
 <style>
   #fluid {
     position: fixed;
@@ -6,16 +7,15 @@
     left: 0;
     width: 100dvw;
     height: 100dvh;
+    z-index: -10;
   }
 </style>
-
 <script lang="js">
-  // put the animation on load, otherwise it bugs out
   document.addEventListener('astro:page-load', () => {
     initFluid();
   });
 
-  export const initFluid = () => {
+  const initFluid = () => {
     // anim setup || in an active project you can set this to the html body. however ive found a bound box to the viewport looks + performs better
     const canvas = document.getElementById('fluid');
     resizeCanvas();
@@ -24,12 +24,12 @@
       SIM_RESOLUTION: 128,
       DYE_RESOLUTION: 1440,
       CAPTURE_RESOLUTION: 512,
-      DENSITY_DISSIPATION: 5,
-      VELOCITY_DISSIPATION: 0,
-      PRESSURE: 0,
+      DENSITY_DISSIPATION: 3.5,
+      VELOCITY_DISSIPATION: 2,
+      PRESSURE: 0.1,
       PRESSURE_ITERATIONS: 20,
-      CURL: 0,
-      SPLAT_RADIUS: 0.1,
+      CURL: 3,
+      SPLAT_RADIUS: 0.2,
       SPLAT_FORCE: 6000,
       SHADING: true,
       COLOR_UPDATE_SPEED: 10,
@@ -939,9 +939,9 @@
 
     function clickSplat(pointer) {
       const color = generateColor();
-      color.r *= 10.0;
-      color.g *= 10.0;
-      color.b *= 10.0;
+      color.r *= 10;
+      color.g *= 10;
+      color.b *= 10;
       let dx = 10 * (Math.random() - 0.5);
       let dy = 30 * (Math.random() - 0.5);
       splat(pointer.texcoordX, pointer.texcoordY, dx, dy, color);
@@ -977,14 +977,27 @@
       clickSplat(pointer);
     });
 
-    canvas.addEventListener('mousemove', (e) => {
-      let pointer = pointers[0];
-      let posX = scaleByPixelRatio(e.clientX);
-      let posY = scaleByPixelRatio(e.clientY);
-      let color = generateColor();
-      update();
-      updatePointerMoveData(pointer, posX, posY, color);
-    });
+    // $('body').one('mousemove', (e) => {
+    //   let pointer = pointers[0];
+    //   let posX = scaleByPixelRatio(e.clientX);
+    //   let posY = scaleByPixelRatio(e.clientY);
+    //   let color = generateColor();
+    //   update();
+    //   updatePointerMoveData(pointer, posX, posY, color);
+    // });
+
+    document.body.addEventListener(
+      'mousemove',
+      function (e) {
+        let pointer = pointers[0];
+        let posX = scaleByPixelRatio(e.clientX);
+        let posY = scaleByPixelRatio(e.clientY);
+        let color = generateColor();
+        update();
+        updatePointerMoveData(pointer, posX, posY, color);
+      },
+      { once: true }
+    );
 
     window.addEventListener('mousemove', (e) => {
       let pointer = pointers[0];
@@ -994,17 +1007,21 @@
       updatePointerMoveData(pointer, posX, posY, color);
     });
 
-    canvas.addEventListener('touchstart', (e) => {
-      const touches = e.targetTouches;
-      let touch = touches[0];
-      let pointer = pointers[0];
-      for (let i = 0; i < touches.length; i++) {
-        let posX = scaleByPixelRatio(touches[i].clientX);
-        let posY = scaleByPixelRatio(touches[i].clientY);
-        update();
-        updatePointerDownData(pointer, touches[i].identifier, posX, posY);
-      }
-    });
+    document.body.addEventListener(
+      'touchstart',
+      (e) => {
+        const touches = e.targetTouches;
+        let touch = touches[0];
+        let pointer = pointers[0];
+        for (let i = 0; i < touches.length; i++) {
+          let posX = scaleByPixelRatio(touches[i].clientX);
+          let posY = scaleByPixelRatio(touches[i].clientY);
+          update();
+          updatePointerDownData(pointer, touches[i].identifier, posX, posY);
+        }
+      },
+      { once: true }
+    );
 
     window.addEventListener('touchstart', (e) => {
       const touches = e.targetTouches;
@@ -1081,7 +1098,7 @@
     }
 
     function generateColor() {
-      let c = HSVtoRGB(0, 0, 0.3);
+      let c = HSVtoRGB(.5, 1, .5);
       c.r *= 0.15;
       c.g *= 0.15;
       c.b *= 0.15;
