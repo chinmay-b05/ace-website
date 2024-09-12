@@ -52,12 +52,53 @@ const cards = [
     }
   </div>
 
-  <div class="mx-auto mt-32 w-36 aspect-square bg-white text-black rounded-full grid place-content-center text-center">
-    <span> view more </span>
+  <div class="mx-auto mt-32 w-36 aspect-square bg-white text-black rounded-full grid place-content-center text-center transition-all duration-500 transform hover:scale-110 hover:translate-y-2 hover:shadow-2xl">
+    <span class="font-bold text-lg">
+      <a href="/gallery" class="hover:text-white transition-colors duration-300">view more</a>
+    </span>
   </div>
+  <br>
 </section>
 
 <style>
+
+.mx-auto {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(45deg, transparent, rgb(6, 100, 252) 40%, rgb(6, 100, 252), #b0d1ff 60%, transparent);
+    background-size: 400% 400%;
+    animation: liquidGradient 6s ease infinite;
+  }
+
+  @keyframes liquidGradient {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+
+  .hover\:shadow-2xl:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .hover\:scale-110:hover {
+    transform: scale(1.10);
+  }
+
+  .hover\:translate-y-2:hover {
+    transform: translateY(8px); /* Adjust as needed */
+  }
+
+  .hover\:text-white:hover {
+    color: white;
+  }
+
+  
   .event-section {
     --card-height: 400px;
     margin-bottom: calc(var(--card-height) / 2);
