@@ -4,7 +4,7 @@ import Layout from '@layouts/Layout.astro';
 
 const developers = [
   { name: 'Len', description: '"I dont know broo"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
-  { name: 'Karthik S salian', description: '"Keep it simple stupid"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
+  { name: 'Karthik S salian', description: '"Who said I left the kitchen? 😎 ❄"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
   { name: 'Varshith Pawar ', description: '"Your phone linging"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
   { name: 'Rakshith Vijay', description: '"Dont touch my daughter"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
   { name: 'Anant Shetty', description: '"HTML+ Golang"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
@@ -74,7 +74,7 @@ const developers = [
 </style>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const cards = gsap.utils.toArray('.developer-card') as HTMLDivElement[];
 
     window.gsapContext.add(() => {

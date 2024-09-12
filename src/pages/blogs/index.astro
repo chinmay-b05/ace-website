@@ -149,7 +149,7 @@ const blogs = [
 </style>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const cards = gsap.utils.toArray('.blog-card') as HTMLDivElement[];
 
     window.gsapContext.add(() => {

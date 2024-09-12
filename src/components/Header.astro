@@ -169,7 +169,7 @@ const session = await getSession(Astro.request);
 
 <script>
   const { signIn, signOut } = await import('auth-astro/client');
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     document.querySelector<HTMLButtonElement>('#login')?.addEventListener('click', () => {
       signIn('google');
     });
