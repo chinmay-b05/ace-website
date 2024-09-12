@@ -161,7 +161,7 @@ const teamMembers = {
 </style>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const radioButtons = document.querySelectorAll<HTMLInputElement>('input[name="tabs"]');
     const panels = document.querySelectorAll<HTMLDivElement>('.panel');
 

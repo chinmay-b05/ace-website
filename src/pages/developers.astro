@@ -74,7 +74,7 @@ const developers = [
 </style>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const cards = gsap.utils.toArray('.developer-card') as HTMLDivElement[];
 
     window.gsapContext.add(() => {
