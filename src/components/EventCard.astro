@@ -1,54 +1,57 @@
 ---
+interface Props {
+  id: number;
+    image: string;
+    name: string;
+    description: string;
+    fromDate: string;
+    toDate: string;
+    venue: string;
+    maxTeamSize: number;
+    state: string;
+    category: string;
+}
 
-
-
-
+const event = Astro.props;
 ---
 
+<a href="/events/1">
+  <div class="card max-w-[300px] w-[300px] h-[410px] rounded-xl relative bg-[#1b1b1b]">
+    <div class="card-image w-full h-[50%] max-h-[50%] overflow-hidden">
+      <img class="h-full object-center w-full object-fill" src="images/sample.png" />
+    </div>
 
-<div class="card max-w-[300px] w-[300px] h-[410px] rounded-xl relative bg-[#1b1b1b]">
-  <div class="card-image w-full h-[50%] max-h-[50%] overflow-hidden">
-    <img 
-    class="h-full object-center w-full object-fill"
-    src="images/sample.png"
-/>
-  </div>
-   
-  <div class="card-price-tag">
-    <span class="price-value">view event</span>
-  </div>
- 
-  <div class="card-info">
-    <div class="left-info">
-      <span class="product-title truncate text-lg pt-2">Face Painting</span>
-      <p class="feature-sub-title text-sm font-bold">Type</p>
-      <span class="feature-desc">Technical</span>
-      <p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">SOLO</p>
+    <div class="card-price-tag">
+      <span class="price-value">view event</span>
     </div>
-    <div class="right-info">
-      <ul class="features-list">
-        <li class="list-item text-xs">
-          <p class="feature-sub-title pt-1">Date</p>
-          <span class="feature-desc">24-10-23</span>
-        </li>
-        <li class="list-item">
-          <p class="feature-sub-title">Venue</p>
-          <span class="feature-desc">CSL05, APJ Kalam Block</span>
-        </li>
-      </ul>
+
+    <div class="card-info">
+      <div class="left-info">
+        <span class="product-title truncate text-lg pt-2">{event.name}</span>
+        <p class="feature-sub-title text-sm font-bold">Type</p>
+        <span class="feature-desc">Technical</span>
+        <p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">SOLO</p>
+      </div>
+      <div class="right-info">
+        <ul class="features-list">
+          <li class="list-item text-xs">
+            <p class="feature-sub-title pt-1">Date</p>
+            <span class="feature-desc">{event.fromDate}</span>
+          </li>
+          <li class="list-item">
+            <p class="feature-sub-title">Venue</p>
+            <span class="feature-desc">{event.venue}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="add-to-cart-btn">
+      <button class="mr-9"> <a href="">View Event</a></button>
     </div>
   </div>
-  <div class="add-to-cart-btn">
-    <button class=" mr-9"> <a href="">View Event</a></button>
-  </div>
-</div>
+</a>
 
 <style>
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-
   .card {
     overflow: hidden;
   }
@@ -117,7 +120,7 @@
 
   .card .card-info .right-info::before {
     position: absolute;
-    content: "";
+    content: '';
     width: 2px;
     height: calc(100% - 20px);
     background: rgb(6, 100, 252);
@@ -169,14 +172,7 @@
   .add-to-cart-btn button {
     border: none;
     font-size: 10px;
-    background: linear-gradient(
-      45deg,
-      transparent,
-      rgb(6, 100, 252) 40%,
-      rgb(6, 100, 252),
-      #b0d1ff 60%,
-      transparent
-    );
+    background: linear-gradient(45deg, transparent, rgb(6, 100, 252) 40%, rgb(6, 100, 252), #b0d1ff 60%, transparent);
     padding: 6px 10px;
     color: #fff;
     font-weight: bold;
@@ -201,7 +197,7 @@
 
   .card::before {
     position: absolute;
-    content: "";
+    content: '';
     height: 90px;
     width: 90px;
     border-radius: 50%;
