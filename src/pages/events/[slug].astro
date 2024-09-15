@@ -1,30 +1,42 @@
 ---
+const {slug} = Astro.params;
+import DialogBoxSkeleton from '@components/DialogBoxSkeleton';
 import Layout from '@layouts/Layout.astro';
+import DialogBox from '@components/DialogBox';
+import { getEventById } from 'utils/events';
+
+const event = await getEventById(parseInt(slug!));
+if(!event){
+  Astro.redirect('/404');
+}
+
+const {name,email,id} = Astro.locals;
+
+
+
 ---
 
 <Layout>
   <section class="content-container mx-auto mt-28">
-    <h1 class="title text-6xl text-center mb-4 font-dirtyline">Rise and Shine!</h1>
+    <h1 class="title text-6xl text-center mb-4 font-dirtyline">{event.name}</h1>
     <div class="container mx-auto">
       <div class="poster card">
         <img src="/images/sample.png" alt="Event Poster" class="poster-img" />
       </div>
 
       <div class="description">
-        <h2 class="text-2xl font-dirtyline">face painting</h2>
-        <p class="text-left font-dirtyline text-xl">Description:</p>
+        <h2 class="text-2xl font-dirtyline">{event.name}</h2>
+        <p class="text-left font-dirtyline text-sm mt-4">Description:</p>
         <p>
-          ahjskhjsdhljdckdjks ahnjsgjdkahjdka Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum id
-          voluptates nostrum veritatis at, accusantium natus incidunt recusandae voluptatum. Porro accusantium pariatur
-          dignissimos iste eveniet odit unde optio laborum vero.
+         {event.description}
         </p>
       </div>
 
       <div class="sidebar">
         <div class="sidebar-item">
-          <h3 class="text-2xl font-dirtyline">MEET AT</h3>
-          <p>Souparnika</p>
-          <p>9:00 - 12:00</p>
+          <h3 class="text-2xl font-dirtyline">VENUE</h3>
+          <p>{event.venue}</p>
+          <p>{event.fromDate} - {event.toDate}</p>
         </div>
 
         <div class="sidebar-item">
@@ -36,13 +48,39 @@ import Layout from '@layouts/Layout.astro';
           </p>
         </div>
 
-        <div class="register-button card text-2xl font-dirtyline">Register</div>
+        {event.state === "PUBLISHED" && (
+           <>
+           {id === undefined || id === null || id === "undefined" ?
+      
+      <div id="registerB1" class="register-button card text-2xl font-dirtyline" data-id={`${id}`}>Login To Register</div>:
+      <div id="registerB" class="register-button card text-2xl font-dirtyline" data-id={`${id}`}>Register</div>}
+           </>
+         )}
+
+         {event.state === "COMPLETED" && (
+           <>
+      <div class="register-button card text-2xl font-dirtyline">COMPLETED</div>:
+      
+           </>
+         )}
+
+
+        <DialogBoxSkeleton client:load>
+
+         <DialogBox email={email} name={name} id={id} eventId={parseInt(slug!)} client:load />
+        </DialogBoxSkeleton>
+       
+       
+        
 
         <div class="organizer card">
           <p class="text-2xl font-dirtyline">Organiser details</p>
           <ul>
-            <li>len -- 7892859097</li>
-            <li>karthik -- 7892859097</li>
+            {event.organisers.map((organizer) => (
+              <li>
+                <p>{organizer.name}</p>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -292,3 +330,26 @@ import Layout from '@layouts/Layout.astro';
     }
   }
 </style>
+<script>
+import { dialogOpen,dialogClose } from "dialogStore";
+
+const loginButton = document.getElementById('registerB1');
+loginButton?.addEventListener('click', async(e) => {
+  const { signIn } = await import('auth-astro/client');
+  signIn('google');
+});
+
+const registerButton = document.getElementById('registerB');
+registerButton?.addEventListener('click', (e) => {
+  
+  const id = registerButton.getAttribute('data-id');
+  console.log("ID",id);
+  if(id === undefined || id === null || id === "undefined"){
+    
+    dialogClose();
+  }else{
+    dialogOpen();
+  }
+  
+});
+</script>

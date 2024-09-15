@@ -1,0 +1,19 @@
+.card-button {
+  background-image: linear-gradient(43deg, #2e79cf 0%, #1ea1cc 46%, #0f4fd1 100%);
+  padding: 3px;
+  border: #fff solid 2px;
+  border-radius: 50px;
+}
+
+.card-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card-attributes {
+  background: #fff;
+  padding: 3px 4px;
+  width: 100%;
+  border: linear-gradient(43deg, #2e79cf 0%, #1ea1cc 46%, #0f4fd1 100%) solid 2px;
+  border-radius: 50px;
+}

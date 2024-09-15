@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1725651115199,
-      "tag": "0000_colorful_misty_knight",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1725606034151,
-      "tag": "0001_cute_lady_mastermind",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1725984560856,
-      "tag": "0002_adorable_colonel_america",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1725984601739,
-      "tag": "0003_slippery_talos",
+      "when": 1726291035253,
+      "tag": "0000_breezy_franklin_richards",
       "breakpoints": true
     }
   ]

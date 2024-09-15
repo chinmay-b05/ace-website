@@ -1,5 +1,13 @@
 ---
-
+interface Props {
+  eventName: string;
+  category: string;
+  date: string;
+  venue: string;
+  id: number;
+  state: string;
+}
+const {eventName,category,date,venue,id,state}=Astro.props;
 
 
 
@@ -14,32 +22,34 @@
 />
   </div>
    
-  <div class="card-price-tag">
-    <span class="price-value">view event</span>
-  </div>
+ 
+    {state==="PUBLISHED" && ( <div class="card-price-tag"> <span class="price-value">Register</span></div>) }
+    {state==="COMPLETED" && ( <div class="card-price-tag"><span class="price-value">View</span></div>) }
+   
+  
  
   <div class="card-info">
     <div class="left-info">
-      <span class="product-title truncate text-lg pt-2">Face Painting</span>
+      <span class="product-title truncate text-lg pt-2">{eventName}</span>
       <p class="feature-sub-title text-sm font-bold">Type</p>
-      <span class="feature-desc">Technical</span>
+      <span class="feature-desc">{category}</span>
       <p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">SOLO</p>
     </div>
     <div class="right-info">
       <ul class="features-list">
         <li class="list-item text-xs">
           <p class="feature-sub-title pt-1">Date</p>
-          <span class="feature-desc">24-10-23</span>
+          <span class="feature-desc">{date}</span>
         </li>
         <li class="list-item">
           <p class="feature-sub-title">Venue</p>
-          <span class="feature-desc">CSL05, APJ Kalam Block</span>
+          <span class="feature-desc">{venue}</span>
         </li>
       </ul>
     </div>
   </div>
   <div class="add-to-cart-btn">
-    <button class=" mr-9"> <a href="">View Event</a></button>
+    <button class=" mr-9">View Event</button>
   </div>
 </div>
 
