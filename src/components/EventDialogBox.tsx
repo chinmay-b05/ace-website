@@ -2,14 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './DialogBox.css';
 import CreateTeam from './events/CreateTeam';
 import { useStore } from '@nanostores/react';
-import {
-  isCreatingTeam,
-  isJoiningTeam,
-  setIsCreatingTeam,
-  setIsJoiningTeam,
-  // setTeamData,
-  // teamData,
-} from '../dialogStore';
+import { isCreatingTeam, isJoiningTeam, setIsCreatingTeam, setIsJoiningTeam } from '../dialogStore';
 import JoinTeam from './events/JoinTeam';
 import CopyBtn from './CopyBtn';
 import { toast } from 'sonner';
@@ -42,7 +35,7 @@ interface TeamDetails {
   }>;
 }
 
-const DialogBox = ({ email, id, name, eventId }: DialogBoxProps) => {
+const EventDialogBox = ({ email, id, name, eventId }: DialogBoxProps) => {
   const $isCreatingTeam = useStore(isCreatingTeam);
   const $isJoiningTeam = useStore(isJoiningTeam);
   // const $teamData = useStore(teamData);
@@ -299,4 +292,4 @@ const DialogBox = ({ email, id, name, eventId }: DialogBoxProps) => {
   );
 };
 
-export default DialogBox;
+export default EventDialogBox;

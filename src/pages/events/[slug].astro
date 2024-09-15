@@ -2,7 +2,7 @@
 const {slug} = Astro.params;
 import DialogBoxSkeleton from '@components/DialogBoxSkeleton';
 import Layout from '@layouts/Layout.astro';
-import DialogBox from '@components/DialogBox';
+import DialogBox from '@components/EventDialogBox';
 import { getEventById } from 'utils/events';
 
 const event = await getEventById(parseInt(slug!));
