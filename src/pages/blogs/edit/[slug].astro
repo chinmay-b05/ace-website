@@ -6,11 +6,10 @@ const { slug } = Astro.params;
 ---
 
 <Layout>
-  <BlogEditor id={Number(slug)} />
+    <BlogEditor id={Number(slug)} />
 </Layout>
 
 <script>
-  import actions from 'astro:actions';
 
   const form = document.querySelector('#blog-form') as HTMLFormElement;
   form.addEventListener('submit', async (e) => {
