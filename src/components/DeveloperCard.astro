@@ -1,5 +1,4 @@
 ---
-import { instagramLink } from '@lib/constants';
 import { Icon } from 'astro-icon/components';
 
 type Props = {
@@ -8,19 +7,21 @@ type Props = {
   githubLink: string;
   linkedinLink: string;
   instagramLink: string;
+  frontImage: string;
+  backImage: string;
 };
 
-const { name, description, githubLink, linkedinLink }: Props = Astro.props;
+const { name, description, githubLink, linkedinLink, instagramLink, frontImage, backImage }: Props = Astro.props;
 ---
 
 <div class="card-item">
   <div class="scene">
     <div class="card">
       <div class="card__face card__face--front">
-        <img src="/images/varshithitis.jpeg" alt="Front Image" />
+        <img src={frontImage} alt="Front Image" />
       </div>
       <div class="card__face card__face--back">
-        <img src="/images/varshithitis1.png" alt="Back Image" />
+        <img src={backImage} alt="Back Image" />
       </div>
     </div>
   </div>
@@ -28,12 +29,15 @@ const { name, description, githubLink, linkedinLink }: Props = Astro.props;
     <h3 class="text-xl font-bold text-white-700">{name}</h3>
     <p class="text-white-700">{description}</p>
     <div class="links">
-      <Icon name="mdi:github" size={30} />
-      <a href={githubLink} target="_blank"></a>
-      <Icon name="mdi:linkedin" size={30} />
-      <a href={linkedinLink} target="_blank"></a>
-      <Icon name="mdi:instagram" size={30} />
-      <a href={instagramLink} target="_blank"></a>
+      <a href={githubLink} target="_blank">
+        <Icon name="mdi:github" size={30} />
+      </a>
+      <a href={linkedinLink} target="_blank">
+        <Icon name="mdi:linkedin" size={30} />
+      </a>
+      <a href={instagramLink} target="_blank">
+        <Icon name="mdi:instagram" size={30} />
+      </a>
     </div>
   </div>
 </div>
@@ -42,20 +46,20 @@ const { name, description, githubLink, linkedinLink }: Props = Astro.props;
   .cards-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 8rem; /* Adjust the gap between card items */
-    justify-content: center; /* Center the cards horizontally */
+    gap: 8rem;
+    justify-content: center;
   }
 
   .card-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px; /* Match the card width */
+    width: 300px;
   }
 
   .scene {
-    width: 300px; /* Match the card width */
-    height: 250px; /* Match the card height */
+    width: 300px;
+    height: 250px;
     perspective: 800px;
   }
 
@@ -99,23 +103,22 @@ const { name, description, githubLink, linkedinLink }: Props = Astro.props;
   .info-box {
     background-color: #13151a;
     padding: 1.5rem;
-
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin-top: 1rem;
-    width: 300px; /* Space between the card and the info box */
+    width: 300px;
   }
 
   .info-box .links {
     display: flex;
     justify-content: center;
-    gap: 1rem; /* Space between icons */
-    margin-top: 0.75rem; /* Space between description and links */
+    gap: 1rem;
+    margin-top: 0.75rem;
   }
 
   .info-box a {
     display: flex;
     align-items: center;
-    color: white; /* Space between GitHub and LinkedIn links */
+    color: white;
   }
 </style>

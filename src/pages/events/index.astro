@@ -2,17 +2,32 @@
 import EventCard from '@components/EventCard.astro';
 import Layout from '@layouts/Layout.astro';
 
+import { db } from '@lib/db';
+import { eventTable } from '@lib/db/schema';
+
+const events = await db
+  .select({
+    id: eventTable.id,
+    image: eventTable.image,
+    name: eventTable.name,
+    description: eventTable.description,
+    fromDate: eventTable.fromDate,
+    toDate: eventTable.toDate,
+    venue: eventTable.venue,
+    maxTeamSize: eventTable.maxTeamSize,
+    state: eventTable.state,
+    category: eventTable.category,
+  })
+  .from(eventTable);
 ---
 
 <Layout>
   <section class="hero content-container min-h-screen mt-20 flex flex-col items-center">
-    <h1 class="text-4xl mb-8 font-dirtyline ">Events</h1>
-
-    <div class="grid  sm:gap-y-8 grid-cols-1 gap-y-8 md:grid-cols-2 md:gap-x-32 lg:grid-cols-3">
-      <EventCard />
-      <EventCard  />
-      <EventCard  />
-      <a href="/events/1"><EventCard /></a>
+    <h1 class="text-4xl mb-8 font-dirtyline">Events</h1>
+    <div class="grid sm:gap-y-8 grid-cols-1 gap-y-8 md:grid-cols-2 md:gap-x-32 lg:grid-cols-3">
+      {
+        events.map((event) =><EventCard {...event} />)
+      }
     </div>
   </section>
 </Layout>

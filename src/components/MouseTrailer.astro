@@ -68,7 +68,7 @@
     trailerIcon.innerHTML = getIcon(icon) ?? '';
   }
 
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('mousemove', (e) => {
       const interactable = e.target instanceof HTMLElement ? e.target?.closest('.interactable') : null;
       const intersecting = interactable !== null;

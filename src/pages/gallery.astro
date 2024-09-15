@@ -31,7 +31,7 @@ try {
 </Layout>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const images = gsap.utils.toArray('.gallery-image') as HTMLImageElement[];
 
     images.forEach((element) => {

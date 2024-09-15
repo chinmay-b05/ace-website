@@ -3,18 +3,20 @@ import DeveloperCard from '@components/DeveloperCard.astro';
 import Layout from '@layouts/Layout.astro';
 
 const developers = [
-  { name: 'Len', description: '"I dont know broo"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
-  { name: 'Karthik S salian', description: '"Keep it simple stupid"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
-  { name: 'Varshith Pawar ', description: '"Your phone linging"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
-  { name: 'Rakshith Vijay', description: '"Dont touch my daughter"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
-  { name: 'Anant Shetty', description: '"HTML+ Golang"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
-  { name: 'Ameesha Ruzario', description: '"Hola Amigo"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
-  { name: 'Bhavya Nayak', description: '"A retired CR', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
-  { name: 'Chinmayee Bhat', description: '"sings"', linkedinLink: 'https://www.linkedin.com/in/chinmayee-bhat-644454259/', githubLink: 'https://github.com/CHINMAYEEBHAT', instagramLink: 'https://www.instagram.com/chinmayeebhat_sings/' },
-  { name: 'Chinmay Billawa', description: '"live on caffeine"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
-  { name: 'Dilshan', description: '"I also dont know!!"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
-  { name: 'Varun Arkal', description: '"All hail me"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
-  { name: 'Pavan Chitrapura', description: '"No--words"', linkedinLink: '#', githubLink: '#', instagramLink: '#' },
+  { name: 'Len', description: '"I dont know broo"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/Len.jpg', backImage: '/images/developers/lenanime.png' },
+  { name: 'Karthik S salian', description: '"Who said I left the kitchen? 😎 ❄"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/karthik.jpg', backImage: '/images/developers/karthikanime.png' },
+  { name: 'Varshith Pawar ', description: '"Your phone linging"', linkedinLink: 'https://linkedin.com/in/varshithpawarhr', githubLink: 'https://github.com/VarshithPawarHR', instagramLink: 'https://www.instagram.com/mr.pawar_10/', frontImage: '/images/developers/varshith.jpg', backImage: '/images/developers/varshithanime.png' },
+  { name: 'Rakshith Vijay', description: '"Dont touch my daughter"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/rakshith.jpg', backImage: '/images/developers/rakshithanime.png' },
+  { name: 'Anant Shetty', description: '"HTML+ Golang"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/Ananth.jpg', backImage: '/images/developers/ananthanime.png'},
+  { name: 'Ameesha Ruzario', description: '"Answer the joy"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/ameesha.jpg', backImage: '/images/developers/ameeshaanime.png' },
+  { name: 'Bhavya Nayak', description: '"A retired CR"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/bhavya.JPG', backImage: '/images/developers/bhavyaanime.png' },
+  { name: 'Varun Pai', description: '"Flutter fluttering"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/varunpai.jpeg', backImage: '/images/developers/varunpaianime.png' },
+  { name: 'AkhilManoj', description: '"No--words"', linkedinLink: '#', githubLink: '#', instagramLink: '#' , frontImage: '/images/developers/akhil.jpg', backImage: '/images/developers/akhilanime.jpg'},
+  { name: 'Chinmayee Bhat', description: '"sings"', linkedinLink: 'https://www.linkedin.com/in/chinmayee-bhat-644454259/', githubLink: 'https://github.com/CHINMAYEEBHAT', instagramLink: 'https://www.instagram.com/chinmayeebhat_sings/', frontImage: '/images/developers/Chinmayee.jpg', backImage: '/images/developers/singanime.png' },
+  { name: 'Chinmay Billawa', description: '"What is life?"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/Chinmay Dinesh Billava.jpg', backImage: '/images/developers/chinmayanime.png' },
+  { name: 'Dilshan', description: '"I also dont know!!"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/Dilshan.jpg', backImage: '/images/developers/dilshananime.png' },
+  { name: 'Varun Arkal', description: '"All hail me"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/Arkal Varun Hegde.jpg', backImage: '/images/developers/varunarkalanime.png' },
+  { name: 'Pavan Chitrapura', description: '"design and aspire"', linkedinLink: '#', githubLink: '#', instagramLink: '#' , frontImage: '/images/developers/pavan.jpg', backImage: '/images/developers/pavananime.png'},
 ];
 ---
 
@@ -32,6 +34,8 @@ const developers = [
                 linkedinLink={dev.linkedinLink}
                 githubLink={dev.githubLink}
                 instagramLink={dev.instagramLink}
+                frontImage={dev.frontImage || ''}
+                backImage={dev.backImage || ''}
               />
             </div>
           ))
@@ -74,7 +78,7 @@ const developers = [
 </style>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const cards = gsap.utils.toArray('.developer-card') as HTMLDivElement[];
 
     window.gsapContext.add(() => {

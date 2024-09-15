@@ -1,0 +1,96 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+
+---
+
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error Page</title>
+    <link rel="stylesheet" href="./error_page.css" />
+    <script
+      src="https://kit.fontawesome.com/66aa7c98b3.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="gif">
+        <img src="/images/cock.gif" alt="gif_ing"  />
+      </div>
+      <div class="content">
+        <h1 class="main-heading">404 Error</h1>
+        <h1 class="main-heading">Or who knows this page is gone</h1>
+        <p>
+          ...maybe you are the issue not us !! fix your damn system.
+        </p>
+        <p>
+          And we know the gif is bad and we are not gona fix it
+        </p>
+        <a href="/" >
+          <button>Back to home </button>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html{
+  background: #13151a;
+}
+
+body {
+  font-family: 'Dirtyline 36Daysoftype 2022';
+  text-transform: lowercase;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.gif {
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  text-align: center;
+  margin: 3rem 0;
+  color: #fff;
+}
+
+.content .main-heading {
+  font-size: 2rem;
+  font-weight: 700;
+}
+p {
+  font-size: 1.2rem;
+  padding: 0.7rem 0;
+}
+
+button {
+  padding: 1rem;
+  @apply border-2 border-blue-500 p-4 px-8 w-48 text-center;
+  border-radius: 9999px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  
+}
+
+</style>
