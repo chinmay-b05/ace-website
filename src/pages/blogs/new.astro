@@ -1,15 +1,23 @@
-<!-- ---
+---
 import BlogEditor from "@components/BlogEditor.astro";
 import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout>
+    
+  <div class="mt-20">
     <BlogEditor id="new" />
+</div>
 </Layout>
 
 <script>
     import { navigate } from "astro:transitions/client";
-    import {actions} from 'astro:actions';
+    const actions = {
+        createBlog: async (_formData: any) => {
+            // Mock implementation of createBlog
+            return { data: { blogId: '123' }, error: null };
+        }
+    };
     const form = document.querySelector("#blog-form") as HTMLFormElement;
     form.addEventListener("submit",async (e) => {
         e.preventDefault();
@@ -21,4 +29,4 @@ import Layout from "@layouts/Layout.astro";
             navigate(`/blogs/${data.blogId}`);
         }
       })
-</script> -->
+</script>
