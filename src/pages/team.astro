@@ -71,7 +71,7 @@ const teamMembers = {
   ],
   faculty,
 };
-const images: { [index: string]: any } = {};
+const images: { [index: string]: ImageMetadata } = {};
 await Astro.glob('/src/assets/images/faculty/*.jpg').then((files) => {
   files.forEach((file) => {
     const name = file.default.src.split('.')[0].split('/').pop();

@@ -1,19 +1,24 @@
+---
+import sample from '../assets/images/sample.png'
+import { Image } from 'astro:assets'
+---
+
 <section id="scene" class="overflow-hidden">
   <div data-depth="0.2" id="layer1" class="layer">
-    <img src="/images/sample.png" alt="" class="layer-img" style="top:20%; left:20%;" loading="lazy" />
-    <img src="/images/sample.png" alt="" class="layer-img" style="bottom:10%; left:70%;" loading="lazy" />
+    <Image src={sample} alt="" class="layer-img" style="top:20%; left:20%;" loading="lazy" />
+    <Image src={sample} alt="" class="layer-img" style="bottom:10%; left:70%;" loading="lazy" />
   </div>
 
   <div data-depth="0.4" id="layer2" class="layer">
     <div class="flex justify-around items-center m-auto w-full h-full">
-      <img src="/images/sample.png" alt="" class="layer-img" style="bottom:10%; left:10%;" loading="lazy" />
-      <img src="/images/sample.png" alt="" class="layer-img" style="bottom:60%; right:20%;" loading="lazy" />
+      <Image src={sample} alt="" class="layer-img" style="bottom:10%; left:10%;" loading="lazy" />
+      <Image src={sample} alt="" class="layer-img" style="bottom:60%; right:20%;" loading="lazy" />
     </div>
   </div>
   
   <div data-depth="0.6" id="layer3" class="layer">
     <div class="flex justify-around items-center m-auto w-full h-full">
-      <img src="/images/sample.png" alt="" class="layer-img" loading="lazy" />
+      <Image src={sample} alt="" class="layer-img" loading="lazy" />
     </div>
   </div>
 </section>

@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import sample from '../assets/images/sample.png'
 interface Props {
   id: number;
     image: string;
@@ -18,7 +20,7 @@ const event = Astro.props;
 <a href="/events/1">
   <div class="card max-w-[300px] w-[300px] h-[410px] rounded-xl relative bg-[#1b1b1b]">
     <div class="card-image w-full h-[50%] max-h-[50%] overflow-hidden">
-      <img class="h-full object-center w-full object-fill" src="images/sample.png" />
+      <Image class="h-full object-center w-full object-fill" src={sample} alt=""/>
     </div>
 
     <div class="card-price-tag">
