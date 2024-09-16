@@ -1,6 +1,13 @@
 ---
 import BlogEditor from "@components/BlogEditor.astro";
 import Layout from "@layouts/Layout.astro";
+import { getSession } from "auth-astro/server";
+
+const session = await getSession(Astro.request);
+
+if (!session?.user) {
+  return Astro.redirect('/');
+}
 ---
 
 <Layout>
@@ -24,6 +31,9 @@ import Layout from "@layouts/Layout.astro";
         actions
         const formData = new FormData(e.target as HTMLFormElement);
         const { data, error } = await actions.createBlog(formData);
+
+
+        console.log(error)
         
         if(data?.blogId){
             navigate(`/blogs/${data.blogId}`);

@@ -37,6 +37,8 @@ export const createBlog = defineAction({
       })
       .returning({ id: blogTable.id });
 
+    console.log('blog', blogs);
+
     if (!blogs.length) {
       throw new ActionError({
         code: 'INTERNAL_SERVER_ERROR',
