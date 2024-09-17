@@ -1,6 +1,6 @@
 import { actions } from 'astro:actions';
-import { experimental_withState } from '@astrojs/react/actions';
-import { useActionState } from 'react';
+import { signIn } from 'auth-astro/client';
+import { useState, useTransition } from 'react';
 
 type Props = {
   blogId: string;
@@ -19,38 +19,53 @@ type Props = {
 };
 
 export default function Comments({ blogId, comments, user }: Props) {
-  const [state, action, pending] = useActionState(experimental_withState(actions.commentBlog), {
-    data: { comment: { content: '', createdAt: '' } },
-    error: undefined,
-  });
+  const [error, setError] = useState<string | undefined | null>(null);
+  const [commentList, setCommentList] = useState(comments);
 
+  const [isPending, startTransition] = useTransition();
 
-  if (state.data?.comment.content && user) {
-    comments.unshift({
-      userId: user.id,
-      userImage: user.image,
-      userName: user.name,
-      createdAt: state.data.comment.createdAt,
-      content: state.data.comment.content,
+  const submitAction = async (formData: FormData) => {
+    startTransition(async () => {
+      if (!user) {
+        signIn('google');
+        return;
+      }
+      const { data, error } = await actions.commentBlog(formData);
+      if (error !== undefined) {
+        setError(error.message);
+      }
+
+      if (data) {
+        setCommentList((list) => [
+          {
+            userId: user!.id,
+            userImage: user!.image,
+            userName: user!.name,
+            createdAt: data.comment.createdAt,
+            content: data.comment.content,
+          },
+          ...list,
+        ]);
+      }
     });
-  }
+  };
 
   return (
     <div>
-      <form action={action}>
+      <form action={submitAction}>
         <input type="text" name="blogId" value={blogId} hidden />
         <p className="mb-2">Post a comment</p>
         <div className="flex">
-          <textarea name="content" className="w-full" />
-          <button className="" disabled={pending}>
+          <textarea name="content" className="w-full" required />
+          <button className="" disabled={isPending}>
             Post
           </button>
         </div>
-        {state.error && <p>Failed: {state.error.message}</p>}
+        {error && <p className="text-red-600">Failed: {error}</p>}
       </form>
 
-      {comments.map((comment) => (
-        <div className="w-full items-start justify-center gap-4">
+      {commentList.map((comment) => (
+        <div className="w-full items-start justify-center gap-4" key={comment.createdAt}>
           <a href={`profile/${comment.userId}`}>
             <div className="w-10 rounded-full">
               <img alt={comment.userName} src={comment.userImage ?? ''} />
