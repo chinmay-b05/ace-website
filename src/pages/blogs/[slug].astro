@@ -5,6 +5,7 @@ import { db } from '@lib/db';
 import { and, count, eq } from 'drizzle-orm';
 import { blogTable, userTable, commentsTable, viewTable } from '@lib/db/schema';
 import { getSession } from 'auth-astro/server';
+import Comments from '@components/Comments';
 
 const { slug } = Astro.params;
 
@@ -29,19 +30,6 @@ const blogs = await db
 if (!blogs.length) return Astro.redirect('/blogs');
 
 const blog = blogs[0];
-
-//comments
-const comments = await db
-  .select({
-    content: commentsTable.content,
-    name: userTable.name,
-    userId: userTable.id,
-    createdAt: commentsTable.createdAt,
-    userImage: userTable.image,
-  })
-  .from(commentsTable)
-  .innerJoin(userTable, eq(commentsTable.userId, userTable.id))
-  .where(eq(commentsTable.blogId, blog.id));
 
 if (session?.user?.id) {
   //create view if not exits
@@ -88,6 +76,35 @@ if (session?.user?.id) {
     liked = likedResult[0].liked;
   }
 }
+
+
+let user: {
+    id: string;
+    image: string | null;
+    name: string;
+  }|null=null;
+
+if(session?.user?.id){
+  user = {
+    id:session!.user!.id,
+    name:session!.user!.name!,
+    image:session!.user!.image!
+  }
+}
+
+
+//comments
+const comments = await db
+  .select({
+    content: commentsTable.content,
+    userName: userTable.name,
+    userId: userTable.id,
+    createdAt: commentsTable.createdAt,
+    userImage: userTable.image,
+  })
+  .from(commentsTable)
+  .innerJoin(userTable, eq(commentsTable.userId, userTable.id))
+  .where(eq(commentsTable.blogId, blog.id));
 ---
 
 <Layout>
@@ -124,44 +141,42 @@ if (session?.user?.id) {
         <article class="min-w-full text-justify text-gray-400 leading-7" set:html={blog.content} />
         <hr class="border-gray-700 w-full -mx-20" />
         <div class="flex gap-8 items-center mr-auto">
-          <span class="text-center"
-            ><Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked?"text-red-700":""}`}/>{likeCount ?? 0}</span
+          <button class="text-center" id="likeButton" data-blogid={blog.id}>
+            <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
+            <span class="text-white">{likeCount ?? 0}</span>
+            </button
           >
           <span class="text-center"
             ><Icon name="mdi:eye" size={20} class:list={'inline-block mr-2'} />{viewCount ?? 0}</span
           >
         </div>
 
-        <form method="post">
-          <input type="text" name="comment" />
-          <p class="mb-2">Post a comment</p>
-          <div class="flex">
-            <input type="text" name="comment" />
-            <button class="btn btn-primary">Post</button>
-          </div>
-        </form>
-        {
-          comments.map((comment) => (
-            <div class="w-full items-start justify-center gap-4">
-              <a href={`profile/${comment.userId}`}>
-                <div class="w-10 rounded-full">
-                  <img alt={comment.name} src={comment.userImage} />
-                </div>
-              </a>
-              <div class="">
-                <a href={`/profile/${comment.userId}`}>{comment.name}</a>
-                <time class="text-xs">
-                  {new Intl.DateTimeFormat('en-US', {
-                    dateStyle: 'short',
-                    timeStyle: 'short',
-                  }).format(new Date(comment.createdAt))}
-                </time>
-              </div>
-              <div class="">{comment.content}</div>
-            </div>
-          ))
-        }
+        <Comments blogId={blog.id.toString()} comments={comments} client:visible user={user}/>
       </div>
     </div>
   </main>
 </Layout>
+
+<style>
+  .liked {
+    @apply text-red-700;
+  }
+</style>
+
+<script>
+  import { actions } from 'astro:actions';
+
+  const likeButton = document.querySelector<HTMLButtonElement>('#likeButton');
+  likeButton?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const { data, error } = await actions.likeBlog({ blogId: likeButton.dataset.blogid! });
+
+    if (data) {
+      if (data.liked) {
+        likeButton.classList.add('liked');
+      } else {
+        likeButton.classList.remove('liked');
+      }
+    }
+  });
+</script>
