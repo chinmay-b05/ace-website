@@ -23,7 +23,6 @@
     "@libsql/client": "^0.10.0",
     "astro": "4.15.4",
     "astro-icon": "^1.1.1",
-    "astro-tabs": "^0.1.8",
     "auth-astro": "^4.1.2",
     "cloudinary": "^2.4.0",
     "drizzle-orm": "^0.33.0",
@@ -32,6 +31,7 @@
     "react": "^19.0.0-rc-f2df5694-20240916",
     "react-dom": "^19.0.0-rc-f2df5694-20240916",
     "react-quill": "^2.0.0",
+    "sharp": "^0.33.5",
     "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4"
   },

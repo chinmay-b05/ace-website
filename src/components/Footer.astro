@@ -41,24 +41,29 @@ import { Icon } from 'astro-icon/components';
 </footer>
 
 <div class="torch relative w-full h-fit hidden md:block mb-4">
-  <img src="/images/aceweb2.png" alt="ACE" class="object-center torch-img w-full md:w-auto mx-auto object-fill" />
+  <img src="/images/aceweb2.png" alt="ACE" class="object-center torch-img w-full md:w-auto mx-auto object-fill pointer-events-none" />
 </div>
 
 <style>
   .torch {
     --x: 0%;
     --y: 0%;
-    --radius: 10%;
+    --radius: 100px;
     --mask-color: rgba(255, 0, 0, 0.045);
     mask-image: radial-gradient(circle at 0 0, rgba(19, 21, 26, 0.95) 0, var(--mask-color) 20%);
     mask-size: cover;
   }
   .torch:hover {
     mask-image: radial-gradient(
-      circle at calc(var(--x) + var(--radius)) calc(var(--y) + (var(--radius) / 2)),
-      rgba(19, 21, 26, 0.95) var(--radius),
-      var(--mask-color) 20%
+      circle at var(--x) var(--y),
+      rgba(192, 131, 0, 0.95) var(--radius),
+      var(--mask-color)  calc(var(--radius) + var(--radius) / 2)
     );
+    /* mask-image: radial-gradient(
+      circle at calc(var(--x)) calc(var(--y)),
+      rgba(19, 21, 26, 0.95) var(--radius),
+      var(--mask-color) var(--radius)
+    ); */
     cursor: url('/images/torch.png'), auto;
   }
   .torch img {
