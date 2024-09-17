@@ -3,6 +3,7 @@ import GalleryHero from '@components/GalleryHero.astro';
 import Layout from '@layouts/Layout.astro';
 import { getImages } from '../lib/cloudinary';
 import type { ResourceApiResponse } from 'cloudinary';
+import { Image } from 'astro:assets';
 
 let imagesDetails: ResourceApiResponse | null = null;
 
