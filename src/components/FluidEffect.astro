@@ -11,7 +11,7 @@
   }
 </style>
 <script lang="js">
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     initFluid();
   });
 
@@ -977,15 +977,6 @@
       clickSplat(pointer);
     });
 
-    // $('body').one('mousemove', (e) => {
-    //   let pointer = pointers[0];
-    //   let posX = scaleByPixelRatio(e.clientX);
-    //   let posY = scaleByPixelRatio(e.clientY);
-    //   let color = generateColor();
-    //   update();
-    //   updatePointerMoveData(pointer, posX, posY, color);
-    // });
-
     document.body.addEventListener(
       'mousemove',
       function (e) {
@@ -1098,7 +1089,7 @@
     }
 
     function generateColor() {
-      let c = HSVtoRGB(.5, 1, .5);
+      let c = HSVtoRGB(0.5, 1, 0.8);
       c.r *= 0.15;
       c.g *= 0.15;
       c.b *= 0.15;

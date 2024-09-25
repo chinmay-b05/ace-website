@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './DialogBox.css';
 import CreateTeam from './events/CreateTeam';
 import { useStore } from '@nanostores/react';
-import { isCreatingTeam, isJoiningTeam, setIsCreatingTeam, setIsJoiningTeam } from '../dialogStore';
+import { isCreatingTeam, isJoiningTeam, setIsCreatingTeam, setIsJoiningTeam, dialogClose } from '../dialogStore';
 import JoinTeam from './events/JoinTeam';
 import CopyBtn from './CopyBtn';
 import { toast } from 'sonner';
@@ -12,6 +12,8 @@ interface DialogBoxProps {
   email: string | null | undefined;
   id: string | null | undefined;
   name: string | null | undefined;
+  maxTeamSize: number;
+  eventName: string;
 }
 
 interface TeamDetails {
@@ -35,7 +37,7 @@ interface TeamDetails {
   }>;
 }
 
-const EventDialogBox = ({ email, id, name, eventId }: DialogBoxProps) => {
+const EventDialogBox = ({ email, id, name, eventId, maxTeamSize, eventName }: DialogBoxProps) => {
   const $isCreatingTeam = useStore(isCreatingTeam);
   const $isJoiningTeam = useStore(isJoiningTeam);
   // const $teamData = useStore(teamData);
@@ -43,8 +45,6 @@ const EventDialogBox = ({ email, id, name, eventId }: DialogBoxProps) => {
 
   const fetchTeamData = async () => {
     try {
-      console.log('Bruj');
-
       const response = await fetch('/api/userInATeam', {
         method: 'POST',
         headers: {
@@ -55,7 +55,6 @@ const EventDialogBox = ({ email, id, name, eventId }: DialogBoxProps) => {
           eventId: eventId,
         }),
       });
-      console.log('Heyooooooooooooooo');
 
       if (!response.ok) {
         toast.error('Failed to fetch team data');
@@ -86,27 +85,50 @@ const EventDialogBox = ({ email, id, name, eventId }: DialogBoxProps) => {
             eventId: eventId,
           }),
         });
-        console.log('Heyooooooooooooooo');
-        if (!response.ok) {
-          console.log('Reach !response.ok');
 
+        if (!response.ok) {
           toast.error('Failed to fetch team data');
           throw new Error('Failed to fetch team data');
         }
 
-        console.log(response);
-
         const result: TeamDetails = await response.json();
-        console.log('Result', result);
 
         setTeamData(result);
       } catch (err) {
         toast.error(String(err));
-        console.log('Error', err);
       }
     };
     fetchTeamData();
   }, []);
+
+  const handleJoinSoloEvent = async (): Promise<void> => {
+    try {
+      const response = await fetch('/api/userJoinSoloEvent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          eventId: eventId,
+          userId: id,
+        }),
+      });
+      if (!response.ok) {
+        toast.error('Failed to join solo event');
+      }
+
+      const result = await response.json();
+      if (result.error) {
+        toast.error(result.error);
+      } else {
+        toast.success('registered successfully');
+      }
+
+      void fetchTeamData();
+    } catch (err) {
+      toast.error(String(err));
+    }
+  };
 
   const handleRemoveFromTeam = async (userId: string): Promise<void> => {
     try {
@@ -122,6 +144,13 @@ const EventDialogBox = ({ email, id, name, eventId }: DialogBoxProps) => {
       });
       if (!response.ok) {
         toast.error('Failed to remove user from team');
+      }
+
+      const result = await response.json();
+      if (result.error) {
+        toast.error(result.error);
+      } else {
+        toast.success(result.message);
       }
       void fetchTeamData();
     } catch (err) {
@@ -144,6 +173,13 @@ const EventDialogBox = ({ email, id, name, eventId }: DialogBoxProps) => {
         });
         if (!response.ok) {
           toast.error('Failed to leave team');
+        }
+
+        const result = await response.json();
+        if (result.error) {
+          toast.error(result.error);
+        } else {
+          toast.success(result.message);
         }
         setTeamData(null);
       } catch (err) {
@@ -177,9 +213,26 @@ const EventDialogBox = ({ email, id, name, eventId }: DialogBoxProps) => {
 
   return (
     <div className="dialog-container w-full h-full">
-      {!teamData && (
+      {!teamData && maxTeamSize === 1 && (
         <div className="flex flex-col gap-4">
-          <h1 className="text-lg font-bold"> Create | Join Team</h1>
+          <h1 className="text-lg font-bold"> {eventName}</h1>
+          <p className="text-sm text-gray-300">Are you sure you want to register?</p>
+          <button className="card-button mx-auto w-[40%]" onClick={handleJoinSoloEvent}>
+            Yes
+          </button>
+          <button
+            className="card-button mx-auto w-[40%]"
+            onClick={() => {
+              dialogClose();
+            }}
+          >
+            No
+          </button>
+        </div>
+      )}
+      {!teamData && maxTeamSize > 1 && (
+        <div className="flex flex-col gap-4">
+          <h1 className="text-lg font-bold"> {eventName}</h1>
 
           {!$isCreatingTeam && !$isJoiningTeam && (
             <div className="flex flex-col gap-4">
@@ -229,7 +282,22 @@ const EventDialogBox = ({ email, id, name, eventId }: DialogBoxProps) => {
         </div>
       )}
 
-      {teamData && (
+      {teamData && maxTeamSize === 1 && teamData.isConfirmed && (
+        <div className="flex flex-col gap-4">
+          <h1 className="text-lg font-bold"> {eventName}</h1>
+          <p className="text-sm text-gray-300">You have already registered for this event</p>
+          <button
+            className="card-button mx-auto w-[40%]"
+            onClick={() => {
+              dialogClose();
+            }}
+          >
+            Close
+          </button>
+        </div>
+      )}
+
+      {teamData && maxTeamSize > 1 && (
         <>
           <div className="flex items-center justify-between mb-2">
             <p className="font-bold text-2xl capitalize">{teamData?.teamName}</p>

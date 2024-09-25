@@ -6,15 +6,17 @@ interface Props {
   venue: string;
   id: number;
   state: string;
+  maxTeamSize: number;
+  className?: string;
 }
-const {eventName,category,date,venue,id,state}=Astro.props;
+const {eventName,category,date,venue,id,state,maxTeamSize,className}=Astro.props;
 
 
 
 ---
 
 
-<div class="card max-w-[300px] w-[300px] h-[410px] rounded-xl relative bg-[#1b1b1b]">
+<div class={`card max-w-[300px] w-[300px] h-[410px] rounded-xl relative bg-[#1b1b1b] ${className}`}>
   <div class="card-image w-full h-[50%] max-h-[50%] overflow-hidden">
     <img 
     class="h-full object-center w-full object-fill"
@@ -33,7 +35,8 @@ const {eventName,category,date,venue,id,state}=Astro.props;
       <span class="product-title truncate text-lg pt-2">{eventName}</span>
       <p class="feature-sub-title text-sm font-bold">Type</p>
       <span class="feature-desc">{category}</span>
-      <p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">SOLO</p>
+      {maxTeamSize==1 && (<p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">SOLO</p>)}
+      {maxTeamSize>1 && (<p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">TEAM</p>)}
     </div>
     <div class="right-info">
       <ul class="features-list">
@@ -51,14 +54,9 @@ const {eventName,category,date,venue,id,state}=Astro.props;
   <div class="add-to-cart-btn">
     <button class=" mr-9">View Event</button>
   </div>
-</div>
+</a>
 
 <style>
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-
   .card {
     overflow: hidden;
   }
@@ -127,7 +125,7 @@ const {eventName,category,date,venue,id,state}=Astro.props;
 
   .card .card-info .right-info::before {
     position: absolute;
-    content: "";
+    content: '';
     width: 2px;
     height: calc(100% - 20px);
     background: rgb(6, 100, 252);
@@ -179,14 +177,7 @@ const {eventName,category,date,venue,id,state}=Astro.props;
   .add-to-cart-btn button {
     border: none;
     font-size: 10px;
-    background: linear-gradient(
-      45deg,
-      transparent,
-      rgb(6, 100, 252) 40%,
-      rgb(6, 100, 252),
-      #b0d1ff 60%,
-      transparent
-    );
+    background: linear-gradient(45deg, transparent, rgb(6, 100, 252) 40%, rgb(6, 100, 252), #b0d1ff 60%, transparent);
     padding: 6px 10px;
     color: #fff;
     font-weight: bold;
@@ -211,7 +202,7 @@ const {eventName,category,date,venue,id,state}=Astro.props;
 
   .card::before {
     position: absolute;
-    content: "";
+    content: '';
     height: 90px;
     width: 90px;
     border-radius: 50%;

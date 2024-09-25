@@ -73,7 +73,7 @@ import { Icon } from 'astro-icon/components';
 </style>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const torchDiv = document.querySelector<HTMLDivElement>('.torch');
     torchDiv?.addEventListener('mousemove', (e) => {
       const xPercentage = Math.round((e.offsetX / torchDiv.getBoundingClientRect().width) * 100);

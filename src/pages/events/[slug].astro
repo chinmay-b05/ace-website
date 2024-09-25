@@ -14,6 +14,8 @@ const {name,email,id} = Astro.locals;
 
 
 
+
+
 ---
 
 <Layout>
@@ -67,13 +69,14 @@ const {name,email,id} = Astro.locals;
 
         <DialogBoxSkeleton client:load>
 
-         <DialogBox email={email} name={name} id={id} eventId={parseInt(slug!)} client:load />
+         <DialogBox email={email} name={name} id={id} eventId={parseInt(slug!)} maxTeamSize={event.maxTeamSize} eventName={event.name} client:load />
         </DialogBoxSkeleton>
        
        
         
 
-        <div class="organizer card">
+       {event.organisers.length >0 && (
+         <div class="organizer card">
           <p class="text-2xl font-dirtyline">Organiser details</p>
           <ul>
             {event.organisers.map((organizer) => (
@@ -83,6 +86,7 @@ const {name,email,id} = Astro.locals;
             ))}
           </ul>
         </div>
+       )}
       </div>
     </div>
   </section>

@@ -79,7 +79,7 @@ const cards = [
 </style>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollTrigger);
     const start1X = -250;
     const end1X = -10;
@@ -177,12 +177,14 @@ const cards = [
       Array.from(texts).forEach((text) => {
         gsap.from(text, {
           y: '100%',
-          opacity: 0.2,
+          opacity: 0.3,
+          duration:0.5,
           ease: 'power4.inOut',
           scrollTrigger: {
-            scrub: 0.3,
+            scrub: 0.1,
             trigger: text,
-            end: 'center center',
+            start: 'top bottom',
+            end: 'top center',
             toggleActions: 'play none none none',
           },
         });

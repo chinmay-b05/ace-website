@@ -39,13 +39,13 @@ export const POST: APIRoute = async ({ request }) => {
       .execute();
 
     if (team.length === 0) {
-      return new Response(JSON.stringify({ error: 'Team not found' }), { status: 404 });
+      return new Response(JSON.stringify({ error: 'Team not found' }), { status: 200 });
     }
 
     const teamDetails = team[0];
 
     if (teamDetails.isConfirmed) {
-      return new Response(JSON.stringify({ error: 'You cannot leave this team anymore' }), { status: 403 });
+      return new Response(JSON.stringify({ error: 'You cannot leave this team anymore' }), { status: 200 });
     }
 
     await db

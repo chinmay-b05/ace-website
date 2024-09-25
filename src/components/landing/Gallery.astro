@@ -48,7 +48,7 @@
 </style>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     let targets = gsap.utils.toArray('.image-row');
     gsap.fromTo(
       targets,

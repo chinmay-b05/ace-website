@@ -21,7 +21,6 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
-    <ViewTransitions />
     <script
       src="https://unpkg.com/htmx.org@2.0.2"
       integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
@@ -72,9 +71,9 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 
   window.gsapContext = ctx;
 
-  document.addEventListener('astro:before-swap', () => {
-    if (ctx != null) {
-      ctx.revert();
-    }
-  });
+  // document.addEventListener('DOMContentLoaded', () => {
+  //   if (ctx != null) {
+  //     ctx.revert();
+  //   }
+  // });
 </script>

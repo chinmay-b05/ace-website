@@ -28,7 +28,11 @@ const CreateTeam: FunctionComponent<CreateTeamProps> = ({ eventId, onTeamCreate,
   //   const createTeam = api.team.createTeam.useMutation();
 
   const handleCreateTeam = async () => {
-    toast.loading('Creating Team');
+    if (!teamName) {
+      toast.error('Please enter a team name');
+      return;
+    }
+
     const response = await fetch('/api/createTeam', {
       method: 'POST',
       body: JSON.stringify({
@@ -53,7 +57,7 @@ const CreateTeam: FunctionComponent<CreateTeamProps> = ({ eventId, onTeamCreate,
       if (res.error) {
         toast.error(res.error);
       } else {
-        toast.success(res.message);
+        toast.success('Team created successfully');
       }
     }
   };
@@ -72,27 +76,21 @@ const CreateTeam: FunctionComponent<CreateTeamProps> = ({ eventId, onTeamCreate,
 
   return (
     <div className="mt-4">
-      <form onSubmit={handleCreateTeam}>
-        <input
-          placeholder="Enter Team Name"
-          id="teamName"
-          className="teamName card-attributes text-black"
-          value={teamName}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTeamName(e.target.value)}
-        />
-        <div className="flex justify-between">
-          <button onClick={onGoBack} className="card-button mt-4 text-xs" style={{ padding: '0.1rem 0.5rem' }}>
-            Go Back
-          </button>
-          <button
-            className="card-button mt-4 text-xs"
-            style={{ padding: '0.1rem 0.5rem' }}
-            type="submit" /*disabled={isPending}*/
-          >
-            Create
-          </button>
-        </div>
-      </form>
+      <input
+        placeholder="Enter Team Name"
+        id="teamName"
+        className="teamName card-attributes text-black"
+        value={teamName}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTeamName(e.target.value)}
+      />
+      <div className="flex justify-between">
+        <button onClick={onGoBack} className="card-button mt-4 text-xs" style={{ padding: '0.1rem 0.5rem' }}>
+          Go Back
+        </button>
+        <button className="card-button mt-4 text-xs" style={{ padding: '0.1rem 0.5rem' }} onClick={handleCreateTeam}>
+          Create
+        </button>
+      </div>
     </div>
   );
 };

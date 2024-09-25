@@ -25,16 +25,16 @@ export const POST: APIRoute = async ({ request }) => {
       .execute();
 
     if (!team || team.length === 0) {
-      return new Response(JSON.stringify({ message: 'Team not found' }), { status: 404 });
+      return new Response(JSON.stringify({ error: 'Team not found' }), { status: 200 });
     }
 
     const { isConfirmed } = team[0];
     if (isConfirmed) {
       return new Response(
         JSON.stringify({
-          message: 'You cannot leave this team anymore!',
+          error: 'You cannot leave this team anymore!',
         }),
-        { status: 403 },
+        { status: 200 },
       );
     }
 
@@ -46,6 +46,6 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ message: 'User removed from team successfully' }), { status: 200 });
   } catch (error) {
     console.error('Error:', error);
-    return new Response(JSON.stringify({ message: 'Internal server error' }), { status: 500 });
+    return new Response(JSON.stringify({ message: 'Internal server error' }), { status: 200 });
   }
 };

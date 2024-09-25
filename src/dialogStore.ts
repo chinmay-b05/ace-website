@@ -21,6 +21,24 @@ export type TeamDetails = {
   }>;
 };
 
+export interface Event {
+  id: number;
+  name: string;
+  image: string;
+  deadline?: string | null;
+  fromDate: string;
+  toDate: string;
+  description: string;
+  venue: string;
+  minTeamSize: number;
+  maxTeamSize: number;
+  maxTeams?: number | null;
+  state: 'DRAFT' | 'PUBLISHED' | 'LIVE' | 'COMPLETED';
+  category: 'WORKSHOP' | 'HACKATHON' | 'COMPETITION' | 'SPECIAL';
+  amount: number;
+  createdAt: string;
+}
+
 export const isDialogOpen = atom(false);
 export const isCreatingTeam = atom(false);
 export const isJoiningTeam = atom(false);
@@ -42,6 +60,8 @@ export const setIsJoiningTeam = (state: boolean) => {
 };
 
 export const teamData = atom<TeamDetails | null>(null);
+export const publishedEvents = atom<Event[]>([]);
+export const completedEvents = atom<Event[]>([]);
 
 export const setTeamData = (data: TeamDetails | null) => {
   const $teamData = teamData;

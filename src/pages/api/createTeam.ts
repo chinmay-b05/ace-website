@@ -6,7 +6,7 @@ import { and, eq, sql } from 'drizzle-orm';
 
 const createTeamZ = z.object({
   eventId: z.number(),
-  teamName: z.string(),
+  teamName: z.string().min(1),
   userId: z.string(),
 });
 

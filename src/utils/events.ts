@@ -1,15 +1,16 @@
 import { db } from '@lib/db';
 import { eventTable, organiserTable, userTable } from '@lib/db/schema';
-import { and, eq, inArray } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
 export async function getAllEventsForUser() {
   try {
-    const events = await db
-      .select()
-      .from(eventTable)
-      .where(inArray(eventTable.state, ['COMPLETED', 'PUBLISHED']));
-    console.log('Events', events);
+    const publishedEvents = await db.select().from(eventTable).where(eq(eventTable.state, 'PUBLISHED'));
+    const completedEvents = await db.select().from(eventTable).where(eq(eventTable.state, 'COMPLETED'));
 
+    const events = {
+      published: publishedEvents,
+      completed: completedEvents,
+    };
     return events;
   } catch (error) {
     console.error('Error fetching user:', error);
