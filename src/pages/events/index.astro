@@ -4,8 +4,10 @@ import Layout from '@layouts/Layout.astro';
 import { getAllEventsForUser } from 'utils/events';
 
 
+
 // Fetch all events
 const events = await getAllEventsForUser();
+
 if (!events) {
   Astro.redirect('/');
 }
