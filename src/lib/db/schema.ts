@@ -9,7 +9,6 @@ export const userTable = sqliteTable('user', {
   email: text('email').notNull().unique(),
   image: text('image'),
   year: integer('year', { mode: 'number' }),
-  password: text('password').default(sql`NULL`),
   role: text('role', { enum: ['CORE', 'MEMBER', 'ADMIN'] })
     .default('MEMBER')
     .notNull(),

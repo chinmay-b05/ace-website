@@ -1,9 +1,10 @@
 import { uploadImageToCloudinaryFromServer } from '@lib/cloudinary';
 import { db } from '@lib/db';
-import { blogTable } from '@lib/db/schema';
+import { blogTable, commentsTable, viewTable } from '@lib/db/schema';
 import { z } from 'astro/zod';
 import { ActionError, defineAction } from 'astro:actions';
-import { and, eq } from 'drizzle-orm/sqlite-core/expressions';
+import { and, eq, not } from 'drizzle-orm/sqlite-core/expressions';
+import { getSession } from 'auth-astro/server';
 
 const MAX_FILE_SIZE = 5000000; //5mb
 const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
@@ -93,12 +94,77 @@ export const editBlog = defineAction({
 });
 
 export const likeBlog = defineAction({
+  accept: 'json',
+  input: z.object({
+    blogId: z.string(),
+  }),
+  handler: async ({ blogId }, context) => {
+    const session = await getSession(context.request);
+
+    if (!session?.user?.id) {
+      throw new ActionError({
+        code: 'FORBIDDEN',
+        message: 'must be signedIn to like a blog',
+      });
+    }
+
+    const result = await db
+      .update(viewTable)
+      .set({
+        liked: not(viewTable.liked),
+      })
+      .where(and(eq(viewTable.blogId, Number(blogId)), eq(viewTable.userId, session!.user!.id)))
+      .returning({ liked: viewTable.liked });
+
+    if (!result.length) {
+      throw new ActionError({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'could not update like',
+      });
+    }
+
+    return { liked: result[0].liked };
+  },
+});
+
+
+export const commentBlog = defineAction({
   accept: 'form',
   input: z.object({
-    userId: z.string(),
+    blogId: z.string(),
+    content:z.string()
   }),
-  handler: async ({}) => {
-    console.log('edit blog');
-    return { success: true };
+  handler: async ({ blogId,content }, context) => {
+    const session = await getSession(context.request);
+
+    if (!session?.user?.id) {
+      throw new ActionError({
+        code: 'FORBIDDEN',
+        message: 'must be signedIn to like a blog',
+      });
+    }
+    
+    const comments = await db
+      .insert(commentsTable)
+      .values({
+        blogId:Number(blogId),
+        content,
+        userId:session!.user!.id!
+
+      })
+      .returning({ 
+        content: commentsTable.content,
+        createdAt: commentsTable.createdAt,
+       });
+
+       if (!comments.length) {
+        throw new ActionError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'could not add comment',
+        });
+      }
+
+    // return { liked: result[0].liked };
+    return {comment:comments[0]}
   },
 });

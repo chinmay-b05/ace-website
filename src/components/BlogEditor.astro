@@ -3,10 +3,10 @@ import Quill from '@components/Quill';
 import Layout from '@layouts/Layout.astro';
 import { db } from '@lib/db';
 import { blogTable } from '@lib/db/schema';
+import { getSession } from 'auth-astro/server';
 import { eq, and } from 'drizzle-orm/sqlite-core/expressions';
 
-const userId = 'a';
-
+const session = await getSession(Astro.request);
 interface Props {
   id: 'new' | number;
 }
@@ -25,7 +25,7 @@ if (id != 'new') {
       image: blogTable.image,
     })
     .from(blogTable)
-    .where(and(eq(blogTable.id, id), eq(blogTable.authorId, userId)));
+    .where(and(eq(blogTable.id, id), eq(blogTable.authorId, session!.user!.id!)));
 
   if (!blogs.length) return Astro.redirect('/blogs');
 
@@ -33,40 +33,88 @@ if (id != 'new') {
 }
 ---
 
-<Layout title="create recipe">
-  <form class="flex flex-col gap-4 mx-auto max-w-[500px]" enctype="multipart/form-data" id="blog-form">
-    <h3>Create Recipe</h3>
-    <label>
-      <p>title</p>
-      <input type="text" name="title" required class="w-full" value={blog?.title} />
+<Layout title="Create Recipe">
+  <form class="flex flex-col gap-4 mx-auto max-w-[500px] p-4 bg-gray-800 shadow-lg rounded-lg" enctype="multipart/form-data" id="blog-form">
+    <h3 class="text-2xl font-bold mb-4 text-white">Create Recipe</h3>
+    
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">Title</span>
+      <input type="text" name="title" required class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white" value={blog?.title} aria-label="Title" />
     </label>
 
-    <label>
-      <p>description</p>
-      <textarea name="description" class="w-full" value={blog?.title}> </textarea>
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">Description</span>
+      <textarea name="description" class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white" aria-label="Description">{blog?.description}</textarea>
     </label>
-    <label>
-      <p>description</p>
+
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">Content</span>
       <Quill client:only="react" initialValue={blog?.content} name="content" />
     </label>
 
     <label>
       <p>Image</p>
-      <input type="file" class="w-full" name="image" required/>
+      <input type="file" class="w-full" name="image" required />
     </label>
 
-    <input type="text" name="authorId" hidden value={userId} />
+    <input type="text" name="authorId" hidden value={session!.user!.id!} />
     <button class="">Submit</button>
   </form>
 </Layout>
 
 <style is:global>
-  /* markdown editor */
+  /* Global Styles */
   .ql-container {
     @apply min-h-40;
+    background: #2d2d2d;
+    color: #ffffff;
   }
 
-  input {
-    color: black;
+  input, textarea {
+    color: white;
+  }
+
+  /* Improved Styles */
+  form {
+    background: #1f2937;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    margin-bottom: 1rem;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #4b5563;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #374151;
+  }
+
+  button {
+    margin-top: 1rem;
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 640px) {
+    form {
+      padding: 1rem;
+    }
+
+    input, textarea {
+      font-size: 0.875rem;
+    }
+
+    button {
+      font-size: 0.875rem;
+    }
   }
 </style>
