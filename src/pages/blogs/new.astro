@@ -1,24 +1,35 @@
-<!-- ---
-import BlogEditor from "@components/BlogEditor.astro";
-import Layout from "@layouts/Layout.astro";
+---
+import BlogEditor from '@components/BlogEditor.astro';
+import Layout from '@layouts/Layout.astro';
+import { getSession } from 'auth-astro/server';
+
+const session = await getSession(Astro.request);
+
+if (!session?.user) {
+  return Astro.redirect('/');
+}
 ---
 
 <Layout>
+  <div class="mt-20">
     <BlogEditor id="new" />
+  </div>
 </Layout>
 
 <script>
-    import { navigate } from "astro:transitions/client";
-    import {actions} from 'astro:actions';
-    const form = document.querySelector("#blog-form") as HTMLFormElement;
-    form.addEventListener("submit",async (e) => {
-        e.preventDefault();
-        actions
-        const formData = new FormData(e.target as HTMLFormElement);
-        const { data, error } = await actions.createBlog(formData);
-        
-        if(data?.blogId){
-            navigate(`/blogs/${data.blogId}`);
-        }
-      })
-</script> -->
+  import { actions } from 'astro:actions';
+  import { navigate } from 'astro:transitions/client';
+  
+  const form = document.querySelector('#blog-form') as HTMLFormElement;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const { data, error } = await actions.createBlog(formData);
+
+    console.log(error);
+
+    if (data?.blogId) {
+      navigate(`/blogs/${data.blogId}`);
+    }
+  });
+</script>

@@ -2,6 +2,8 @@
 const {slug} = Astro.params;
 import DialogBoxSkeleton from '@components/DialogBoxSkeleton';
 import Layout from '@layouts/Layout.astro';
+import sample from '../../assets/images/sample.png'
+import { Image } from 'astro:assets'
 import DialogBox from '@components/EventDialogBox';
 import { getEventById } from 'utils/events';
 
@@ -23,7 +25,7 @@ const {name,email,id} = Astro.locals;
     <h1 class="title text-6xl text-center mb-4 font-dirtyline">{event.name}</h1>
     <div class="container mx-auto">
       <div class="poster card">
-        <img src="/images/sample.png" alt="Event Poster" class="poster-img" />
+        <Image src={sample} alt="Event Poster" class="poster-img" />
       </div>
 
       <div class="description">
@@ -61,7 +63,7 @@ const {name,email,id} = Astro.locals;
 
          {event.state === "COMPLETED" && (
            <>
-      <div class="register-button card text-2xl font-dirtyline">COMPLETED</div>:
+      <div class="register-button card text-2xl font-dirtyline">COMPLETED</div>
       
            </>
          )}

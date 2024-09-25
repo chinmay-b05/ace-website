@@ -1,31 +1,41 @@
 ---
+import { Image } from "astro:assets";
+
 const cards = [
   {
     title: 'Workshop',
     content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: '/images/sample.png',
+    image: 'sample',
   },
   {
     title: 'jsddsg',
     content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: '/images/sample.png',
+    image: 'sample',
   },
   {
     title: 'jsddsg',
     content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: '/images/sample.png',
+    image: 'sample',
   },
   {
     title: 'jsddsg',
     content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: '/images/sample.png',
+    image: 'sample',
   },
   {
     title: 'jsddsg',
     content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: '/images/sample.png',
+    image: 'sample',
   },
 ];
+const images: { [index: string]: ImageMetadata } = {};
+await Astro.glob('/src/assets/images/sample.png').then((files) => {
+  files.forEach((file) => {
+    const name = file.default.src.split('.')[0].split('/').pop();
+    images[name] = file.default;
+  });
+});
+
 ---
 
 <section class="benifits-section content-container event-section h-fit mb-16 overflow-hidden">
@@ -39,8 +49,8 @@ const cards = [
     {
       cards.map((card) => (
         <div class="benifit-row flex flex-col md:flex-row items-center justify-between flex-wrap gap-4">
-          <img
-            src={card.image}
+          <Image
+            src={images[card.image]}
             alt={card.title}
             class="benifit-card interactable max-w-[600px] object-cover object-center"
             data-type="link"

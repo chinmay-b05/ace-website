@@ -1,16 +1,19 @@
 ---
+import { Image } from 'astro:assets';
 import { getSession } from 'auth-astro/server';
+import closeIcon from '@assets/icons/close.svg';
+import menuIcon from '@assets/icons/menu.svg';
 const session = await getSession(Astro.request);
 ---
 
 <header class="header" transition:persist>
   <div class="content-container">
-    <a href="/"><img src="/images/logo.png" alt="ACE" class="h-16 w-auto z-10" /></a>
+    <a href="/"><Image src="/images/logo.png" alt="ACE" class="h-16 w-auto" width={64} height={64} /></a>
 
     <input type="checkbox" id="check" />
     <label for="check" class="menu">
-      <img src="images/icons8-menu.svg" alt="menu" id="open-menu" class="h-8 w-6" />
-      <img src="images/close.svg" alt="close" id="close-menu" class="h-8 w-6" />
+      <Image src={closeIcon} alt="menu" id="open-menu" class="h-8 w-6" width={32} height={24} />
+      <Image src={menuIcon} alt="close" id="close-menu" class="h-8 w-6" width={32} height={24} />
     </label>
     <nav class="flex gap-10 navbar items-center md:justify-between whitespace-nowrap">
       <a href="/" class="nav-link">home</a>
@@ -169,10 +172,9 @@ const session = await getSession(Astro.request);
 
 <script>
   const { signIn, signOut } = await import('auth-astro/client');
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector<HTMLButtonElement>('#login')?.addEventListener('click', () => {
-      signIn('google');
-    });
-    document.querySelector<HTMLButtonElement>('#logout')?.addEventListener('click', async () => await signOut());
+  document.querySelector<HTMLButtonElement>('#login')?.addEventListener('click', () => {
+    console.log('login');
+    signIn('google');
   });
+  document.querySelector<HTMLButtonElement>('#logout')?.addEventListener('click', async () => await signOut());
 </script>
