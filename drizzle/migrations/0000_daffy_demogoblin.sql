@@ -88,6 +88,7 @@ CREATE TABLE `user` (
 CREATE TABLE `user_team` (
 	`user_id` text NOT NULL,
 	`team_id` integer NOT NULL,
+	`team_leader` integer DEFAULT false,
 	PRIMARY KEY(`user_id`, `team_id`),
 	FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`team_id`) REFERENCES `team`(`id`) ON UPDATE no action ON DELETE no action

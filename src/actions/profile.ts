@@ -7,16 +7,17 @@ import { eq } from 'drizzle-orm';
 export const editProfile = defineAction({
   accept: 'form',
   input: z.object({
+    id: z.string(),
     name: z.string(),
     email: z.string(),
   }),
-  handler: async ({ name, email }) => {
+  handler: async ({ id,name, email }) => {
     const userProfile = await db
       .update(userTable)
       .set({
         name: name,
         email: email,
-      }).where(eq(userTable.email ,email ))
+      }).where(eq(userTable.id ,id ))
       .returning({ id: userTable.id });
 
     if (!userProfile.length) {

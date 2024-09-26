@@ -1,38 +1,49 @@
 ---
+import { getSession } from 'auth-astro/server';
 import Layout from '../../layouts/Layout.astro';
+import { getUser } from 'utils/getUser';
 
+// const user = {
+//   name: "Ameesha",
+//   usn: "NNM22CS000",
+//   branch: "---------",
+//   socialLinks: {
+//     linkedin: "https://linkedin.com",
+//     github: "https://github.com",
+//     twitter: "https://twitter.com",
+//   },
+// };
 
-const user = {
-  name: "Ameesha",
-  usn: "NNM22CS000",
-  branch: "---------",
-  socialLinks: {
-    linkedin: "https://linkedin.com",
-    github: "https://github.com",
-    twitter: "https://twitter.com",
-  },
-};
+const session = await getSession(Astro.request);
+const user = await getUser(session?.user?.id as string);
+console.log( user)
+console.log( session);
+
 ---
 
 <Layout>
   <section class="profile-container">
     <!-- Profile Header -->
     <div class="profile-header">
-      <div class="profile-pic">
+      <div class=`profile-pic`>
+        <img src={user?.image} alt="Hello"  class="w-[100%] m-auto">
         <!-- Profile picture placeholder -->
       </div>
       <div class="profile-info">
-        <h1>{user.name}</h1>
-        <p>USN: {user.usn}</p>
-        <p>Branch: {user.branch}</p>
+        <h1>{user?.name}</h1>
+        <p>Email: {user?.email}</p>
+        <p><div class="border-1 border-black" >{user?.role}</div></p>
       </div>
       <div class="profile-actions">
-        <button class="edit-btn">Edit</button>
+        <button class="edit-btn">
+          <a href="edit">Edit</a>
+          
+        </button>
         <!-- Social Links -->
         <div class="social-links">
-          <a href={user.socialLinks.linkedin} target="_blank" class="social-icon linkedin"></a>
-          <a href={user.socialLinks.github} target="_blank" class="social-icon github"></a>
-          <a href={user.socialLinks.twitter} target="_blank" class="social-icon twitter"></a>
+          <a href={"This is a link"} target="_blank" class="social-icon linkedin"></a>
+          <a href={"This is a link"} target="_blank" class="social-icon github"></a>
+          <a href={"This is a link"} target="_blank" class="social-icon twitter"></a>
         </div>
       </div>
     </div>
@@ -41,10 +52,11 @@ const user = {
     <div class="profile-content">
       <div class="blogs">Blogs Posted</div>
       <div class="events">Event Card</div>
-     
+
     </div>
   </section>
 </Layout>
+
 
 <style>
   .profile-container {

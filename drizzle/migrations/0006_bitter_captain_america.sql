@@ -1,1 +1,0 @@
-ALTER TABLE `user_team` ADD `team_leader` integer DEFAULT false;

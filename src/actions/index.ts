@@ -7,7 +7,7 @@ export const server = {
   editBlog,
   editProfile,
   likeBlog,
-  commentBlog
+  commentBlog,
   createTeam,
   // getAllEventsForUser,
 };
