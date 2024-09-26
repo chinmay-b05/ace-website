@@ -187,12 +187,14 @@ await Astro.glob('/src/assets/images/sample.png').then((files) => {
       Array.from(texts).forEach((text) => {
         gsap.from(text, {
           y: '100%',
-          opacity: 0.2,
+          opacity: 0.3,
+          duration:0.5,
           ease: 'power4.inOut',
           scrollTrigger: {
-            scrub: 0.3,
+            scrub: 0.1,
             trigger: text,
-            end: 'center center',
+            start: 'top bottom',
+            end: 'top center',
             toggleActions: 'play none none none',
           },
         });

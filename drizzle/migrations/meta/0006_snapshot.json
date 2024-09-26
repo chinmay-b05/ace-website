@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "829f352a-417f-4fcb-a4b2-35c22cca973e",
-  "prevId": "20db8cc1-25c6-4443-9047-981067c71713",
+  "id": "d69db38d-a75b-45ad-af51-0d619017dff2",
+  "prevId": "3ccf0dc3-0b5c-4c58-b90c-340b90a1562c",
   "tables": {
     "account": {
       "name": "account",
@@ -557,14 +557,6 @@
           "notNull": false,
           "autoincrement": false
         },
-        "password": {
-          "name": "password",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "NULL"
-        },
         "role": {
           "name": "role",
           "type": "text",
@@ -625,6 +617,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "team_leader": {
+          "name": "team_leader",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
         }
       },
       "indexes": {},

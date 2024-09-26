@@ -12,6 +12,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   if (session?.user) {
     locals.name = session.user.name;
     locals.email = session.user.email;
+    locals.id = session.user.id;
 
     const encryptedRole = cookies.get('userRole')?.value;
     let userRole;

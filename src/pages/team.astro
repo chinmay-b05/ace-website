@@ -329,6 +329,7 @@ images['sample'] = sample;
 
     function updatePanel(tabName: string) {
       panels.forEach((panel) => {
+        //@ts-ignore
         if (panel.dataset.tabname === tabName) {
           panel.classList.add('show-panel');
         } else {
@@ -337,7 +338,7 @@ images['sample'] = sample;
       });
     }
 
-    radioButtons.forEach((radio) => {
+    radioButtons.forEach((radio:any) => {
       radio.addEventListener('change', () => {
         if (radio.checked) {
           updatePanel(radio.value);
