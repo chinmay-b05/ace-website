@@ -112,7 +112,7 @@ const session = await getSession(Astro.request);
       display: inline-flex;
     }
 
-    #check:checked ~ .menu #open-menu {
+    #check:checked ~ .menu #close-menu {
       display: none;
     }
 
@@ -120,11 +120,11 @@ const session = await getSession(Astro.request);
       display: block;
     }
 
-    #check:checked ~ .menu #close-menu {
+    #check:checked ~ .menu #open-menu {
       display: block;
     }
 
-    .menu #close-menu {
+    .menu #open-menu {
       display: none;
     }
 

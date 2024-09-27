@@ -9,14 +9,23 @@ export const editProfile = defineAction({
   input: z.object({
     name: z.string(),
     email: z.string(),
+    instagram: z.string().optional(),
+    github: z.string().optional(),
+    linkedIn: z.string().optional(),
   }),
-  handler: async ({ name, email }) => {
+  handler: async ({ name, email, instagram, github, linkedIn }) => {
+    console.log(name, email, github);
+
     const userProfile = await db
       .update(userTable)
       .set({
-        name: name,
-        email: email,
-      }).where(eq(userTable.email,email ))
+        name,
+        email,
+        instagram,
+        linkedIn,
+        github,
+      })
+      .where(eq(userTable.email, email))
       .returning({ id: userTable.id });
 
     if (!userProfile.length) {

@@ -2,6 +2,7 @@
 import { getSession } from 'auth-astro/server';
 import Layout from '../../layouts/Layout.astro';
 import { getUser } from 'utils/getUser';
+import { Icon } from 'astro-icon/components';
 
 // const user = {
 //   name: "Ameesha",
@@ -29,22 +30,27 @@ console.log( session);
         <img src={user?.image} alt="Hello"  class="w-[100%] m-auto">
         <!-- Profile picture placeholder -->
       </div>
-      <div class="profile-info">
+      <div class="profile-info justify-start">
         <h1>{user?.name}</h1>
         <p>Email: {user?.email}</p>
-        <p><div class="border-1 border-black" >{user?.role}</div></p>
+        <p class="border-1">{user?.role}</p>
+          <!-- Social Links -->
+      <div class="flex gap-2 items-center">
+         {user?.linkedIn && (  <a href={`${user.linkedIn}`} target="_blank" class="social-icon linkedin "><Icon size={25} name="mdi:linkedin"/></a>)}
+         {user?.github && ( <a href={`${user?.github}`} target="_blank" class="social-icon github"><Icon size={25} name="mdi:github"/></a>)}
+         {user?.instagram && (<a href={`${user?.instagram}`} target="_blank" class="social-icon instagram"><Icon size={25} name="mdi:instagram"/></a>)}
       </div>
-      <div class="profile-actions">
-        <button class="edit-btn">
-          <a href="edit">Edit</a>
+        
+      </div>
+      <div class="profile-actions flex flex-col justify-center items-center">
+      
+          <a href="edit" class="w-full">
+            <button class="edit-btn w-full h-full">Edit</button>
+          </a>
           
-        </button>
-        <!-- Social Links -->
-        <div class="social-links">
-          <a href={"This is a link"} target="_blank" class="social-icon linkedin"></a>
-          <a href={"This is a link"} target="_blank" class="social-icon github"></a>
-          <a href={"This is a link"} target="_blank" class="social-icon twitter"></a>
-        </div>
+    
+       
+       
       </div>
     </div>
 
@@ -128,15 +134,7 @@ console.log( session);
     gap: 10px;
   }
 
-  .social-icon {
-    width: 30px;
-    height: 30px;
-    background-size: cover;
-  }
 
-  .linkedin { background-image: url('/icons/linkedin.png'); }
-  .github { background-image: url('/icons/github.png'); }
-  .twitter { background-image: url('/icons/twitter.png'); }
 
   /* Responsive Design for Mobile */
   @media (max-width: 768px) {
