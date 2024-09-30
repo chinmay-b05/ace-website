@@ -14,11 +14,17 @@ try {
 }
 ---
 
-<Layout>
+<Layout title="ACE">
   <main>
-    <GalleryHero />
-    <br>
-    <br>
+    <div class="md:hidden mt-32 flex flex-col gap-8 items-center">
+      <h1 class="fade-up uppercase text-6xl mx-auto max-w-screen-lg font-dirtyline">Gallery</h1>
+      <p class="fade-up text-gray-200 font-syne-variable">Opening the memory window..</p>
+    </div>
+    <div class="hidden md:block">
+      <GalleryHero />
+    </div>
+    <br />
+    <br />
     <section class="content-container masonry-grid w-full h-fit">
       {
         imagesDetails ? (
