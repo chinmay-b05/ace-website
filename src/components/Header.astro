@@ -20,9 +20,11 @@ const user = await getUser(session?.user?.id as string);
     <nav class="flex gap-10 navbar items-center md:justify-between whitespace-nowrap">
       <a href="/" class="nav-link">home</a>
       <a href="/events" class="nav-link">events</a>
+      <a href="/blogs" class="nav-link">blogs</a>
       <a href="/team" class="nav-link">Team</a>
       <a href="/gallery" class="nav-link">gallery</a>
       <a href="/developers" class="nav-link">dev-team</a>
+      
       {
         session ? (
           <div class="relative cursor-pointer profile-container" tabindex="0">
