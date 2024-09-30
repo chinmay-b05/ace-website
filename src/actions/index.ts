@@ -1,4 +1,5 @@
 import { commentBlog, createBlog, editBlog, likeBlog } from './blog';
+import { createTeam } from './teams';
 import { editProfile } from './profile';
 
 export const server = {
@@ -6,5 +7,6 @@ export const server = {
   editBlog,
   editProfile,
   likeBlog,
-  commentBlog
+  commentBlog,
+  createTeam,
 };

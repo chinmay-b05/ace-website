@@ -1,8 +1,8 @@
 ---
 import { getSession } from 'auth-astro/server';
-import Layout from '../layouts/Layout.astro';
+import Layout from '@layouts/Layout.astro';
 import { getUser } from 'utils/getUser';
-import '../styles/global.css';
+import '../../../styles/global.css';
 
 const session = await getSession(Astro.request);
 const user = await getUser(session?.user?.id as string);
@@ -11,40 +11,61 @@ console.log( session);
 ---
 
 <Layout>
-  <section class="user-forms">
-    <h2 class="text-center text-4xl mb-8">User Actions</h2>
+  <section class="user-forms h-[90vh] flex justify-center w-full flex-col items-center px-2 overflow-hidden">
+  
 
     <!-- Edit User Form -->
-    <form id="editUserForm" class="form-container mt-8">
-      <h3>Edit User Info</h3>
-      <label for="id">User ID:</label>
-      <input type="text" id="id" name="id" value={session?.user?.id} required />
-
+       <h3 class="text-3xl font-semibold mb-4">Edit User Info</h3>
+      <form id="editUserForm" class="form-container mt-8 w-full">
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" value={session?.user?.name} required />
 
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" value={session?.user?.email} required />
 
-      <button type="submit">Edit User</button>
+      <label for="github">Github:</label>
+      <input type="text" id="github" name="github" value={user?.github}  />
+
+      <label for="linkedIn">LinkedIn:</label>
+      <input type="text" id="linkedIn" name="linkedIn" value={user?.linkedIn}  />
+
+      <label for="instagram">Instagram:</label>
+      <input type="text" id="instagram" name="instagram" value={user?.instagram}  />
+
+      <button type="submit" id="submit-btn">Edit User</button>
     </form>
+    
   </section>
 </Layout>
 
 <script>
   import { actions } from 'astro:actions';
+import { toast } from 'sonner';
   document.addEventListener('DOMContentLoaded', function () {
+     const submitButton = document.getElementById('submit-btn');
     const editUserForm = document.getElementById('editUserForm');
 
     async function handleEditUser(event: SubmitEvent) {
-      event.preventDefault();
+
+      event.preventDefault();      
       const formData = new FormData(editUserForm as HTMLFormElement);
+       (submitButton as HTMLButtonElement).disabled = true;
+      if (submitButton) {
+        submitButton.textContent = 'Loading...';
+      }
+     
       const { data, error } = await actions.editProfile(formData);
+         (submitButton as HTMLButtonElement).disabled = false;
+     if (submitButton) {
+        submitButton.textContent = 'Edit User';
+      }
 
       if (error) {
-        console.error('Error updating user:', error);
+        console.error(error);
+        
+        toast.error("Failed to update!");
       } else {
-        console.log('Updated user data:', data);
+        toast.success("Updated successfully");
       }
     }
     editUserForm?.addEventListener('submit', handleEditUser);

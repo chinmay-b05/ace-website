@@ -1,4 +1,5 @@
 import { relations, sql } from 'drizzle-orm';
+import { uuid } from 'drizzle-orm/pg-core';
 import { text, integer, sqliteTable, primaryKey } from 'drizzle-orm/sqlite-core';
 
 export const userTable = sqliteTable('user', {
@@ -17,6 +18,9 @@ export const userTable = sqliteTable('user', {
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   photo: text('photo'),
+  linkedIn: text('linkedIn'),
+  github: text('github'),
+  instagram: text('instagram'),
 });
 
 export const accounts = sqliteTable(
@@ -91,6 +95,7 @@ export const userTeamTable = sqliteTable(
     teamId: integer('team_id')
       .references(() => teamTable.id)
       .notNull(),
+    teamLeader: integer('team_leader', { mode: 'boolean' }).default(false),
   },
   (table) => {
     return {
@@ -195,7 +200,7 @@ export const viewTable = sqliteTable(
   },
 );
 
-//RELATIONS
+// //RELATIONS
 
 export const userTableRelations = relations(userTable, ({ one, many }) => ({
   teams: many(userTeamTable),
@@ -290,108 +295,3 @@ export const winnerTableRelations = relations(winnerTable, ({ one }) => ({
     references: [eventTable.id],
   }),
 }));
-
-// model Certificate {
-//     id              String @id @default (cuid())
-//     issuedOn        DateTime
-//     certificateType WINNER RUNNER_UP SECOND_RUNNER_UP PARTICIPATION
-
-//     eventId Int
-//     Event   Event @relation(fields: [eventId], references: [id])
-
-//     userId Int
-//     User   User @relation(fields: [userId], references: [id])
-
-//     createdAt DateTime @default (now())
-//     updatedAt DateTime @updatedAt
-
-//     @@unique([eventId, userId])
-//     @@index([userId, eventId])
-// }
-
-//   model Payment {
-//     id          String @id @default (cuid())
-//     paymentName String
-//     amount      Int
-
-//     verified    Boolean @default (false)
-//     paymentType MEMBERSHIP EVENT
-
-//     razorpayOrderId   String
-//     razorpayPaymentId String
-//     razorpaySignature String
-
-//     User User ?
-//         Team Team ?
-
-//             createdAt DateTime @default (now())
-//     updatedAt DateTime @updatedAt
-// }
-
-// import { column, defineDb, defineTable, NOW } from 'astro:db';
-
-// const User = defineTable({
-//   columns: {
-//     id: column.text({ primaryKey: true }),  //autoicrement
-//     name: column.text(),
-//     email: column.text(),
-//     image: column.text(),
-//     role: column.text(),  //default enum
-//     createdAt: column.date({ default: NOW })
-//   }
-// })
-
-// const Event = defineTable({
-//   columns: {
-//     id: column.text({ primaryKey: true }),  //autoicrement
-//     name: column.text(),
-//     email: column.text(),
-//     image: column.text(),
-//     deadline: column.date(),
-//     fromDate: column.date(),
-//     toDate: column.date(),
-//     description: column.text(),
-//     venue: column.text(),
-//     minTeamSize: column.number({ default: 1 ,}),
-//     maxTeamSize: column.number({ default: 1 }),
-//     maxTeams: column.number({ optional: true }),
-//     state:column.text({default:"DRAFT"}), //enum
-//     type: column.text(),  //enum
-//     amount: column.number({ default: 0 }),
-//     // state            EventState @default (DRAFT)
-//     // isLegacy         Boolean @default (false)
-//     createdAt: column.date({ default: NOW })
-//   }
-// })
-
-// const Team = defineTable({
-//   columns: {
-//     id: column.text({ primaryKey: true }),  //autoicrement
-//     name: column.text(),
-//     isConfirmed: column.boolean({ default: false }),
-//     hasAttended: column.boolean({ default: false }),
-//     createdAt: column.date({ default: NOW }),
-
-//     eventId: column.text(),
-//   },
-//   foreignKeys: [
-//     {
-//       columns: ["eventId"],
-//       references: () => [Event.columns.id],
-//     },
-//   ],
-// })
-
-// const Organiser = defineTable({
-//   columns: {
-//     id: column.text({ primaryKey: true }),  //autoicrement
-//     userId:column.text(),
-//     eventId: column.text(),
-//   },
-//   foreignKeys: [
-//     {
-//       columns: ["eventId"],
-//       references: () => [Event.columns.id],
-//     },
-//   ],
-// })

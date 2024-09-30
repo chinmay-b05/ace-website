@@ -1,19 +1,3 @@
-CREATE TABLE `account` (
-	`userId` text NOT NULL,
-	`type` text NOT NULL,
-	`provider` text NOT NULL,
-	`providerAccountId` text NOT NULL,
-	`refresh_token` text,
-	`access_token` text,
-	`expires_at` integer,
-	`token_type` text,
-	`scope` text,
-	`id_token` text,
-	`session_state` text,
-	PRIMARY KEY(`provider`, `providerAccountId`),
-	FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade
-);
---> statement-breakpoint
 CREATE TABLE `blog` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`title` text NOT NULL,
@@ -73,21 +57,10 @@ CREATE TABLE `team` (
 	FOREIGN KEY (`event_id`) REFERENCES `event`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
-CREATE TABLE `user` (
-	`id` text PRIMARY KEY NOT NULL,
-	`name` text NOT NULL,
-	`email` text NOT NULL,
-	`image` text,
-	`year` integer,
-	`role` text DEFAULT 'MEMBER' NOT NULL,
-	`emailVerified` integer,
-	`joined_on` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`photo` text
-);
---> statement-breakpoint
 CREATE TABLE `user_team` (
 	`user_id` text NOT NULL,
 	`team_id` integer NOT NULL,
+	`team_leader` integer DEFAULT false,
 	PRIMARY KEY(`user_id`, `team_id`),
 	FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`team_id`) REFERENCES `team`(`id`) ON UPDATE no action ON DELETE no action
@@ -110,5 +83,3 @@ CREATE TABLE `winner` (
 	FOREIGN KEY (`event_id`) REFERENCES `event`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`team_id`) REFERENCES `team`(`id`) ON UPDATE no action ON DELETE no action
 );
---> statement-breakpoint
-CREATE UNIQUE INDEX `user_email_unique` ON `user` (`email`);

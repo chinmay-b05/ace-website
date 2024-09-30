@@ -1,54 +1,128 @@
 ---
+import { getSession } from 'auth-astro/server';
 import Layout from '../../layouts/Layout.astro';
-import '../styles/global.css';
+import { getUser } from 'utils/getUser';
+import { Icon } from 'astro-icon/components';
+import { getAllEventsForProfile } from "utils/events"
+import { getAllBlogsForProfile } from 'utils/blogs';
+import EventCard from '@components/EventCard.astro';
+import BlogCard from '@components/BlogCard.astro';
 
-const user = {
-  name: "Ameesha",
-  usn: "NNM22CS000",
-  branch: "---------",
-  socialLinks: {
-    linkedin: "https://linkedin.com",
-    github: "https://github.com",
-    twitter: "https://twitter.com",
-  },
-};
+const session = await getSession(Astro.request);
+const user = await getUser(session?.user?.id as string);
+
+
+if(!session || !user ) Astro.redirect('/');
+const events = await getAllEventsForProfile(session?.user?.id!);
+const blogs= await getAllBlogsForProfile(session?.user?.id!);
+console.log(blogs);
+
+const tabNames=["events","blogs"];
+
 ---
 
 <Layout>
   <section class="profile-container">
     <!-- Profile Header -->
     <div class="profile-header">
-      <div class="profile-pic">
+      <div class=`profile-pic`>
+        <img src={user?.image} alt="Hello"  class="w-[100%] m-auto">
         <!-- Profile picture placeholder -->
       </div>
-      <div class="profile-info">
-        <h1>{user.name}</h1>
-        <p>USN: {user.usn}</p>
-        <p>Branch: {user.branch}</p>
+      <div class="profile-info justify-start">
+        <h1>{user?.name}</h1>
+        <p>Email: {user?.email}</p>
+        <p class="border-1">{user?.role}</p>
+          <!-- Social Links -->
+      <div class="flex gap-2 items-center">
+         {user?.linkedIn && (  <a href={`${user.linkedIn}`} target="_blank" class="social-icon linkedin "><Icon size={25} name="mdi:linkedin"/></a>)}
+         {user?.github && ( <a href={`${user?.github}`} target="_blank" class="social-icon github"><Icon size={25} name="mdi:github"/></a>)}
+         {user?.instagram && (<a href={`${user?.instagram}`} target="_blank" class="social-icon instagram"><Icon size={25} name="mdi:instagram"/></a>)}
       </div>
-      <div class="profile-actions">
-        <button class="edit-btn">Edit</button>
-        <!-- Social Links -->
-        <div class="social-links">
-          <a href={user.socialLinks.linkedin} target="_blank" class="social-icon linkedin"></a>
-          <a href={user.socialLinks.github} target="_blank" class="social-icon github"></a>
-          <a href={user.socialLinks.twitter} target="_blank" class="social-icon twitter"></a>
-        </div>
+        
+      </div>
+      <div class="profile-actions flex flex-col justify-center items-center">
+          <a href="edit" class="w-full">
+            <button class="edit-btn w-full h-full">Edit</button>
+          </a>
       </div>
     </div>
 
     <!-- Profile Content -->
-    <div class="profile-content">
-      <div class="blogs">Blogs Posted</div>
-      <div class="events">Event Card</div>
-      <div class="certificates">Certificates</div>
+        <section class="tabs content-container">
+      <ul>
+      {tabNames.map((tabName) => {
+        const displayString = tabName === "events" ? "Your Events" : "Your Blogs";
+        return (
+          <li>
+            <input
+              class="input"
+              name="tabs"
+              type="radio"
+              id={`tab-${tabName}`}
+              value={tabName}
+              checked={tabName === "events"}
+            />
+            <label class="label" for={`tab-${tabName}`}>
+              {displayString}
+            </label>
+          </li>
+        );
+      })}
+    </ul>
+     <div class="panel-container w-full">
+   
+        <div class="panel  flex items-center" data-tabName="events">
+           <button id="scrollLeft" class="scroll-button rounded-xl" > back </button>
+<div class=" panel events-panel flex gap-8 overflow-x-auto whitespace-nowrap p-8" id="events" data-tabName="events">
+      
+      {events?.length ? (events.map((event)=> (
+       <div class="card m-0">
+        <a href={`/events/${event.id}`}> <EventCard 
+              eventName={event.name}
+              category={event.category}
+              date={event.fromDate}
+              venue={event.venue}
+              id={event.id}
+              state={event.state}
+              maxTeamSize={event.maxTeamSize} 
+            /></a>
+       </div>      
+      ))):(<p>No events found</p>)}
+       
+     </div>
+      <button id="scrollRight" class="scroll-button" >Next</button>
+        </div>
+   
+     <div class="panel flex items-center" data-tabName="blogs">
+        <button id="scrollLeftB" class="scroll-button rounded-xl" > back </button>
+<div class="panel blogs-panel overflow-x-auto flex gap-8 whitespace-nowrap p-8" id="blogs" data-tabName="blogs">
+       
+          {blogs?.length ? (
+            blogs.map(blog => (
+             <div class="blog-card">
+               <BlogCard 
+                blog={blog}
+              />
+             </div>
+            ))
+          ) : (
+            <p>No blogs found.</p>
+          )}
+        </div>
+           <button id="scrollRightB" class="scroll-button" >Next</button>
+     </div>
+     
     </div>
+     </section>
+
   </section>
 </Layout>
 
+
 <style>
   .profile-container {
-    padding: 20px;
+    padding: 5rem;
     background-color: #0000; /* Transparent background */
     display: flex;
     flex-direction: column;
@@ -116,15 +190,7 @@ const user = {
     gap: 10px;
   }
 
-  .social-icon {
-    width: 30px;
-    height: 30px;
-    background-size: cover;
-  }
 
-  .linkedin { background-image: url('/icons/linkedin.png'); }
-  .github { background-image: url('/icons/github.png'); }
-  .twitter { background-image: url('/icons/twitter.png'); }
 
   /* Responsive Design for Mobile */
   @media (max-width: 768px) {
@@ -158,10 +224,10 @@ const user = {
 
   .profile-content {
     display: flex;
-    flex-direction: column;
+   
     align-items: center;
     padding: 20px;
-    gap: 20px;
+    gap: 2rem;
     width: 100%;
     max-width: 900px;
   }
@@ -199,4 +265,188 @@ const user = {
     transform: scale(1.1);
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.87);
   }
+/* Tab Content */
+.panel-container {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+/* Horizontal Scrolling */
+.tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.tabs ul{
+  margin: 3rem 0 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 8rem;
+  list-style-type: none;
+}
+
+.tabs ul li label {
+  display: block;
+  padding: 10px 15px;
+  text-align: center;
+  cursor: pointer;
+  color: rgb(233, 227, 227);
+  font-size: 18px;
+  background: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s, font-weight 0s;
+}
+.tabs ul li label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #00f, rgb(46, 144, 235));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+  border-radius: 0 0 5px 5px;
+}
+
+.tabs ul li input[type="radio"]:checked + label{
+  font-weight: 700;
+}
+
+.tabs ul li input[type="radio"]:not(:checked) + label:hover::after {
+  transform: scaleX(1);
+}
+
+.tabs ul li input[type="radio"]:checked + label:hover::after{
+  transform: none;
+} 
+
+.tabs ul li input[type="radio"]:checked + label::after {
+  transform: scaleX(1);
+}
+
+.tabs input[type="radio"]{
+  display: none;
+}
+.profile-info h1 {
+  font-size: 2rem;
+}
+
+.panel-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.panel {
+  display: none;
+}
+
+
+
+.show-panel {
+  display: flex;
+}
+
+.card {
+  flex-shrink: 0;
+  
+}
+
+.blog-card{
+  flex-shrink: 0;
+  max-width: 450px;
+}
+
+.scroll-button {
+  background-color: #007bff; /* Bootstrap primary color or any color of your choice */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin: 0 10px; /* Space around buttons */
+  border-radius: 20px; /* Optional: Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.scroll-button:hover {
+  background-color: #0056b3; /* Darker shade for hover effect */
+}
+
+.events-panel::-webkit-scrollbar {
+  display: none;
+}
+
+.blogs-panel::-webkit-scrollbar {
+  display: none;
+}
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+      const radioButtons = document.querySelectorAll('input[name="tabs"]');
+      const panels = document.querySelectorAll('.panel');
+    
+
+      function updatePanel(tabName:any) {
+      panels.forEach((panel) => {
+        //@ts-ignore
+        if (panel.dataset.tabname === tabName) {
+          panel.classList.add('show-panel');
+        } else {
+          panel.classList.remove('show-panel');
+        }
+      });
+    }
+
+     const checkedRadio = document.querySelector('input[name="tabs"]:checked');
+    if (checkedRadio) {
+      //@ts-ignore
+      updatePanel(checkedRadio.value);
+    }
+
+    radioButtons.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        //@ts-ignore
+        if (radio.checked) {
+          //@ts-ignore
+          updatePanel(radio.value);
+        }
+      });
+    });
+
+    const scrollAmount = 350; // Amount to scroll each click (adjust as necessary)
+
+document.getElementById('scrollLeft')?.addEventListener('click', function () {
+  const eventsPanel = document.getElementById('events');
+  eventsPanel?.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+});
+
+document.getElementById('scrollRight')?.addEventListener('click', function () {
+  const eventsPanel = document.getElementById('events');
+  eventsPanel?.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+});
+
+document.getElementById('scrollLeftB')?.addEventListener('click', function () {
+  const eventsPanel = document.getElementById('blogs');
+  eventsPanel?.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+});
+
+document.getElementById('scrollRightB')?.addEventListener('click', function () {
+  const eventsPanel = document.getElementById('blogs');
+  eventsPanel?.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+});
+});
+</script>

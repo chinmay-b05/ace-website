@@ -2,54 +2,59 @@
 import { Image } from 'astro:assets';
 import sample from '../assets/images/sample.png'
 interface Props {
+  eventName: string;
+  category: string;
+  date: string;
+  venue: string;
   id: number;
-    image: string;
-    name: string;
-    description: string;
-    fromDate: string;
-    toDate: string;
-    venue: string;
-    maxTeamSize: number;
-    state: string;
-    category: string;
+  state: string;
+  maxTeamSize: number;
+  className?: string;
 }
+const {eventName,category,date,venue,id,state,maxTeamSize,className}=Astro.props;
 
-const event = Astro.props;
+
+
 ---
 
-<a href="/events/1">
-  <div class="card max-w-[300px] w-[300px] h-[410px] rounded-xl relative bg-[#1b1b1b]">
-    <div class="card-image w-full h-[50%] max-h-[50%] overflow-hidden">
-      <Image class="h-full object-center w-full object-fill" src={sample} alt=""/>
-    </div>
 
-    <div class="card-price-tag">
-      <span class="price-value">view event</span>
+<div class={`card max-w-[300px] w-[300px] h-[410px] rounded-xl relative bg-[#1b1b1b] ${className}`}>
+  <div class="card-image w-full h-[50%] max-h-[50%] overflow-hidden">
+    <img 
+    class="h-full object-center w-full object-fill"
+    src="/src/assets/images/sample.png"
+/>
+  </div>
+   
+ 
+    {state==="PUBLISHED" && ( <div class="card-price-tag"> <span class="price-value">Register</span></div>) }
+    {state==="COMPLETED" && ( <div class="card-price-tag"><span class="price-value">View</span></div>) }
+   
+  
+ 
+  <div class="card-info">
+    <div class="left-info">
+      <span class="product-title truncate text-lg pt-2">{eventName}</span>
+      <p class="feature-sub-title text-sm font-bold">Type</p>
+      <span class="feature-desc">{category}</span>
+      {maxTeamSize==1 && (<p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">SOLO</p>)}
+      {maxTeamSize>1 && (<p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">TEAM</p>)}
     </div>
-
-    <div class="card-info">
-      <div class="left-info">
-        <span class="product-title truncate text-lg pt-2">{event.name}</span>
-        <p class="feature-sub-title text-sm font-bold">Type</p>
-        <span class="feature-desc">Technical</span>
-        <p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">SOLO</p>
-      </div>
-      <div class="right-info">
-        <ul class="features-list">
-          <li class="list-item text-xs">
-            <p class="feature-sub-title pt-1">Date</p>
-            <span class="feature-desc">{event.fromDate}</span>
-          </li>
-          <li class="list-item">
-            <p class="feature-sub-title">Venue</p>
-            <span class="feature-desc">{event.venue}</span>
-          </li>
-        </ul>
-      </div>
+    <div class="right-info">
+      <ul class="features-list">
+        <li class="list-item text-xs">
+          <p class="feature-sub-title pt-1">Date</p>
+          <span class="feature-desc">{date}</span>
+        </li>
+        <li class="list-item">
+          <p class="feature-sub-title">Venue</p>
+          <span class="feature-desc">{venue}</span>
+        </li>
+      </ul>
     </div>
-    <div class="add-to-cart-btn">
-      <button class="mr-9"> <a href="">View Event</a></button>
-    </div>
+  </div>
+  <div class="add-to-cart-btn">
+    <button class=" mr-9">View Event</button>
   </div>
 </a>
 

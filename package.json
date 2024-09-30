@@ -17,21 +17,25 @@
   "dependencies": {
     "@astrojs/check": "^0.9.3",
     "@astrojs/react": "^3.6.2",
-    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/tailwind": "^5.1.1",
     "@astrojs/vercel": "7.8.1",
     "@auth/drizzle-adapter": "^1.4.2",
     "@libsql/client": "^0.10.0",
-    "astro": "4.15.4",
+    "@nanostores/react": "^0.7.3",
+    "astro": "^4.15.9",
     "astro-icon": "^1.1.1",
     "auth-astro": "^4.1.2",
     "cloudinary": "^2.4.0",
     "drizzle-orm": "^0.33.0",
     "gsap": "^3.12.5",
+    "nanostores": "^0.11.3",
     "parallax-js": "^3.1.0",
-    "react": "^19.0.0-rc-f2df5694-20240916",
-    "react-dom": "^19.0.0-rc-f2df5694-20240916",
     "react-quill": "^2.0.0",
+<<<<<<< HEAD
     "sharp": "^0.33.5",
+=======
+    "sonner": "^1.5.0",
+>>>>>>> b45517a1677e6713bfad2028dbd3a4ac598789c0
     "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4"
   },

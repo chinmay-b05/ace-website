@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "f8f93ba5-7d25-4374-a222-11e033214251",
-  "prevId": "9b8d0ef4-6c92-4d2a-8aa6-c1191dda0542",
+  "id": "8b6d7e54-e9c6-44da-bdb4-5029763cd3f5",
+  "prevId": "9afaece9-00e9-4324-9d4d-62d2043d7c85",
   "tables": {
     "account": {
       "name": "account",
@@ -587,8 +587,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "instagram": {
-          "name": "instagram",
+        "linkedIn": {
+          "name": "linkedIn",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -601,8 +601,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "linkedIn": {
-          "name": "linkedIn",
+        "instagram": {
+          "name": "instagram",
           "type": "text",
           "primaryKey": false,
           "notNull": false,

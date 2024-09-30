@@ -25,28 +25,38 @@ export const createBlog = defineAction({
     authorId: z.string(),
   }),
   handler: async ({ title, description, content, image, authorId }) => {
-    const response = await uploadImageToCloudinaryFromServer(image as File, {});
+    try {
+      console.log('SUOP');
 
-    const blogs = await db
-      .insert(blogTable)
-      .values({
-        title,
-        description,
-        content,
-        image: response?.secure_url,
-        authorId,
-      })
-      .returning({ id: blogTable.id });
+      const response = await uploadImageToCloudinaryFromServer(image as File, {});
+      console.log(response);
 
-    if (!blogs.length) {
-      throw new ActionError({
-        code: 'INTERNAL_SERVER_ERROR',
-        message: 'could not create blog',
-      });
+      const blogs = await db
+        .insert(blogTable)
+        .values({
+          title,
+          description,
+          content,
+          image: response?.secure_url,
+          authorId,
+        })
+        .returning({ id: blogTable.id });
+
+      if (!blogs.length) {
+        throw new ActionError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'could not create blog',
+        });
+      }
+
+      console.log(blogs);
+
+      return {
+        blogId: blogs[0].id,
+      };
+    } catch (error) {
+      console.error(error);
     }
-    return {
-      blogId: blogs[0].id,
-    };
   },
 });
 
@@ -100,6 +110,7 @@ export const likeBlog = defineAction({
   }),
   handler: async ({ blogId }, context) => {
     const session = await getSession(context.request);
+    console.log('Session', session);
 
     if (!session?.user?.id) {
       throw new ActionError({
@@ -127,14 +138,13 @@ export const likeBlog = defineAction({
   },
 });
 
-
 export const commentBlog = defineAction({
   accept: 'form',
   input: z.object({
     blogId: z.string(),
-    content:z.string()
+    content: z.string(),
   }),
-  handler: async ({ blogId,content }, context) => {
+  handler: async ({ blogId, content }, context) => {
     const session = await getSession(context.request);
 
     if (!session?.user?.id) {
@@ -143,28 +153,27 @@ export const commentBlog = defineAction({
         message: 'must be signedIn to like a blog',
       });
     }
-    
+
     const comments = await db
       .insert(commentsTable)
       .values({
-        blogId:Number(blogId),
+        blogId: Number(blogId),
         content,
-        userId:session!.user!.id!
-
+        userId: session!.user!.id!,
       })
-      .returning({ 
+      .returning({
         content: commentsTable.content,
         createdAt: commentsTable.createdAt,
-       });
+      });
 
-       if (!comments.length) {
-        throw new ActionError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: 'could not add comment',
-        });
-      }
+    if (!comments.length) {
+      throw new ActionError({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'could not add comment',
+      });
+    }
 
     // return { liked: result[0].liked };
-    return {comment:comments[0]}
+    return { comment: comments[0] };
   },
 });

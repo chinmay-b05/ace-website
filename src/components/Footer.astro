@@ -3,7 +3,7 @@ import { githubLink, instagramLink, linkedinLink } from '@lib/constants';
 import { Icon } from 'astro-icon/components';
 ---
 
-<footer class="content-container tracking-wider pt-8 text-center md:text-left mt-20" transition:persist>
+<footer id="footer" class="content-container tracking-wider pt-8 text-center md:text-left mt-20" transition:persist>
   <hr class="my-2" />
   <div class="flex flex-col flex-wrap md:flex-row md:flex-nowrap md:items-center lg:items-start py-2 mx-4 md:mx-14">
     <div class="m-6 flex flex-grow md:mt-0 md:pl-20">
@@ -36,7 +36,7 @@ import { Icon } from 'astro-icon/components';
     <p class="px-2 md:px-5 py-2 md:py-5 text-center md:text-start">
       ACE © {new Date().getFullYear()}
     </p>
-    <img src="/images/top-button.svg" alt="top" class="w-12 md:w-auto mx-auto md:mx-0" />
+    <img src="/images/top-button.svg" alt="top" class="w-12 md:w-auto mx-auto md:mx-0 scrollTop cursor-pointer" />
   </div>
 </footer>
 
@@ -109,6 +109,9 @@ import { Icon } from 'astro-icon/components';
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector(".scrollTop")?.addEventListener("click",()=>{
+      window.scrollTo({top:0,behavior:"smooth"});
+    })
     const torchDiv = document.querySelector<HTMLDivElement>('.torch');
     torchDiv?.addEventListener('mousemove', (e) => {
       const xPercentage = Math.round((e.offsetX / torchDiv.getBoundingClientRect().width) * 100);
