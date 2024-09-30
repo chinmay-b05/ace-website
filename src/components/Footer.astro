@@ -59,11 +59,6 @@ import { Icon } from 'astro-icon/components';
       rgba(192, 131, 0, 0.95) var(--radius),
       var(--mask-color)  calc(var(--radius) + var(--radius) / 2)
     );
-    /* mask-image: radial-gradient(
-      circle at calc(var(--x)) calc(var(--y)),
-      rgba(19, 21, 26, 0.95) var(--radius),
-      var(--mask-color) var(--radius)
-    ); */
     cursor: url('/images/torch.png'), auto;
   }
   .torch img {
@@ -84,13 +79,6 @@ import { Icon } from 'astro-icon/components';
     .md:pl-20 {
       padding-left: 1rem;
     }
-    .content-container {
-      padding-top: 4rem;
-    }
-    .torch img {
-      width: 100%;
-    }
-
     /* Center social links */
     .social-links {
       align-items: center;
@@ -100,9 +88,6 @@ import { Icon } from 'astro-icon/components';
   @media (max-width: 480px) {
     .text-white {
       font-size: 0.85rem;
-    }
-    .torch {
-      display: none; /* Hide the torch effect for small screens */
     }
   }
 </style>
