@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "9b8d0ef4-6c92-4d2a-8aa6-c1191dda0542",
+  "id": "1e830a0e-d097-490b-880d-73c0ad3e32d1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -582,6 +582,27 @@
         },
         "photo": {
           "name": "photo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "linkedIn": {
+          "name": "linkedIn",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "github": {
+          "name": "github",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "instagram": {
+          "name": "instagram",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
