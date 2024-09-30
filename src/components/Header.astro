@@ -3,7 +3,9 @@ import { Image } from 'astro:assets';
 import { getSession } from 'auth-astro/server';
 import closeIcon from '@assets/icons/close.svg';
 import menuIcon from '@assets/icons/menu.svg';
+import { getUser } from 'utils/getUser';
 const session = await getSession(Astro.request);
+const user = await getUser(session?.user?.id as string);
 ---
 
 <header class="header" transition:persist>
@@ -24,7 +26,7 @@ const session = await getSession(Astro.request);
       {
         session ? (
           <div class="relative cursor-pointer profile-container" tabindex="0">
-            <img src={session.user?.image} alt={session.user?.name} class="rounded-full w-8 aspect-square" />
+            <img src={user?.image} alt={session.user?.name} class="rounded-full w-8 aspect-square" />
             <div class="profile-dropdown flex flex-col gap-2 absolute p-4 rounded-md">
               <a href={`/profiles/${session.user?.id}`}>View Profile</a>
               <button id="logout">Logout</button>
