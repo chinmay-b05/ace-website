@@ -1,5 +1,5 @@
 import { db } from '@lib/db';
-import { eventTable, organiserTable, userTable } from '@lib/db/schema';
+import { eventTable, organiserTable, teamTable, userTable, userTeamTable } from '@lib/db/schema';
 import { and, eq } from 'drizzle-orm';
 
 export async function getAllEventsForUser() {
@@ -74,3 +74,27 @@ export async function getEventById(id: number) {
     throw new Error('Error fetching event');
   }
 }
+
+export const getAllEventsForProfile = async (id: string) => {
+  try {
+    if (!id) {
+      console.error('NO ID');
+      return;
+    }
+
+    const eventsData = await db
+      .select({
+        event: eventTable,
+      })
+      .from(userTeamTable)
+      .innerJoin(teamTable, eq(teamTable.id, userTeamTable.teamId))
+      .innerJoin(eventTable, eq(eventTable.id, teamTable.eventId))
+      .where(eq(userTeamTable.userId, id));
+
+    const events = eventsData.map((item) => item.event);
+    console.log('Events', events);
+    return events;
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -1,4 +1,5 @@
 import { relations, sql } from 'drizzle-orm';
+import { uuid } from 'drizzle-orm/pg-core';
 import { text, integer, sqliteTable, primaryKey } from 'drizzle-orm/sqlite-core';
 
 export const userTable = sqliteTable('user', {
@@ -17,6 +18,9 @@ export const userTable = sqliteTable('user', {
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   photo: text('photo'),
+  linkedIn: text('linkedIn'),
+  github: text('github'),
+  instagram: text('instagram'),
 });
 
 export const accounts = sqliteTable(
@@ -196,7 +200,7 @@ export const viewTable = sqliteTable(
   },
 );
 
-//RELATIONS
+// //RELATIONS
 
 export const userTableRelations = relations(userTable, ({ one, many }) => ({
   teams: many(userTeamTable),

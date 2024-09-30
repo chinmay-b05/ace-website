@@ -6,6 +6,7 @@ import sample from '../../assets/images/sample.png'
 import { Image } from 'astro:assets'
 import DialogBox from '@components/EventDialogBox';
 import { getEventById } from 'utils/events';
+import Events from '@components/landing/Events.astro';
 
 const event = await getEventById(parseInt(slug!));
 if(!event){
@@ -77,18 +78,18 @@ const {name,email,id} = Astro.locals;
        
         
 
-       {event.organisers.length >0 && (
+      
          <div class="organizer card">
           <p class="text-2xl font-dirtyline">Organiser details</p>
           <ul>
-            {event.organisers.map((organizer) => (
+            {event.organisers? event.organisers.map((organizer) => (
               <li>
                 <p>{organizer.name}</p>
               </li>
-            ))}
+            )): (<p>Team Ace</p>)}
           </ul>
         </div>
-       )}
+       
       </div>
     </div>
   </section>
