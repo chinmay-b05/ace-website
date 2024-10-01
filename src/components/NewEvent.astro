@@ -1,0 +1,218 @@
+---
+import Layout from '@layouts/Layout.astro';
+---
+
+<Layout title="Create Event">
+  <form
+    class="flex flex-col gap-4 mx-auto max-w-[500px] p-4 bg-gray-800 shadow-lg rounded-lg"
+    enctype="multipart/form-data"
+    id="new-event-form"
+  >
+    <h3 class="text-2xl font-bold mb-4 text-white">Create Event</h3>
+
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">Event Name</span>
+      <input
+        type="text"
+        name="name"
+        required
+        class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        aria-label="Event name"
+      />
+    </label>
+
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">Decsription</span>
+      <textarea
+        name="description"
+        class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        aria-label="Description"></textarea>
+    </label>
+
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">Category</span>
+      <span class="flex items-center gap-1">
+        <input
+        type="radio"
+        name="category"
+        required
+        class=" p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        value="WORKSHOP"
+        aria-label="category"
+        />
+        Workshop
+      </span>
+      <span class="flex items-center gap-1">
+        <input
+        type="radio"
+        name="category"
+        required
+        class=" p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        value="HACKATHON"
+        aria-label="category"
+        />
+        Hackathon
+      </span>
+      <span class="flex items-center gap-1">
+        <input
+        type="radio"
+        name="category"
+        required
+        class=" p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        value="COMPETITION"
+        aria-label="category"
+        />
+        Competition
+      </span>
+      <span class="flex items-center gap-1">
+        <input
+        type="radio"
+        name="category"
+        required
+        class=" p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        value="SPECIAL"
+        aria-label="category"
+        />
+        Special
+      </span>
+    </label>
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">State</span>
+      <span class="flex items-center gap-1">
+        <input
+        type="radio"
+        name="state"
+        required
+        class=" p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        value="DRAFT"
+        aria-label="state"
+        />
+        Draft
+      </span>
+      <span class="flex items-center gap-1">
+        <input
+        type="radio"
+        name="state"
+        required
+        class=" p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        value="PUBLISHED"
+        aria-label="state"
+        />
+        Published
+      </span>
+      <span class="flex items-center gap-1">
+        <input
+        type="radio"
+        name="state"
+        required
+        class=" p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        value="LIVE"
+        aria-label="state"
+        />
+        Live
+      </span>
+      <span class="flex items-center gap-1">
+        <input
+        type="radio"
+        name="state"
+        required
+        class=" p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        value="COMPLETED"
+        aria-label="state"
+        />
+        Completed
+      </span>
+    </label>
+
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">Deadline</span>
+      <input
+        type="date"
+        name="deadline"
+        required
+        class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        aria-label="deadline"
+      />
+    </label>
+
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">From date</span>
+      <input
+        type="date"
+        name="fromDate"
+        required
+        class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        aria-label="From Date"
+      />
+    </label>
+
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">To date</span>
+      <input
+        type="date"
+        name="toDate"
+        required
+        class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        aria-label="To date"
+      />
+    </label>
+
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">Entry Fee</span>
+      <input
+        type="number"
+        name="amount"
+        required
+        class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        aria-label="entry fee"
+      />
+    </label>
+
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">Max teams</span>
+      <input
+        type="number"
+        name="maxTeams"
+        required
+        class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        aria-label="Max teams"
+      />
+    </label>
+
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">Max team Size</span>
+      <input
+        type="number"
+        name="maxTeamSize"
+        required
+        class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        aria-label="Max team Size"
+      />
+    </label>
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">Min team Size</span>
+      <input
+        type="number"
+        name="minTeamSize"
+        required
+        class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        aria-label="Min team Size"
+      />
+    </label>
+    <label class="flex flex-col gap-2">
+      <span class="text-lg font-semibold text-gray-300">Venue</span>
+      <input
+        type="text"
+        name="venue"
+        required
+        class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        aria-label="Venue"
+      />
+    </label>
+    <label>
+      <p>Image</p>
+      <input type="file" class="w-full" name="image" required />
+    </label>
+    <button class="">Submit</button>
+  </form>
+</Layout>
