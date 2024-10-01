@@ -21,7 +21,7 @@ const { blog }: Props = Astro.props;
 <a href={`/blogs/${blog.id}`} class="block transform transition-transform duration-300 ease-out hover:scale-[1.03]">
   <article class="border blog-card border-gray-700 bg-gray-800 p-4 outline-gray-700">
     <header class="flex justify-between items-center">
-      <time class="text-gray-200">{blog.createdAt}</time>
+      <time class="text-gray-200 truncate max-w-[50%] sm:max-w-[100%]">{blog.createdAt}</time>
       <div class="flex flex-wrap items-center justify-center space-x-2">
         <div class="flex items-center justify-center">
           <span class="text-xs mr-2">{blog.authorName}</span>
