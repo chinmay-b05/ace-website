@@ -4,32 +4,32 @@ import { Image } from 'astro:assets';
 const cards = [
   {
     title: 'Workshop',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: 'sample',
+    content: 'Sharpen your skills, because nobody ever built a career with dull tools',
+    image: 'workshop',
   },
   {
-    title: 'jsddsg',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: 'sample',
+    title: 'Cultural Events',
+    content: 'Join the fun – because life’s too short for boring weekends!',
+    image: 'cultural',
   },
   {
-    title: 'jsddsg',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: 'sample',
+    title: 'Sports',
+    content: 'Where the game begins and excuses end—play hard or go home!',
+    image: 'sports',
   },
   {
-    title: 'jsddsg',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: 'sample',
+    title: 'Project Expo',
+    content: 'Innovations on display—turning ideas into wow!!!',
+    image: 'projectexpo',
   },
   {
-    title: 'jsddsg',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: 'sample',
+    title: 'Placement guidence',
+    content: 'From campus to corporate—let’s nail our dream job, one step at a time!',
+    image: 'placement',
   },
 ];
 const images: { [index: string]: ImageMetadata } = {};
-await Astro.glob('/src/assets/images/sample.png').then((files) => {
+await Astro.glob('/src/assets/images/Benifits/*.png').then((files) => {
   files.forEach((file) => {
     const name = file.default.src.split('.')[0].split('/').pop();
     images[name] = file.default;
