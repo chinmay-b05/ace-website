@@ -1,289 +1,335 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import { faculty } from '@lib/constants';
-
+import { Image } from 'astro:assets';
+import sample from '../assets/images/sample.png';
 const teamMembers = {
   2023: [
-  { name: 'Vasudha G', position: 'President', image: '/images/team/President-min.jpg' },
-  { name: 'Keerthan Samuel Jathannna', position: 'Branch Captian', image: '/images/team/ABI03955-min.jpg' },
-  { name: 'Saurabh Sunish', position: 'Vice President', image: '/images/team/ABI03875-min.jpg' },
-  { name: 'Tvisha Prakash', position: 'Branch Secretary', image: '/images/team/ABI03882-min.jpg' },
-  { name: 'Shannon Vianny Vas', position: 'Treasurer', image: '/images/team/ABI03877-min.jpg' },
-  { name: 'Lisha Anni Rodrigues', position: 'Joint Secretary', image: '/images/team/lisha-min.jpg' },
-  { name: 'Driksha Hegde', position: 'Social Event Coordinator', image: '/images/team/ABI04166-min.jpg' },
-  {name: 'Kritharth', position: 'Social Event Coordinator', image: '/images/team/ABI03894-min.jpg' },
-  { name: 'Sanjana R Shet', position: 'Cultural Secretary', image: '/images/team/ABI03900-min.jpg' },
-  { name: 'Ananya', position: 'Cultural Secretary', image: '/images/team/ABI04159-min.jpg' },
-  { name: 'Pearl Menezes', position: 'Magazine Coordinator', image: '/images/team/ABI04162-min.jpg' },
-  { name: 'Siya Shetty', position: 'Magazine Coordinator', image: '/images/team/ABI03924-min.jpg' },
-  { name: 'Gahana Shetty', position: 'Magazine Coordinator', image: '/images/team/ABI03891-min.jpg' },
-  { name: 'Carol Dcunha', position: 'Magazine Coordinator', image: '/images/team/ABI04170-min.jpg' },
-  { name: 'Navaraj D Shetty', position: 'Sports Coordinator', image: '/images/team/navaraj-min.jpg' },
-  { name: 'Thashwin Shreevatsa', position: 'Sports Coordinator', image: '/images/team/thaswin-min.jpg' },
-  { name: 'Chirag B S', position: 'Graphic Design Coordinator', image: '/images/team/ABI03908-min.jpg' },
-  { name: 'Srilaxmi Bhagawath', position: 'Graphic Design Coordinator', image: '/images/team/ABI04135-min.jpg' },
-  { name: 'Preethika Shet', position: 'Social Media Coordinator', image: '/images/team/ABI04132-min.jpg' },
-  { name: 'Anaksha N A', position: 'Social Media Coordinator', image: '/images/team/ABI03903-min.jpg' },
-  { name: 'Prathamesh Hebbar', position: 'Joint Social Media Coordinator', image: '/images/team/pratamesh-min.jpg' },
-  { name: 'Sagar Kotian', position: 'Joint-Social Media Coordinator', image: '/images/team/ABI04477-min.jpg' },
-  { name: 'Rohan MP', position: 'Technical Coordinator', image: '/images/team/ABI03974-min.jpg' },
-  { name: 'Satwik Prabhu', position: 'Techincal Coordinator', image: '/images/team/ABI03897-min.jpg' },
-  { name: 'Len Mendonca', position: 'Joint Technical Coordinator', image: '/images/team/ABI04492-min.jpg' },
-  { name: 'Varun Pai', position: 'Joint Technical Coordinator', image: '/images/developers/varunpai.jpeg' },
-  { name: 'Omkar', position: 'Joint Graphics Design Coordinator', image: '/images/team/ABI04469-min.jpg' },
-  { name: 'Pratham Nayak', position: 'Joint Graphics Design Coordinator', image: '/images/team/ABI04475-min.jpg' },
-  { name: 'Akhil Manoj', position: 'Joint Graphics Design Coordinator', image: '/images/team/ABI04467-min.jpg' },
-  { name: 'Harshit D Shettigar', position: 'Joint Cultural Coordinator', image: '/images/team/ABI04436-min.jpg' },
-  { name: 'Sanjana Santhosh Gunaga', position: 'Joint Cultural Coordinator', image: '/images/team/ABI04440-min.jpg' },
-  { name: 'Pratheek A Shetty', position: 'Joint Sports Coordinator', image: '/images/team/ABI04456-min.jpg' },
-  { name: 'Siona Angela Rodrigues', position: 'Joint Sports Coordinator', image: '/images/team/ABI04452-min.jpg' },
-  { name: 'N Liya Nanaiah', position: 'Joint Magazine Coordinator', image: '/images/team/ABI04504-min.jpg' },
-  { name: 'Sujan Amin', position: 'Joint Social Event Coordinator', image: '/images/team/ABI04462-min.jpg' },
-  { name: 'Sakshi Sujit Shetty', position: 'Joint Social Event Coordinator', image: '/images/team/ABI04459-min.jpg' },
-  { name: 'Kaniel Bion Almeida', position: 'Photography & Video Coordinator', image: '/images/team/ABI04141-min.jpg' },
-  { name: 'S Abishek', position: 'Photography & Video Coordinator', image: '/images/team/ABI03962-min.jpg' },
-  { name: 'Athul N Rao', position: 'Joint Photography & Video Coordinator', image: '/images/team/ABI04489-min.jpg' },
-  { name: 'B Gautam Mohan', position: 'Joint Photography & Video Coordinator', image: '/images/team/ABI04484-min.jpg' },
-   
+    { name: 'Vasudha G', position: 'President', image: 'President-min' },
+    { name: 'Keerthan Samuel Jathannna', position: 'Branch Captian', image: 'ABI03955-min' },
+    { name: 'Saurabh Sunish', position: 'Vice President', image: 'ABI03875-min' },
+    { name: 'Tvisha Prakash', position: 'Branch Secretary', image: 'ABI03882-min' },
+    { name: 'Shannon Vianny Vas', position: 'Treasurer', image: 'ABI03877-min' },
+    { name: 'Lisha Anni Rodrigues', position: 'Joint Secretary', image: 'lisha-min' },
+    { name: 'Driksha Hegde', position: 'Social Event Coordinator', image: 'ABI04166-min' },
+    { name: 'Kritharth', position: 'Social Event Coordinator', image: 'ABI03894-min' },
+    { name: 'Sanjana R Shet', position: 'Cultural Secretary', image: 'ABI03900-min' },
+    { name: 'Ananya', position: 'Cultural Secretary', image: 'ABI04159-min' },
+    { name: 'Pearl Menezes', position: 'Magazine Coordinator', image: 'ABI04162-min' },
+    { name: 'Siya Shetty', position: 'Magazine Coordinator', image: 'ABI03924-min' },
+    { name: 'Gahana Shetty', position: 'Magazine Coordinator', image: 'ABI03891-min' },
+    { name: 'Carol Dcunha', position: 'Magazine Coordinator', image: 'ABI04170-min' },
+    { name: 'Navaraj D Shetty', position: 'Sports Coordinator', image: 'navaraj-min' },
+    { name: 'Thashwin Shreevatsa', position: 'Sports Coordinator', image: 'thaswin-min' },
+    { name: 'Chirag B S', position: 'Graphic Design Coordinator', image: 'ABI03908-min' },
+    { name: 'Srilaxmi Bhagawath', position: 'Graphic Design Coordinator', image: 'ABI04135-min' },
+    { name: 'Preethika Shet', position: 'Social Media Coordinator', image: 'ABI04132-min' },
+    { name: 'Anaksha N A', position: 'Social Media Coordinator', image: 'ABI03903-min' },
+    { name: 'Prathamesh Hebbar', position: 'Joint Social Media Coordinator', image: 'pratamesh-min' },
+    { name: 'Sagar Kotian', position: 'Joint-Social Media Coordinator', image: 'ABI04477-min' },
+    { name: 'Rohan MP', position: 'Technical Coordinator', image: 'ABI03974-min' },
+    { name: 'Satwik Prabhu', position: 'Techincal Coordinator', image: 'ABI03897-min' },
+    { name: 'Len Mendonca', position: 'Joint Technical Coordinator', image: 'ABI04492-min' },
+    //why is his name not in teams
+    // { name: 'Varun Pai', position: 'Joint Technical Coordinator', image: '/images/developers/varunpai.jpeg' },
+    { name: 'Omkar', position: 'Joint Graphics Design Coordinator', image: 'ABI04469-min' },
+    { name: 'Pratham Nayak', position: 'Joint Graphics Design Coordinator', image: 'ABI04475-min' },
+    { name: 'Akhil Manoj', position: 'Joint Graphics Design Coordinator', image: 'ABI04467-min' },
+    { name: 'Harshit D Shettigar', position: 'Joint Cultural Coordinator', image: 'ABI04436-min' },
+    {
+      name: 'Sanjana Santhosh Gunaga',
+      position: 'Joint Cultural Coordinator',
+      image: 'ABI04440-min',
+    },
+    { name: 'Pratheek A Shetty', position: 'Joint Sports Coordinator', image: 'ABI04456-min' },
+    { name: 'Siona Angela Rodrigues', position: 'Joint Sports Coordinator', image: 'ABI04452-min' },
+    { name: 'N Liya Nanaiah', position: 'Joint Magazine Coordinator', image: 'ABI04504-min' },
+    { name: 'Sujan Amin', position: 'Joint Social Event Coordinator', image: 'ABI04462-min' },
+    {
+      name: 'Sakshi Sujit Shetty',
+      position: 'Joint Social Event Coordinator',
+      image: 'ABI04459-min',
+    },
+    {
+      name: 'Kaniel Bion Almeida',
+      position: 'Photography & Video Coordinator',
+      image: 'ABI04141-min',
+    },
+    { name: 'S Abishek', position: 'Photography & Video Coordinator', image: 'ABI03962-min' },
+    { name: 'Athul N Rao', position: 'Joint Photography & Video Coordinator', image: 'ABI04489-min' },
+    {
+      name: 'B Gautam Mohan',
+      position: 'Joint Photography & Video Coordinator',
+      image: 'ABI04484-min',
+    },
   ],
   2024: [
-    { name: 'James Henry', position: 'HOD', image: '/images/sample.png' },
-    { name: 'James Henry', position: 'HOD', image: '/images/sample.png' },
-    { name: 'John Doe', position: 'Assistant Professor', image: '/images/sample.png' },
-    { name: 'Srinivasa', position: 'Professor II', image: '/images/sample.png' },
+    { name: 'James Henry', position: 'HOD', image: 'sample' },
+    { name: 'James Henry', position: 'HOD', image: 'sample' },
+    { name: 'John Doe', position: 'Assistant Professor', image: 'sample' },
+    { name: 'Srinivasa', position: 'Professor II', image: 'sample' },
   ],
   faculty,
 };
+const images: { [index: string]: ImageMetadata } = {};
+await Astro.glob('/src/assets/images/faculty/*.jpg').then((files) => {
+  files.forEach((file) => {
+    const name = file.default.src.split('.')[0].split('/').pop();
+    images[name] = file.default;
+  });
+});
+
+await Astro.glob('/src/assets/images/team/*.webp').then((files) => {
+  files.forEach((file) => {
+    const name = file.default.src.split('.')[0].split('/').pop();
+    images[name] = file.default;
+  });
+});
+
+//for 2024 i just statically imported sample
+images['sample'] = sample;
 ---
+
 <Layout>
-  <section class="tabs content-container tabs mt-28">
-    <ul>
-      {Object.keys(teamMembers).map((tabName) => {
-        const displayString = tabName === "faculty" ? "Faculty" : `${tabName}-${Number(tabName) + 1}`;
-        return (
-          <li key={tabName}>
-            <input
-              class="input"
-              name="tabs"
-              type="radio"
-              id={`tab-${tabName}`}
-              value={tabName}
-              checked={tabName === "faculty"}
-            />
-            <label class="label" for={`tab-${tabName}`}>
-              {displayString}
-            </label>
-          </li>
-        );
-      })}
+  <section class="content-container tabs mx-6 md:mx-0 mt-28">
+    <ul class="text-xs">
+      {
+        Object.keys(teamMembers).map((tabName) => {
+          const displayString = tabName === 'faculty' ? 'Faculty' : `${tabName}-${Number(tabName) + 1}`;
+          return (
+            <li>
+              <input
+                class="input"
+                name="tabs"
+                type="radio"
+                id={`tab-${tabName}`}
+                value={tabName}
+                checked={tabName === 'faculty'}
+              />
+              <label class="" for={`tab-${tabName}`}>
+                {displayString}
+              </label>
+            </li>
+          );
+        })
+      }
     </ul>
 
     <div class="panel-container w-full">
-      {Object.entries(teamMembers).map(([tabName, members]) => (
-        <div
-          class="panel w-full flex flex-wrap justify-center gap-4 hide-panel"
-          data-tabname={tabName}
-        >
-          {members.map((member) => (
-            <div class="card" key={member.name}>
-              <div class="imgBx">
-                <img src={member.image} alt={member.name} loading="lazy"/>
-              </div>
-              <div class="content">
-                <div class="contentBx">
-                  <h3 style="text-align: center;">{member.name}</h3>
-                  <span style="text-align: center;">{member.position}</span>
+      {
+        Object.entries(teamMembers).map(([tabName, members]) => (
+          <div class="panel w-full flex flex-wrap justify-center gap-4 hide-panel" data-tabname={tabName}>
+            {members.map((member) => (
+              <div class="card">
+                <div class="imgBx">
+                  {/*@ts-ignore*/}
+                  <Image src={images[member.image]} alt={member.name} loading="lazy" />
+                </div>
+                <div class="content">
+                  <div class="contentBx">
+                    <h3 style="text-align: center;">{member.name}</h3>
+                    <span style="text-align: center;">{member.position}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      ))}
+            ))}
+          </div>
+        ))
+      }
     </div>
   </section>
 </Layout>
 
 <style>
-/* Tabs Navigation */
-.tabs {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-top: 100px;
-  align-items: center;
-}
-
-.tabs input[type="radio"] {
-  display: none;
-}
-
-.tabs ul {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.tabs ul li {
-  flex: none;
-}
-
-.tabs ul li label {
-  display: block;
-  padding: 10px 15px;
-  text-align: center;
-  cursor: pointer;
-  color: rgb(233, 227, 227);
-  font-size: 24px;
-  background: none;
-  border: none;
-  position: relative;
-  overflow: hidden;
-  transition: color 0.3s, font-weight 0.3s;
-}
-
-.tabs ul li label::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(to right, #00f, rgb(46, 144, 235));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease-out;
-  border-radius: 0 0 5px 5px;
-}
-
-.tabs ul li label:hover::after {
-  transform: scaleX(1);
-}
-
-.tabs input[type="radio"]#tab1:checked ~ ul li label[for="tab1"]::after,
-.tabs input[type="radio"]#tab2:checked ~ ul li label[for="tab2"]::after,
-.tabs input[type="radio"]#tab3:checked ~ ul li label[for="tab3"]::after {
-  transform: scaleX(1);
-}
-
-.tabs input[type="radio"]:checked + label {
-  color: #edf0f3;
-  font-weight: bold;
-}
-
-.panel-container {
-  width: 100%;
-  margin-top: 20px;
-}
-
-.panel {
-  display: none;
-}
-
-.show-panel {
-  display: flex;
-}
-
-/* Cards and Layout */
-.card_Container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 40px 0;
-  gap: 50px;
-}
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(50px);
+  /* Tabs Navigation */
+  .tabs {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 100px;
+    align-items: center;
   }
-  100% {
+
+  .tabs input[type='radio'] {
+    display: none;
+  }
+
+  .tabs ul {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tabs ul li {
+    flex: none;
+  }
+
+  .tabs ul li label {
+    display: block;
+    padding: 10px 15px;
+    text-align: center;
+    cursor: pointer;
+    color: rgb(233, 227, 227);
+    font-size: 24px;
+    background: none;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    transition:
+      color 0.3s,
+      font-weight 0.3s;
+  }
+
+  .tabs ul li label::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, #00f, rgb(46, 144, 235));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-out;
+    border-radius: 0 0 5px 5px;
+  }
+
+  .tabs ul li label:hover::after {
+    transform: scaleX(1);
+  }
+
+  .tabs input[type='radio']#tab1:checked ~ ul li label[for='tab1']::after,
+  .tabs input[type='radio']#tab2:checked ~ ul li label[for='tab2']::after,
+  .tabs input[type='radio']#tab3:checked ~ ul li label[for='tab3']::after {
+    transform: scaleX(1);
+  }
+
+  .tabs input[type='radio']:checked + label {
+    color: #edf0f3;
+    font-weight: bold;
+  }
+
+  .panel-container {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .panel {
+    display: none;
+  }
+
+  .show-panel {
+    display: flex;
+  }
+
+  /* Cards and Layout */
+  .card_Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 40px 0;
+    gap: 50px;
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    margin: 20px;
+    overflow: hidden;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+      45deg,
+      #64cfe243 40%,
+      rgba(6, 100, 252, 0.414),
+      rgba(6, 100, 252, 0.317) 60%,
+      transparent
+    );
+    opacity: 0;
+    background-size: 200% 200%;
+    background-position: 100% 0;
+    transition: background-position 0.4s ease-in-out;
+  }
+
+  .card.show {
+    animation: fadeInUp 0.6s forwards;
+  }
+
+  .card.visible {
     opacity: 1;
     transform: translateY(0);
   }
-}
 
-.card {
-  position: relative;
-  width: 300px;
-  height: 400px;
-  margin: 20px;
-  overflow: hidden;
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(45deg, #64cfe243 40%, rgba(6, 100, 252, 0.414), rgba(6, 100, 252, 0.317) 60%, transparent);
-  opacity: 0;
-  background-size: 200% 200%;
-  background-position: 100% 0;
-  transition: background-position 0.4s ease-in-out;
-}
+  .card .imgBx {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 7rem;
+  }
 
-.card.show {
-  animation: fadeInUp 0.6s forwards;
-}
+  .card .imgBx img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-.card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+  .card .content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    text-align: center;
+  }
 
-.card .imgBx {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 7rem;
-}
-
-.card .imgBx img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card .content {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 160px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  backdrop-filter: blur(15px);
-  box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  text-align: center;
-}
-
-.content .contentBx h3 {
-  text-transform: uppercase;
-  color: #fff;
-  letter-spacing: 2px;
-  font-weight: 500;
-  font-size: 18px;
-  text-align: center;
-  margin: 20px 0 15px;
-  line-height: 1.1em;
-}
+  .content .contentBx h3 {
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 2px;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    margin: 20px 0 15px;
+    line-height: 1.1em;
+  }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const radioButtons = document.querySelectorAll('input[name="tabs"]');
-    const panels = document.querySelectorAll('.panel');
+    const radioButtons = document.querySelectorAll<HTMLInputElement>('input[name="tabs"]');
+    const panels = document.querySelectorAll<HTMLDivElement>('.panel');
 
-    function updatePanel(tabName) {
+    function updatePanel(tabName: string) {
       panels.forEach((panel) => {
+        //@ts-ignore
         if (panel.dataset.tabname === tabName) {
           panel.classList.add('show-panel');
         } else {
@@ -292,7 +338,7 @@ const teamMembers = {
       });
     }
 
-    radioButtons.forEach((radio) => {
+    radioButtons.forEach((radio: any) => {
       radio.addEventListener('change', () => {
         if (radio.checked) {
           updatePanel(radio.value);

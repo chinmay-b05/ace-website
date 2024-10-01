@@ -1,33 +1,285 @@
 ---
 import EventCard from '@components/EventCard.astro';
 import Layout from '@layouts/Layout.astro';
+import { getAllEventsForUser } from 'utils/events';
 
-import { db } from '@lib/db';
-import { eventTable } from '@lib/db/schema';
 
-const events = await db
-  .select({
-    id: eventTable.id,
-    image: eventTable.image,
-    name: eventTable.name,
-    description: eventTable.description,
-    fromDate: eventTable.fromDate,
-    toDate: eventTable.toDate,
-    venue: eventTable.venue,
-    maxTeamSize: eventTable.maxTeamSize,
-    state: eventTable.state,
-    category: eventTable.category,
-  })
-  .from(eventTable);
+
+// Fetch all events
+const events = await getAllEventsForUser();
+
+if (!events) {
+  Astro.redirect('/');
+}
+
+let currentTab = 'published';
 ---
 
-<Layout>
+<Layout title='ACE'>
   <section class="hero content-container min-h-screen mt-20 flex flex-col items-center">
-    <h1 class="text-4xl mb-8 font-dirtyline">Events</h1>
-    <div class="grid sm:gap-y-8 grid-cols-1 gap-y-8 md:grid-cols-2 md:gap-x-32 lg:grid-cols-3">
-      {
-        events.map((event) =><EventCard {...event} />)
-      }
+    <h1 class="text-6xl mb-8 font-dirtyline">Events</h1>
+
+     <section class="tabs content-container">
+      <ul>
+      {Object.keys(events).map((tabName) => {
+        const displayString = tabName === "published" ? "Coming Soon" : "Completed";
+        return (
+          <li>
+            <input
+              class="input"
+              name="tabs"
+              type="radio"
+              id={`tab-${tabName}`}
+              value={tabName}
+              checked={tabName === "completed"}
+            />
+            <label class="label" for={`tab-${tabName}`}>
+              {displayString}
+            </label>
+          </li>
+        );
+      })}
+    </ul>
+     <div class="panel-container w-full">
+      {Object.entries(events).map(([tabName, members]) => (
+        <div
+          class="panel w-full flex flex-wrap justify-center gap-4 hide-panel"
+          data-tabname={tabName}
+        >
+         
+            {members.map((member) => (
+               <div class="card">
+            <a href={`/events/${member.id}`}><EventCard
+            class:list={"card"}
+              eventName={member.name}
+              category={member.category}
+              date={member.fromDate}
+              venue={member.venue}
+              id={member.id}
+              state={member.state}
+              maxTeamSize={member.maxTeamSize}
+              
+            /></a>
+            </div>
+          ))}
+          
+        </div>
+      ))}
     </div>
+     </section>
+
+
+    
+
+
   </section>
 </Layout>
+
+<style>
+ .tabs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 40px;
+  align-items: center;
+}
+
+.tabs input[type="radio"] {
+  display: none;
+}
+
+.tabs ul {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  
+}
+
+.tabs ul li {
+  flex: none;
+}
+
+.tabs ul li label {
+  display: block;
+  padding: 10px 15px;
+  text-align: center;
+  cursor: pointer;
+  color: rgb(233, 227, 227);
+  font-size: 18px;
+  background: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s, font-weight 0.3s;
+}
+
+.tabs ul li label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #00f, rgb(46, 144, 235));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+  border-radius: 0 0 5px 5px;
+}
+
+/* Hover effect for non-checked labels */
+.tabs ul li input[type="radio"]:not(:checked) + label:hover::after {
+  transform: scaleX(1);
+}
+
+/* Remove hover effect on checked labels */
+.tabs ul li input[type="radio"]:checked + label:hover::after {
+  transform: none;  /* Prevent any transform on hover */
+}
+
+/* Checked labels with active ::after effect */
+.tabs input[type="radio"]:checked + label::after {
+  transform: scaleX(1); /* Keep the transform state fully scaled */
+}
+
+/* Checked label styles */
+.tabs input[type="radio"]:checked + label {
+  color: #edf0f3;
+  font-weight: bold;
+  
+}
+
+.panel-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.panel {
+  display: none;
+}
+
+.show-panel {
+  display: flex;
+}
+
+/* Cards and Layout */
+
+
+
+
+.card {
+  margin: 0 20px 50px 20px;
+  background-size: 200% 200%;
+  background-position: 100% 0;
+  transition: background-position 0.4s ease-in-out;
+}
+
+.card.show {
+  animation: fadeInUp 0.6s forwards;
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card .imgBx {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 7rem;
+}
+
+.card .imgBx img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card .content {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  text-align: center;
+}
+
+.content .contentBx h3 {
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 2px;
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  margin: 20px 0 15px;
+  line-height: 1.1em;
+}
+
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const radioButtons = document.querySelectorAll('input[name="tabs"]');
+    const panels = document.querySelectorAll('.panel');
+
+    function updatePanel(tabName:any) {
+      panels.forEach((panel) => {
+        //@ts-ignore
+        if (panel.dataset.tabname === tabName) {
+          panel.classList.add('show-panel');
+        } else {
+          panel.classList.remove('show-panel');
+        }
+      });
+    }
+
+    // Get the currently checked radio button and update the panel
+    const checkedRadio = document.querySelector('input[name="tabs"]:checked');
+    if (checkedRadio) {
+      //@ts-ignore
+      updatePanel(checkedRadio.value);
+    }
+
+    radioButtons.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        //@ts-ignore
+        if (radio.checked) {
+          //@ts-ignore
+          updatePanel(radio.value);
+        }
+      });
+    });
+
+    const cards = document.querySelectorAll('.card');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    cards.forEach((card) => {
+      observer.observe(card);
+    });
+  });
+</script>

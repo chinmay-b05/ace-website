@@ -3,6 +3,7 @@ import GalleryHero from '@components/GalleryHero.astro';
 import Layout from '@layouts/Layout.astro';
 import { getImages } from '../lib/cloudinary';
 import type { ResourceApiResponse } from 'cloudinary';
+import { Image } from 'astro:assets';
 
 let imagesDetails: ResourceApiResponse | null = null;
 
@@ -13,14 +14,22 @@ try {
 }
 ---
 
-<Layout>
+<Layout title="ACE">
   <main>
-    <GalleryHero />
-    <section class="content-container w-full h-fit columns-1 sm:columns-2 md:columns-3 lg:columns-4">
+    <div class="md:hidden mt-32 flex flex-col gap-8 items-center">
+      <h1 class="fade-up uppercase text-6xl mx-auto max-w-screen-lg font-dirtyline">Gallery</h1>
+      <p class="fade-up text-gray-200 font-syne-variable">Opening the memory window..</p>
+    </div>
+    <div class="hidden md:block">
+      <GalleryHero />
+    </div>
+    <br />
+    <br />
+    <section class="content-container masonry-grid w-full h-fit">
       {
         imagesDetails ? (
           imagesDetails.resources.map((image, i) => (
-            <img src={image.url} alt="" class="gallery-image mb-4 rounded-lg" />
+            <img src={image.url} alt="" class="gallery-image mb-4 rounded-lg w-full" />
           ))
         ) : (
           <p>No Images</p>
@@ -55,3 +64,37 @@ try {
     });
   });
 </script>
+
+<style>
+  .masonry-grid {
+    column-count: 1;
+    column-gap: 1rem;
+  }
+
+  .gallery-image {
+    width: 100%;
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+  }
+
+  /* Adjusting column counts for different screen sizes */
+  @media (min-width: 640px) {
+    .masonry-grid {
+      column-count: 2;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .masonry-grid {
+      column-count: 3;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .masonry-grid {
+      column-count: 4;
+    }
+  }
+</style>

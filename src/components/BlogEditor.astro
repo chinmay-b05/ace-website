@@ -3,10 +3,10 @@ import Quill from '@components/Quill';
 import Layout from '@layouts/Layout.astro';
 import { db } from '@lib/db';
 import { blogTable } from '@lib/db/schema';
+import { getSession } from 'auth-astro/server';
 import { eq, and } from 'drizzle-orm/sqlite-core/expressions';
 
-const userId = 'a';
-
+const session = await getSession(Astro.request);
 interface Props {
   id: 'new' | number;
 }
@@ -25,7 +25,7 @@ if (id != 'new') {
       image: blogTable.image,
     })
     .from(blogTable)
-    .where(and(eq(blogTable.id, id), eq(blogTable.authorId, userId)));
+    .where(and(eq(blogTable.id, id), eq(blogTable.authorId, session!.user!.id!)));
 
   if (!blogs.length) return Astro.redirect('/blogs');
 
@@ -52,14 +52,13 @@ if (id != 'new') {
       <Quill client:only="react" initialValue={blog?.content} name="content" />
     </label>
 
-    <label class="flex flex-col gap-2">
-      <span class="text-lg font-semibold text-gray-300">Image</span>
-      <input type="file" class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white" name="image" required aria-label="Image" />
+    <label>
+      <p>Image</p>
+      <input type="file" class="w-full" name="image" required />
     </label>
 
-    <input type="text" name="authorId" hidden value={userId} />
-    
-    <button class="w-full p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-300">Submit</button>
+    <input type="text" name="authorId" hidden value={session!.user!.id!} />
+    <button class="">Submit</button>
   </form>
 </Layout>
 

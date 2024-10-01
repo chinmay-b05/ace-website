@@ -1,44 +1,169 @@
 ---
 import DeveloperCard from '@components/DeveloperCard.astro';
 import Layout from '@layouts/Layout.astro';
-
+import sample from '../assets/images/sample.png';
 const developers = [
-  { name: 'Len', description: '"I dont know broo"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/Len.jpg', backImage: '/images/developers/lenanime.png' },
-  { name: 'Karthik S salian', description: '"Who said I left the kitchen? 😎 ❄"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/karthik.jpg', backImage: '/images/developers/karthikanime.png' },
-  { name: 'Varshith Pawar ', description: '"Your phone linging"', linkedinLink: 'https://linkedin.com/in/varshithpawarhr', githubLink: 'https://github.com/VarshithPawarHR', instagramLink: 'https://www.instagram.com/mr.pawar_10/', frontImage: '/images/developers/varshith.jpg', backImage: '/images/developers/varshithanime.png' },
-  { name: 'Rakshith Vijay', description: '"Dont touch my daughter"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/rakshith.jpg', backImage: '/images/developers/rakshithanime.png' },
-  { name: 'Anant Shetty', description: '"HTML+ Golang"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/Ananth.jpg', backImage: '/images/developers/ananthanime.png'},
-  { name: 'Ameesha Ruzario', description: '"Answer the joy"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/ameesha.jpg', backImage: '/images/developers/ameeshaanime.png' },
-  { name: 'Bhavya Nayak', description: '"A retired CR"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/bhavya.JPG', backImage: '/images/developers/bhavyaanime.png' },
-  { name: 'Varun Pai', description: '"Flutter fluttering"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/varunpai.jpeg', backImage: '/images/developers/varunpaianime.png' },
-  { name: 'AkhilManoj', description: '"No--words"', linkedinLink: '#', githubLink: '#', instagramLink: '#' , frontImage: '/images/developers/akhil.jpg', backImage: '/images/developers/akhilanime.jpg'},
-  { name: 'Chinmayee Bhat', description: '"sings"', linkedinLink: 'https://www.linkedin.com/in/chinmayee-bhat-644454259/', githubLink: 'https://github.com/CHINMAYEEBHAT', instagramLink: 'https://www.instagram.com/chinmayeebhat_sings/', frontImage: '/images/developers/Chinmayee.jpg', backImage: '/images/developers/singanime.png' },
-  { name: 'Chinmay Billawa', description: '"What is life?"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/Chinmay Dinesh Billava.jpg', backImage: '/images/developers/chinmayanime.png' },
-  { name: 'Dilshan', description: '"I also dont know!!"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/Dilshan.jpg', backImage: '/images/developers/dilshananime.png' },
-  { name: 'Varun Arkal', description: '"All hail me"', linkedinLink: '#', githubLink: '#', instagramLink: '#', frontImage: '/images/developers/Arkal Varun Hegde.jpg', backImage: '/images/developers/varunarkalanime.png' },
-  { name: 'Pavan Chitrapura', description: '"design and aspire"', linkedinLink: '#', githubLink: '#', instagramLink: '#' , frontImage: '/images/developers/pavan.jpg', backImage: '/images/developers/pavananime.png'},
+  {
+    name: 'Len',
+    description: '"I dont know broo"',
+    linkedinLink: '#',
+    githubLink: '#',
+    instagramLink: '#',
+    frontImage: 'Len',
+    backImage: 'lenanime',
+  },
+  {
+    name: 'Karthik S salian',
+    description: '"Who said I left the kitchen? 😎 ❄"',
+    linkedinLink: '#',
+    githubLink: '#',
+    instagramLink: '#',
+    frontImage: 'karthik',
+    backImage: 'karthikanime',
+  },
+  {
+    name: 'Varshith Pawar ',
+    description: '"Your phone linging"',
+    linkedinLink: 'https://linkedin.com/in/varshithpawarhr',
+    githubLink: 'https://github.com/VarshithPawarHR',
+    instagramLink: 'https://www.instagram.com/mr.pawar_10/',
+    frontImage: 'varshith',
+    backImage: 'varshithanime',
+  },
+  {
+    name: 'Rakshith Vijay',
+    description: '"Dont touch my daughter"',
+    linkedinLink: '#',
+    githubLink: '#',
+    instagramLink: '#',
+    frontImage: 'rakshith',
+    backImage: 'rakshithanime',
+  },
+  {
+    name: 'Anant Shetty',
+    description: '"HTML+ Golang"',
+    linkedinLink: '#',
+    githubLink: '#',
+    instagramLink: '#',
+    frontImage: 'Ananth',
+    backImage: 'ananthanime',
+  },
+  {
+    name: 'Ameesha Ruzario',
+    description: '"Answer the joy"',
+    linkedinLink: 'https://www.linkedin.com/in/ameesha-ruzario-152086286/',
+    githubLink: 'https://github.com/AmeeshaRuzario',
+    instagramLink: 'https://www.instagram.com/_ameesha_0118?igsh=MWFsNTd1MjlxMzBxOA==',
+    frontImage: 'ameesha',
+    backImage: 'ameeshaanime',
+  },
+  {
+    name: 'Bhavya Nayak',
+    description: '"A retired CR"',
+    linkedinLink: 'www.linkedin.com/in/bhavyanayak/',
+    githubLink: 'github.com/BhavyaNayak04',
+    instagramLink: 'www.instagram.com/bhv_nayak/',
+    frontImage: 'bhavya',
+    backImage: 'bhavyaanime',
+  },
+  {
+    name: 'Varun Pai',
+    description: '"Flutter fluttering"',
+    linkedinLink: '#',
+    githubLink: '#',
+    instagramLink: '#',
+    frontImage: 'varunpai',
+    backImage: 'varunpaianime',
+  },
+  {
+    name: 'AkhilManoj',
+    description: '"No--words"',
+    linkedinLink: '#',
+    githubLink: '#',
+    instagramLink: '#',
+    frontImage: 'akhil',
+    backImage: 'akhilanime',
+  },
+  {
+    name: 'Chinmayee Bhat',
+    description: '"sings"',
+    linkedinLink: 'https://www.linkedin.com/in/chinmayee-bhat-644454259/',
+    githubLink: 'https://github.com/CHINMAYEEBHAT',
+    instagramLink: 'https://www.instagram.com/chinmayeebhat_sings/',
+    frontImage: 'Chinmayee',
+    backImage: 'singanime',
+  },
+  {
+    name: 'Chinmay Billawa',
+    description: '"What is life?"',
+    linkedinLink: 'https://www.linkedin.com/in/chinmay-billava-10954424b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+    githubLink: 'https://github.com/chinmay-b05',
+    instagramLink: 'https://www.instagram.com/chinmaybillava?igsh=aTdxdWd2dTBkd2Zi',
+    frontImage: 'Chinmay Dinesh Billava',
+    backImage: 'chinmayanime',
+  },
+  {
+    name: 'Dilshan',
+    description: '"I also dont know!!"',
+    linkedinLink: 'www.linkedin.com/in/dilshan-dsouza-676006211',
+    githubLink: 'https://github.com/DrioD7',
+    instagramLink: 'https://www.instagram.com/invites/contact/?igsh=1kb62dcdxmwex&utm_content=8uzxuto',
+    frontImage: 'Dilshan',
+    backImage: 'dilshananime',
+  },
+  {
+    name: 'Varun Arkal',
+    description: '"All hail me"',
+    linkedinLink: '#',
+    githubLink: '#',
+    instagramLink: '#',
+    frontImage: 'Arkal Varun Hegde',
+    backImage: 'varunarkalanime',
+  },
+  {
+    name: 'Pavan Chitrapura',
+    description: '"design and aspire"',
+    linkedinLink: '#',
+    githubLink: '#',
+    instagramLink: '#',
+    frontImage: 'pavan',
+    backImage: 'pavananime',
+  },
 ];
+
+const images: { [index: string]: any } = {};
+await Astro.glob('/src/assets/images/developers/*.{jpg,png}').then((files) => {
+  files.forEach((file) => {
+    const name = file.default.src.split('.')[0].split('/').pop();
+    images[name] = file.default;
+  });
+  //fallback image
+  images['sample'] = sample;
+});
 ---
 
-<Layout>
+<Layout title='ACE'>
   <main class="content-container">
     <div class="mt-32 flex flex-col gap-8 items-center">
       <h2 class="fade-up uppercase text-6xl text-center font-dirtyline">Meet the dev team</h2>
       <div class="flex flex-wrap gap-32 justify-center">
         {
-          developers.map((dev) => (
-            <div class="developer-card">
-              <DeveloperCard
-                name={dev.name}
-                description={dev.description}
-                linkedinLink={dev.linkedinLink}
-                githubLink={dev.githubLink}
-                instagramLink={dev.instagramLink}
-                frontImage={dev.frontImage || ''}
-                backImage={dev.backImage || ''}
-              />
-            </div>
-          ))
+          developers.map((dev) => {
+            console.log(dev);
+            return (
+              <div class="developer-card">
+                <DeveloperCard
+                  name={dev.name}
+                  description={dev.description}
+                  linkedinLink={dev.linkedinLink}
+                  githubLink={dev.githubLink}
+                  instagramLink={dev.instagramLink}
+                  frontImage={images[dev.frontImage]|| sample}
+                  backImage={images[dev.backImage]||sample}
+                />
+              </div>
+            );
+          })
         }
       </div>
     </div>

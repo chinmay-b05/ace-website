@@ -1,19 +1,24 @@
+---
+import sample from '../assets/images/sample.png'
+import { Image } from 'astro:assets'
+---
+
 <section id="scene" class="overflow-hidden">
   <div data-depth="0.2" id="layer1" class="layer">
-    <img src="/images/sample.png" alt="" style="position:absolute; top:20%; left:20%;" loading="lazy" />
-    <img src="/images/sample.png" alt="" style="position:absolute; bottom:10%; left:70%;" loading="lazy" />
+    <Image src={sample} alt="" class="layer-img" style="top:20%; left:20%;" loading="lazy" />
+    <Image src={sample} alt="" class="layer-img" style="bottom:10%; left:70%;" loading="lazy" />
   </div>
 
   <div data-depth="0.4" id="layer2" class="layer">
     <div class="flex justify-around items-center m-auto w-full h-full">
-      <img src="/images/sample.png" alt="" style="position:absolute; bottom:10%; left:10%;" loading="lazy" />
-      <img src="/images/sample.png" alt="" style="position:absolute; bottom:60%; right:20%;" loading="lazy" />
+      <Image src={sample} alt="" class="layer-img" style="bottom:10%; left:10%;" loading="lazy" />
+      <Image src={sample} alt="" class="layer-img" style="bottom:60%; right:20%;" loading="lazy" />
     </div>
   </div>
   
   <div data-depth="0.6" id="layer3" class="layer">
     <div class="flex justify-around items-center m-auto w-full h-full">
-      <img src="/images/sample.png" alt="" loading="lazy" />
+      <Image src={sample} alt="" class="layer-img" loading="lazy" />
     </div>
   </div>
 </section>
@@ -21,8 +26,9 @@
 <style>
   section {
     width: 100%;
-    height: max(100vh, 400px);
+    height: 100vh;
     position: relative;
+   
   }
   
   section > div {
@@ -40,28 +46,46 @@
     overflow: hidden;
   }
 
-  .layer img {
+  .layer-img {
     position: absolute;
     max-width: 100%;
-    max-height: 100%;
+    height: auto;
   }
 
-  #layer1 img {
+  /* Layer-specific image sizes */
+  #layer1 .layer-img {
     filter: brightness(0.6);
-    height: 200px;
-    width: auto;
+    width: 20vw;
+    height: auto;
   }
 
-  #layer2 img {
+  #layer2 .layer-img {
     filter: brightness(0.8);
-    height: 250px;
-    width: auto;
+    width: 25vw;
+    height: auto;
   }
 
-  #layer3 img {
+  #layer3 .layer-img {
     filter: brightness(1);
-    height: 300px;
-    width: auto;
+    width: 30vw;
+    height: auto;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    #layer1 .layer-img,
+    #layer2 .layer-img,
+    #layer3 .layer-img {
+      width: 40vw;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #layer1 .layer-img,
+    #layer2 .layer-img,
+    #layer3 .layer-img {
+      width: 50vw;
+    }
   }
 </style>
 

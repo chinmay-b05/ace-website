@@ -1,178 +1,182 @@
 ---
-import BlogContent from '@components/BlogContent.astro';
 import Layout from '@layouts/Layout.astro';
-// import { Icon } from 'astro-icon/components';
+import { Icon } from 'astro-icon/components';
+import { db } from '@lib/db';
+import { and, count, eq } from 'drizzle-orm';
+import { blogTable, userTable, commentsTable, viewTable } from '@lib/db/schema';
+import { getSession } from 'auth-astro/server';
+import Comments from '@components/Comments';
 
-const blog = {
-  id: 1,
-  title: 'How to build a blog with Astro and how to continue building it',
-  content:
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis hic repellat animi! Ad vitae iusto quibusdam deserunt unde vero nulla laborum. Non minima mollitia minus quo eveniet sapiente vitae sit. Dolorem aspernatur recusandae ipsa praesentium ratione expedita exercitationem nemo non, eum, quidem libero alias voluptatibus cum,cupiditate dolores reiciendis asperiores laborum ad voluptatem. Quisquam, quidem. Quisquam, quidem. Quisquam, quidem.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis hic repellat animi! Ad vitae iusto quibusdam deserunt unde vero nulla laborum. Non minima mollitia minus quo eveniet sapiente vitae sit. Dolorem aspernaturrecusandae ipsa praesentium ratione expedita exercitationem nemo non, eum, quidem libero alias voluptatibus cum,upiditate dolores reiciendis asperiores laborum ad voluptas optio! Cumque, sint nostrum ipsam nam asperiores illumdebitis ut consequatur repudiandae unde accusamus quod voluptas exercitationem veritatis cupiditate voluptatesharum, quam quaerat culpa, provident assumenda. Blanditiis laboriosam doloribus voluptates aliquam explicabo minuspossimus eos soluta ex unde asperiores, quae quasi iusto suscipit est?',
-  description:
-    'This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description.',
-  createdAt: '2022-01-01',
-  authorName: 'Bhavya Nayak',
-  image: 'https://images.pexels.com/photos/1000366/pexels-photo-1000366.jpeg',
-  authorId: 1,
-};
+const { slug } = Astro.params;
 
-// import Layout from '@layouts/Layout.astro';
-// import { db } from '@lib/db';
-// import { and, count, eq } from 'drizzle-orm';
-// import { blogTable, userTable, commentsTable, viewTable } from '@lib/db/schema';
-// import { Icon } from 'astro-icon/components';
+const session = await getSession(Astro.request);
 
-// const { slug } = Astro.params;
+const blogs = await db
+  .select({
+    id: blogTable.id,
+    title: blogTable.title,
+    content: blogTable.content,
+    description: blogTable.description,
+    createdAt: blogTable.createdAt,
+    authorName: userTable.name,
+    image: blogTable.image,
+    authorId: blogTable.authorId,
+    authorImage: userTable.image,
+  })
+  .from(blogTable)
+  .innerJoin(userTable, eq(blogTable.authorId, userTable.id))
+  .where(eq(blogTable.id, Number(slug)));
 
-// const user = {
-//   id: 1,
-// };
+if (!blogs.length) return Astro.redirect('/blogs');
 
-// const blogs = await db
-//   .select({
-//     id: blogTable.id,
-//     title: blogTable.title,
-//     content: blogTable.content,
-//     description: blogTable.description,
-//     createdAt: blogTable.createdAt,
-//     authorName: userTable.name,
-//     image: blogTable.image,
-//     authorId: blogTable.authorId,
-//   })
-//   .from(blogTable)
-//   .innerJoin(userTable, eq(blogTable.authorId, userTable.id))
-//   .where(eq(blogTable.id, Number(slug)));
+const blog = blogs[0];
 
-// if (!blogs.length) return Astro.redirect('/blogs');
+if (session?.user?.id) {
+  //create view if not exits
+  await db
+    .insert(viewTable)
+    .values({
+      userId: session.user.id,
+      blogId: blog.id,
+    })
+    .onConflictDoNothing();
+}
 
-// const blog = blogs[0];
+/************ fetch views count  **************/
+let viewsResult = await db.select({ viewCount: count() }).from(viewTable).where(eq(viewTable.blogId, blog.id));
 
-// //comments
-// const comments = await db
-//   .select({
-//     content: commentsTable.content,
-//     name: userTable.name,
-//     userId: userTable.id,
-//     createdAt: commentsTable.createdAt,
-//   })
-//   .from(commentsTable)
-//   .innerJoin(userTable, eq(commentsTable.userId, userTable.id))
-//   .where(eq(commentsTable.blogId, blog.id));
+let viewCount;
+if (viewsResult.length) {
+  viewCount = viewsResult[0].viewCount;
+}
 
-// //create view if not exits
-// db.insert(viewTable)
-//   .values({
-//     userId: user.id,
-//     blogId: blog.id,
-//   })
-//   .onConflictDoNothing();
+/************ fetch likes  *******************/
+const likesResult = await db
+  .select({
+    likeCount: count(),
+  })
+  .from(viewTable)
+  .where(and(eq(viewTable.liked, true), eq(viewTable.blogId, blog.id)));
 
-// /************ fetch likes  *******************/
-// const likesResult = await db
-//   .select({
-//     liked: viewTable.liked,
-//   })
-//   .from(viewTable)
-//   .where(and(eq(viewTable.userId, user.id), eq(viewTable.blogId, blog.id)));
+let likeCount;
+if (likesResult.length) {
+  likeCount = likesResult[0].likeCount;
+}
 
-// let liked: boolean | null = false;
-// if (likesResult.length) {
-//   liked = likesResult[0].liked;
-// }
-// /**********************************************/
+let liked: boolean | null = false;
+if (session?.user?.id) {
+  const likedResult = await db
+    .select({
+      liked: viewTable.liked,
+    })
+    .from(viewTable)
+    .where(and(eq(viewTable.liked, true), eq(viewTable.blogId, blog.id)));
 
-// /************ fetch views count  **************/
-// let viewsResult = await db
-//   .select({ viewCount: count(), likeCount: count(viewTable.liked) })
-//   .from(viewTable)
-//   .where(eq(viewTable.blogId, blog.id));
+  if (likedResult.length) {
+    liked = likedResult[0].liked;
+  }
+}
 
-// let viewStats;
-// if (viewsResult.length) {
-//   viewStats = viewsResult[0];
-// }
-/**********************************************/
+
+let user: {
+    id: string;
+    image: string | null;
+    name: string;
+  }|null=null;
+
+if(session?.user?.id){
+  user = {
+    id:session!.user!.id,
+    name:session!.user!.name!,
+    image:session!.user!.image!
+  }
+}
+
+
+//comments
+const comments = await db
+  .select({
+    content: commentsTable.content,
+    userName: userTable.name,
+    userId: userTable.id,
+    createdAt: commentsTable.createdAt,
+    userImage: userTable.image,
+  })
+  .from(commentsTable)
+  .innerJoin(userTable, eq(commentsTable.userId, userTable.id))
+  .where(eq(commentsTable.blogId, blog.id));
 ---
 
-<!-- <Layout>
-  <main class="content-container">
-    <div class="mt-32 flex flex-col gap-8 max-w-xl mx-auto">
-      <h1 class="text-4xl font-bold">{blog.title}</h1>
-      <img
-        src={blog.image}
-        alt={blog.title}
-        class="w-full aspect-video mx-auto max-w-[800px] object-cover rounded-box"
-      />
-
-      <a class="flex gap-6 align-middle" href={`/profile/${blog.authorId}`}>
-        <div class="avatar">
-          <div class="w-12 h-12 bg-gray-200 shrink-0 flex ring-primary rounded-full">
-            <img src="/images/pic.jpg" class="object-cover w-full h-full rounded-xl" width="600" height="600" />
-          </div>
-        </div>
-        <span>By {blog.authorName}</span>
-        <span
-          >on {
-            new Intl.DateTimeFormat('en-US', {
-              dateStyle: 'full',
-              timeStyle: 'short',
-            }).format(new Date(blog.createdAt))
-          }</span
-        >
-      </a>
-
-      <hr />
-
-      <div>
-        <form method="post" class="flex gap-4 items-center">
-          <button name="vote"> liked </button>
-        </form>
-        <span>{viewStats?.likeCount ?? 0} likes</span>
-        <span>{viewStats?.viewCount ?? 1} views</span>
-      </div>
-
-      <hr />
-
-      <article class="prose min-w-full text-balance" set:html={blog.content} />
-
-      <div class="space-y-4">
-        <h2 class="text-2xl font-semibold">Comments</h2>
-        <hr /> --><!-- {
-                <form method="post">
-                        <input type="text" name="comment" />
-                        <p class="mb-2">Post a comment</p>
-                        <div class="flex">
-                            <input type="text" name="comment" />
-                            <button class="btn btn-primary">Post</button>
-                        </div>
-                </form>
-            } --><!--   
-    //           comments.map((comment) => (
-    //             <div class="">
-    //               <a class="" href={`profile/${comment.userId}`}>
-    //                 <div class="w-10 rounded-full">
-    //                   <img alt={comment.name} src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-    //                 </div>
-    //               </a>
-    //               <div class="">
-    //                 <a href={`/profile/${comment.userId}`}>{comment.name}</a>
-    //                 <time class="text-xs">
-    //                   {new Intl.DateTimeFormat('en-US', {
-    //                     dateStyle: 'short',
-    //                     timeStyle: 'short',
-    //                   }).format(new Date(comment.createdAt))}
-    //                 </time>
-    //               </div>
-    //               <div class="">{comment.content}</div>
-    //             </div>
-    //           ))
-    //         }
-    //       </div>
-    //     </div>
-    //   </main>
-    // </Layout> -->
 <Layout>
-  <main class="content-container">
-    <BlogContent blog={blog} />
+  <main class="content-container mt-24">
+    <div class="mx-auto w-full max-w-screen-lg md:-mb-10 lg:-mb-12 xl:-mb-16">
+      <img src={blog.image} alt="bg" class="min-h-[240px] w-full object-cover aspect-[16/7]" />
+    </div>
+
+    <div class="relative mx-auto max-w-4xl z-10 px-2 md:px-8">
+      <div
+        class="mx-auto md:space-y-12 max-w-full bg-[#13151a] py-8 md:px-4 lg:p-12 lg:py-16 xl:py-20 xl:px-16 flex flex-col justify-center items-center"
+      >
+        <section class="mx-auto w-full max-w-prose text-center flex justify-center items-center flex-col space-y-6">
+          <time class="text-gray-300 text-2xl text-center"
+            >{
+              new Intl.DateTimeFormat('en-US', {
+                dateStyle: 'medium',
+                timeStyle: 'short',
+              }).format(new Date(blog.createdAt))
+            }</time
+          >
+          <h1 class="text-4xl font-bold text-center">{blog.title}</h1>
+
+          <a href={`/profile/${blog.authorId}`} class="flex items-center gap-2 text-gray-300">
+            <span>By</span>
+            <div class="w-10 h-10 bg-gray-200 shrink-0 flex ring-primary rounded-full">
+              <img src={blog.authorImage} class="object-cover w-full h-full rounded-full" width="600" height="600" />
+            </div>
+            {blog.authorName}
+          </a>
+        </section>
+
+        <hr class="border-gray-700 w-full -mx-20" />
+        <article class="min-w-full text-justify text-gray-400 leading-7" set:html={blog.content} />
+        <hr class="border-gray-700 w-full -mx-20" />
+        <div class="flex gap-8 items-center mr-auto">
+          <button class="text-center" id="likeButton" data-blogid={blog.id}>
+            <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
+            <span class="text-white">{likeCount ?? 0}</span>
+            </button
+          >
+          <span class="text-center"
+            ><Icon name="mdi:eye" size={20} class:list={'inline-block mr-2'} />{viewCount ?? 0}</span
+          >
+        </div>
+
+        <Comments blogId={blog.id.toString()} comments={comments} client:visible user={user}/>
+      </div>
+    </div>
   </main>
 </Layout>
+
+<style>
+  .liked {
+    @apply text-red-700;
+  }
+</style>
+
+<script>
+  import { actions } from 'astro:actions';
+
+  const likeButton = document.querySelector<HTMLButtonElement>('#likeButton');
+  likeButton?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const { data, error } = await actions.likeBlog({ blogId: likeButton.dataset.blogid! });
+
+    if (data) {
+      if (data.liked) {
+        likeButton.classList.add('liked');
+      } else {
+        likeButton.classList.remove('liked');
+      }
+    }
+  });
+</script>

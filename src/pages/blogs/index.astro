@@ -1,100 +1,26 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import BlogCard from '@components/BlogCard.astro';
-const blogs = [
-  {
-    id: 1,
-    title: 'How to build a blog with Astro',
-    content: 'This is a blog content',
-    description:
-      'This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description.',
-    createdAt: '2022-01-01',
-    authorName: 'Bhavya Nayak',
-    image: 'https://images.pexels.com/photos/1000366/pexels-photo-1000366.jpeg',
-    authorId: 1,
-  },
-  {
-    id: 2,
-    title: 'How to build a blog with Astro',
-    content: 'This is a blog content',
-    description:
-      'This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description.',
-    createdAt: '2022-01-01',
-    authorName: 'John Doe',
-    image: 'https://images.pexels.com/photos/1000366/pexels-photo-1000366.jpeg',
-    authorId: 1,
-  },
-  {
-    id: 3,
-    title: 'How to build a blog with Astro',
-    content: 'This is a blog content',
-    description:
-      'This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description.',
-    createdAt: '2022-01-01',
-    authorName: 'John Doe',
-    image: 'https://images.pexels.com/photos/1000366/pexels-photo-1000366.jpeg',
-    authorId: 1,
-  },
-  {
-    id: 4,
-    title: 'How to use GitHub Copilot for coding',
-    content: 'This is a blog content',
-    description:
-      'This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description.',
-    createdAt: '2022-01-01',
-    authorName: 'Jane Smith',
-    image: 'https://images.pexels.com/photos/1000366/pexels-photo-1000366.jpeg',
-    authorId: 2,
-  },
-  {
-    id: 5,
-    title: 'Introduction to React Hooks',
-    content: 'This is a blog content',
-    description:
-      'This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description.',
-    createdAt: '2022-01-01',
-    authorName: 'Jane Smith',
-    image: 'https://images.pexels.com/photos/1000366/pexels-photo-1000366.jpeg',
-    authorId: 2,
-  },
-  {
-    id: 6,
-    title: 'Getting Started with Node.js',
-    content: 'This is a blog content',
-    description:
-      'This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description.',
-    createdAt: '2022-01-01',
-    authorName: 'Jane Smith',
-    image: 'https://images.pexels.com/photos/1000366/pexels-photo-1000366.jpeg',
-    authorId: 2,
-  },
-  {
-    id: 7,
-    title: 'Mastering CSS Grid Layout',
-    content: 'This is a blog content',
-    description:
-      'This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description. This is a blog description.',
-    createdAt: '2022-01-01',
-    authorName: 'Jane Smith',
-    image: 'https://images.pexels.com/photos/1000366/pexels-photo-1000366.jpeg',
-    authorId: 2,
-  },
-];
 
-// import { db } from "@lib/db";
-// import { blogTable } from "@lib/db/schema";
+import { db } from "@lib/db";
+import { blogTable, userTable } from "@lib/db/schema";
+import { eq } from 'drizzle-orm';
 
-// const blogs = await db
-//   .select({
-//     id: blogTable.id,
-//     image: blogTable.image,
-//     title: blogTable.title,
-//     description: blogTable.description,
-//   })
-//   .from(blogTable);
+const blogs = await db
+  .select({
+    id: blogTable.id,
+    image: blogTable.image,
+    title: blogTable.title,
+    description: blogTable.description,
+    createdAt: blogTable.createdAt,
+    authorId: blogTable.authorId,
+    authorName:userTable.name,
+    authorImage:userTable.image,
+  }).from(blogTable)
+  .innerJoin(userTable, eq(blogTable.authorId, userTable.id));
 ---
 
-<Layout title="blogs">
+<Layout title=" ACE blogs">
   <main class="content-container">
     <section class="mt-16 flex flex-col items-center">
       <div class="lg:py-18 py-12 sm:py-14 md:py-16 xl:py-20 flex flex-col items-center gap-6 text-center">
@@ -122,7 +48,7 @@ const blogs = [
           </div>
         </aside>
 
-        <div class="flex flex-col justify-center items-center gap-8 md:gap-16 max-w-xl pt-6 lg:pt-8 xl:pt-10 w-full">
+        <div class="flex flex-col justify-start items-center gap-8 md:gap-16 max-w-xl pt-6 lg:pt-8 xl:pt-10 w-full">
           {blogs.map((blog) => <BlogCard blog={blog} />)}
         </div>
       </div>
