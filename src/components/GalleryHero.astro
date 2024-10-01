@@ -1,24 +1,32 @@
 ---
 import sample from '../assets/images/sample.png'
 import { Image } from 'astro:assets'
+let images: ImageMetadata[] = [];
+
+await Astro.glob('/src/assets/images/eventpic/*.{jpg,JPG}').then((files) => {
+  files.forEach((file) => {
+    images.push(file.default);
+  });
+});
 ---
 
 <section id="scene" class="overflow-hidden">
   <div data-depth="0.2" id="layer1" class="layer">
-    <Image src={sample} alt="" class="layer-img" style="top:20%; left:20%;" loading="lazy" />
-    <Image src={sample} alt="" class="layer-img" style="bottom:10%; left:70%;" loading="lazy" />
+    <Image src={images[0]} alt="" class="layer-img" style="top:20%; left:10%;" loading="lazy" />
+    <Image src={images[3]} alt="" class="layer-img" style="bottom:70%; right:50%;" loading="lazy" />
   </div>
 
   <div data-depth="0.4" id="layer2" class="layer">
     <div class="flex justify-around items-center m-auto w-full h-full">
-      <Image src={sample} alt="" class="layer-img" style="bottom:10%; left:10%;" loading="lazy" />
-      <Image src={sample} alt="" class="layer-img" style="bottom:60%; right:20%;" loading="lazy" />
+      <Image src={images[2]} alt="" class="layer-img" style="bottom:10%; left:10%;" loading="lazy" />
+      <Image src={images[3]} alt="" class="layer-img" style="bottom:60%; right:20%;" loading="lazy" />
+      <Image src={images[1]} alt="" class="layer-img" style="bottom:10%; left:70%;" loading="lazy" />
     </div>
   </div>
   
   <div data-depth="0.6" id="layer3" class="layer">
     <div class="flex justify-around items-center m-auto w-full h-full">
-      <Image src={sample} alt="" class="layer-img" loading="lazy" />
+      <Image src={images[5]} alt="" class="layer-img" loading="lazy" />
     </div>
   </div>
 </section>
