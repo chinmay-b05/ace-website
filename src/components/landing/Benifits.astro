@@ -1,30 +1,30 @@
 ---
-import { Image } from "astro:assets";
+import { Image } from 'astro:assets';
 
 const cards = [
   {
     title: 'Workshop',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
+    content: 'Sharpen your skills, because nobody ever built a career with dull tools',
     image: 'sample',
   },
   {
-    title: 'jsddsg',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
+    title: 'Cultural Events',
+    content: 'Join the fun – because life’s too short for boring weekends!',
     image: 'sample',
   },
   {
-    title: 'jsddsg',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
+    title: 'Sports',
+    content: 'Where the game begins and excuses end—play hard or go home!',
     image: 'sample',
   },
   {
-    title: 'jsddsg',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
+    title: 'Project Expo',
+    content: 'Innovations on display—turning ideas into wow!!!',
     image: 'sample',
   },
   {
-    title: 'jsddsg',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
+    title: 'Placement guidence',
+    content: 'From campus to corporate—let’s nail our dream job, one step at a time!',
     image: 'sample',
   },
 ];
@@ -35,38 +35,36 @@ await Astro.glob('/src/assets/images/sample.png').then((files) => {
     images[name] = file.default;
   });
 });
-
 ---
+
 <section class="benifits-section content-container event-section h-fit mb-16 overflow-hidden">
   <div
     class="marquee-container overflow-visible w-full relative whitespace-nowrap h-[50vh] md:h-[70vh] flex justify-center text-7xl md:text-9xl flex-col gap-0"
   >
     <h1 class="marquee-text-1 inline-block whitespace-nowrap font-dirtyline font-medium">Explore</h1>
-    <h1 class="marquee-text-2 inline-block whitespace-nowrap font-dirtyline font-medium absolute top-[56%]">
-      More
-    </h1>
+    <h1 class="marquee-text-2 inline-block whitespace-nowrap font-dirtyline font-medium absolute top-[56%]">More</h1>
   </div>
   <div class="flex flex-col h-fit gap-8 cards-grid">
-    {cards.map((card) => (
-      <div class="benifit-row flex flex-col md:flex-row items-center justify-between gap-4">
-        <Image
-          src={images[card.image]}
-          alt={card.title}
-          class="benifit-card interactable max-w-[350px] lg:max-w-[600px] object-cover object-center"
-          data-type="link"
-        />
-        <div class="grid place-content-center w-full md:w-auto">
-          <div class="benifit-text text-center md:text-left px-4 md:px-0">
-            <h5 class="font-dirtyline text-4xl md:text-6xl">{card.title}</h5>
-            <p class="text-base md:text-lg">{card.content}</p>
-            <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md">Test</button>
+    {
+      cards.map((card) => (
+        <div class="benifit-row flex flex-col md:flex-row items-center justify-between gap-4">
+          <Image
+            src={images[card.image]}
+            alt={card.title}
+            class="benifit-card interactable max-w-[350px] lg:max-w-[600px] object-cover object-center"
+            data-type="link"
+          />
+          <div class="grid place-content-center w-full md:w-auto">
+            <div class="benifit-text text-center md:text-left px-4 md:px-0">
+              <h5 class="font-dirtyline text-4xl md:text-6xl">{card.title}</h5>
+              <p class="text-base md:text-lg">{card.content}</p>
+            </div>
           </div>
         </div>
-      </div>
-    ))}
+      ))
+    }
   </div>
 </section>
-
 
 <style>
   @media (min-width: 1024px) {
@@ -83,7 +81,7 @@ await Astro.glob('/src/assets/images/sample.png').then((files) => {
     -webkit-background-clip: text;
     white-space: nowrap;
   }
-  img{
+  img {
     border-radius: 2rem;
   }
 </style>
@@ -188,7 +186,7 @@ await Astro.glob('/src/assets/images/sample.png').then((files) => {
         gsap.from(text, {
           y: '100%',
           opacity: 0.3,
-          duration:0.5,
+          duration: 0.5,
           ease: 'power4.inOut',
           scrollTrigger: {
             scrub: 0.1,

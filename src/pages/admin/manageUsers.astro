@@ -2,10 +2,8 @@
 import Layout from '@layouts/Layout.astro';
 import { db } from '@lib/db';
 import { userTable } from '@lib/db/schema';
-import { actions } from 'astro:actions';
 
 const users = await db.select().from(userTable).all();
-console.log(users);
 ---
 
 <Layout>

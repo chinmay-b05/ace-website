@@ -2,7 +2,8 @@ import { commentBlog, createBlog, editBlog, likeBlog } from './blog';
 import { createTeam } from './teams';
 import { editProfile } from './profile';
 import { uploadToGallery } from './adminGalleryUpload';
-import { changeRole, getAllUsers, removeUser } from './manageUsers';
+import { changeRole, removeUser } from './manageUsers';
+import { createEvent } from './events';
 
 export const server = {
   createBlog,
@@ -12,7 +13,7 @@ export const server = {
   commentBlog,
   createTeam,
   uploadToGallery,
-  getAllUsers,
   removeUser,
   changeRole,
+  createEvent,
 };

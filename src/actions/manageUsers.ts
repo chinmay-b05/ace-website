@@ -3,18 +3,8 @@
 import { db } from '@lib/db';
 import { userTable } from '@lib/db/schema';
 import { z } from 'astro/zod';
-import { ActionError, defineAction } from 'astro:actions';
-import { getSession } from 'auth-astro/server';
+import { defineAction } from 'astro:actions';
 import { eq, inArray } from 'drizzle-orm';
-import { isAdmin } from 'utils/checkAdmin';
-
-export const getAllUsers = defineAction({
-  handler: async (input, context) => {
-    const users = await db.select().from(userTable).all();
-    console.log(users);
-    return users;
-  },
-});
 
 export const removeUser = defineAction({
   input: z.object({

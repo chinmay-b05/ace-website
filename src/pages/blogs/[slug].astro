@@ -77,21 +77,19 @@ if (session?.user?.id) {
   }
 }
 
-
 let user: {
-    id: string;
-    image: string | null;
-    name: string;
-  }|null=null;
+  id: string;
+  image: string | null;
+  name: string;
+} | null = null;
 
-if(session?.user?.id){
+if (session?.user?.id) {
   user = {
-    id:session!.user!.id,
-    name:session!.user!.name!,
-    image:session!.user!.image!
-  }
+    id: session!.user!.id,
+    name: session!.user!.name!,
+    image: session!.user!.image!,
+  };
 }
-
 
 //comments
 const comments = await db
@@ -118,15 +116,21 @@ const comments = await db
         class="mx-auto md:space-y-12 max-w-full bg-[#13151a] py-8 md:px-4 lg:p-12 lg:py-16 xl:py-20 xl:px-16 flex flex-col justify-center items-center"
       >
         <section class="mx-auto w-full max-w-prose text-center flex justify-center items-center flex-col space-y-6">
-          <time class="text-gray-300 text-2xl text-center"
-            >{
+          <time class="text-gray-300 text-2xl text-center">
+            {
               new Intl.DateTimeFormat('en-US', {
                 dateStyle: 'medium',
-                timeStyle: 'short',
+
+                timeZone: 'Asia/Kolkata',
               }).format(new Date(blog.createdAt))
-            }</time
-          >
-          <h1 class="text-4xl font-bold text-center">{blog.title}</h1>
+            }
+          </time>
+
+          <div class="w-full max-w-[80%]">
+            <h1 class="text-4xl font-bold text-center text-wrap break-words">
+              {blog.title}
+            </h1>
+          </div>
 
           <a href={`/profile/${blog.authorId}`} class="flex items-center gap-2 text-gray-300">
             <span>By</span>
@@ -138,20 +142,23 @@ const comments = await db
         </section>
 
         <hr class="border-gray-700 w-full -mx-20" />
-        <article class="min-w-full text-justify text-gray-400 leading-7" set:html={blog.content} />
+        <article
+          class="min-w-full indent-10 capitalize text-justify text-gray-400 leading-7 break-words max-w-[90%] mx-auto"
+        >
+          {blog.description}
+        </article>
         <hr class="border-gray-700 w-full -mx-20" />
         <div class="flex gap-8 items-center mr-auto">
           <button class="text-center" id="likeButton" data-blogid={blog.id}>
             <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
             <span class="text-white">{likeCount ?? 0}</span>
-            </button
-          >
+          </button>
           <span class="text-center"
             ><Icon name="mdi:eye" size={20} class:list={'inline-block mr-2'} />{viewCount ?? 0}</span
           >
         </div>
 
-        <Comments blogId={blog.id.toString()} comments={comments} client:visible user={user}/>
+        <!-- <Comments blogId={blog.id.toString()} comments={comments} client:visible user={user} /> -->
       </div>
     </div>
   </main>
