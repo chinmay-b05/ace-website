@@ -1,0 +1,30 @@
+---
+import NewEvent from '@components/NewEvent.astro';
+import Layout from '@layouts/Layout.astro';
+import { getSession } from 'auth-astro/server';
+
+const session = await getSession(Astro.request);
+
+if (!session?.user) {
+  return Astro.redirect('/');
+}
+---
+
+<Layout title='ACE blog-new'>
+  <div class="mt-20">
+    <NewEvent />
+  </div>
+</Layout>
+
+<script>
+  import { actions } from 'astro:actions';
+  
+  const form = document.getElementById('new-event-form') as HTMLFormElement;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const { data, error } = await actions.createEvent(formData);
+
+    console.log(error);
+  });
+</script>
