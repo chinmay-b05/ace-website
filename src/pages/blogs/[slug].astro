@@ -116,14 +116,16 @@ const comments = await db
         class="mx-auto md:space-y-12 max-w-full bg-[#13151a] py-8 md:px-4 lg:p-12 lg:py-16 xl:py-20 xl:px-16 flex flex-col justify-center items-center"
       >
         <section class="mx-auto w-full max-w-prose text-center flex justify-center items-center flex-col space-y-6">
-          <time class="text-gray-300 text-2xl text-center"
-            >{
+          <time class="text-gray-300 text-2xl text-center">
+            {
               new Intl.DateTimeFormat('en-US', {
                 dateStyle: 'medium',
-                timeStyle: 'short',
+
+                timeZone: 'Asia/Kolkata',
               }).format(new Date(blog.createdAt))
-            }</time
-          >
+            }
+          </time>
+
           <div class="w-full max-w-[80%]">
             <h1 class="text-4xl font-bold text-center text-wrap break-words">
               {blog.title}
