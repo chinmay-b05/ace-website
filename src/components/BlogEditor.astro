@@ -15,7 +15,7 @@ const { id } = Astro.props;
 
 let blog;
 
-if (id != 'new') {
+if (id !== 'new') {
   const blogs = await db
     .select({
       id: blogTable.id,
@@ -69,13 +69,14 @@ if (id != 'new') {
 
     <label>
       <p>Image</p>
-      <input type="file" class="w-full" name="image" required />
+      <input type="file" class="w-full" name="image" required={id === "new"} />
     </label>
 
     <input type="text" name="authorId" hidden value={session!.user!.id!} />
-    <button
+    {id !== 'new' && <input type="text" name="blogId" hidden value={id} />}
+    <button 
       class="w-full p-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-300"
-      type="button"
+      type="submit"
     >
       Submit
     </button>
