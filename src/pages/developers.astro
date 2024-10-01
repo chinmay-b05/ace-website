@@ -96,7 +96,8 @@ const developers = [
   {
     name: 'Chinmay Billawa',
     description: '"What is life?"',
-    linkedinLink: 'https://www.linkedin.com/in/chinmay-billava-10954424b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+    linkedinLink:
+      'https://www.linkedin.com/in/chinmay-billava-10954424b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
     githubLink: 'https://github.com/chinmay-b05',
     instagramLink: 'https://www.instagram.com/chinmaybillava?igsh=aTdxdWd2dTBkd2Zi',
     frontImage: 'Chinmay Dinesh Billava',
@@ -142,7 +143,7 @@ await Astro.glob('/src/assets/images/developers/*.{jpg,png}').then((files) => {
 });
 ---
 
-<Layout title='ACE'>
+<Layout title="ACE">
   <main class="content-container">
     <div class="mt-32 flex flex-col gap-8 items-center">
       <h2 class="fade-up uppercase text-6xl text-center font-dirtyline">Meet the dev team</h2>
@@ -158,8 +159,8 @@ await Astro.glob('/src/assets/images/developers/*.{jpg,png}').then((files) => {
                   linkedinLink={dev.linkedinLink}
                   githubLink={dev.githubLink}
                   instagramLink={dev.instagramLink}
-                  frontImage={images[dev.frontImage]|| sample}
-                  backImage={images[dev.backImage]||sample}
+                  frontImage={images[dev.frontImage] || sample}
+                  backImage={images[dev.backImage] || sample}
                 />
               </div>
             );
