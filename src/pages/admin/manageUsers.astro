@@ -4,7 +4,6 @@ import { db } from '@lib/db';
 import { userTable } from '@lib/db/schema';
 
 const users = await db.select().from(userTable).all();
-console.log(users);
 ---
 
 <Layout>
