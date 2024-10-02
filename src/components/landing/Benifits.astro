@@ -1,46 +1,45 @@
 ---
-import { Image } from "astro:assets";
+import { Image } from 'astro:assets';
 
 const cards = [
   {
     title: 'Workshop',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: 'sample',
+    content: 'Sharpen your skills, because nobody ever built a career with dull tools',
+    image: 'workshop',
   },
   {
-    title: 'jsddsg',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: 'sample',
+    title: 'Cultural Events',
+    content: 'Join the fun – because life’s too short for boring weekends!',
+    image: 'cultural',
   },
   {
-    title: 'jsddsg',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: 'sample',
+    title: 'Sports',
+    content: 'Where the game begins and excuses end—play hard or go home!',
+    image: 'sports',
   },
   {
-    title: 'jsddsg',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: 'sample',
+    title: 'Project Expo',
+    content: 'Innovations on display—turning ideas into wow!!!',
+    image: 'projectexpo',
   },
   {
-    title: 'jsddsg',
-    content: 'lorem ddh fdg hfdhgfh f fgd',
-    image: 'sample',
+    title: 'Placement guidence',
+    content: 'From campus to corporate—let’s nail our dream job, one step at a time!',
+    image: 'placement',
   },
 ];
 const images: { [index: string]: ImageMetadata } = {};
-await Astro.glob('/src/assets/images/sample.png').then((files) => {
+await Astro.glob('/src/assets/images/Benifits/*.png').then((files) => {
   files.forEach((file) => {
     const name = file.default.src.split('.')[0].split('/').pop();
     images[name] = file.default;
   });
 });
-
 ---
 
 <section class="benifits-section content-container event-section h-fit mb-16 overflow-hidden">
   <div
-    class="marquee-container overflow-visible w-[100%] relative whitespace-nowrap h-[70vh] flex justify-center text-9xl flex-col gap-0"
+    class="marquee-container overflow-visible w-full relative whitespace-nowrap h-[50vh] md:h-[70vh] flex justify-center text-7xl md:text-9xl flex-col gap-0"
   >
     <h1 class="marquee-text-1 inline-block whitespace-nowrap font-dirtyline font-medium">Explore</h1>
     <h1 class="marquee-text-2 inline-block whitespace-nowrap font-dirtyline font-medium absolute top-[56%]">More</h1>
@@ -48,18 +47,17 @@ await Astro.glob('/src/assets/images/sample.png').then((files) => {
   <div class="flex flex-col h-fit gap-8 cards-grid">
     {
       cards.map((card) => (
-        <div class="benifit-row flex flex-col md:flex-row items-center justify-between flex-wrap gap-4">
+        <div class="benifit-row flex flex-col md:flex-row items-center justify-between gap-4">
           <Image
             src={images[card.image]}
             alt={card.title}
-            class="benifit-card interactable max-w-[600px] object-cover object-center"
+            class="benifit-card interactable max-w-[350px] lg:max-w-[600px] object-cover object-center"
             data-type="link"
           />
-          <div class="grid place-content-center">
-            <div class="benifit-text">
-              <h5 class="font-dirtyline text-6xl">{card.title}</h5>
-              <p class="text-lg">{card.content}</p>
-              <button>Test</button>
+          <div class="grid place-content-center w-full md:w-auto">
+            <div class="benifit-text text-center md:text-left px-4 md:px-0">
+              <h5 class="font-dirtyline text-4xl md:text-6xl">{card.title}</h5>
+              <p class="text-base md:text-lg">{card.content}</p>
             </div>
           </div>
         </div>
@@ -83,7 +81,7 @@ await Astro.glob('/src/assets/images/sample.png').then((files) => {
     -webkit-background-clip: text;
     white-space: nowrap;
   }
-  img{
+  img {
     border-radius: 2rem;
   }
 </style>
@@ -102,7 +100,7 @@ await Astro.glob('/src/assets/images/sample.png').then((files) => {
       },
       {
         x: end1X,
-        backgroundPosition: '55% 0', // Animate background to the left
+        backgroundPosition: '0% 0%', // Animate background to the left
         ease: 'none',
         scrollTrigger: {
           trigger: '.benifits-section .marquee-container',
@@ -188,7 +186,7 @@ await Astro.glob('/src/assets/images/sample.png').then((files) => {
         gsap.from(text, {
           y: '100%',
           opacity: 0.3,
-          duration:0.5,
+          duration: 0.5,
           ease: 'power4.inOut',
           scrollTrigger: {
             scrub: 0.1,

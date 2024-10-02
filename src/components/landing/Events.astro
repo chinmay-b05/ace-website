@@ -2,65 +2,67 @@
 const cards = [
   {
     title: 'jsddsg',
-    image: '/images/sample.png',
+    image: '/images/eventpic/cultural.jpg',
   },
   {
     title: 'jsddsg',
-    image: '/images/sample.png',
+    image: '/images/eventpic/Placement.JPG',
   },
   {
     title: 'jsddsg',
-    image: '/images/sample.png',
+    image: '/images/eventpic/incrediaripoff.jpg',
   },
   {
     title: 'jsddsg',
-    image: '/images/sample.png',
+    image: '/images/eventpic/techevent.jpg',
   },
   {
     title: 'jsddsg',
-    image: '/images/sample.png',
+    image: '/images/eventpic/techtainment1.jpg',
   },
   {
     title: 'jsddsg',
-    image: '/images/sample.png',
+    image: '/images/eventpic/gallery.jpg',
   },
   {
     title: 'jsddsg',
-    image: '/images/sample.png',
+    image: '/images/eventpic/placementtalks2.JPG',
   },
   {
     title: 'jsddsg',
-    image: '/images/sample.png',
+    image: '/images/eventpic/projectexpo.JPG',
   },
 ];
 ---
 
 <section class="events-container content-container event-section h-fit my-8 overflow-hidden">
-  <div
-    class="marquee-container overflow-visible w-[100%] relative whitespace-nowrap h-[70vh] flex justify-center text-9xl flex-col gap-0"
-  >
+  <div class="marquee-container overflow-visible w-[100%] relative whitespace-nowrap h-[70vh] flex justify-center text-7xl md:text-9xl flex-col gap-0">
     <h1 class="marquee-text-1 inline-block whitespace-nowrap font-dirtyline font-medium">Events</h1>
   </div>
   <div class="grid grid-cols-1 lg:grid-cols-2 h-fit gap-8 cards-grid">
-    {
-      cards.map((card) => (
-        <div class="event-card interactable" data-type="link">
-          <img src={card.image} alt={card.title} />
-          {/* <h5>{card.title}</h5> */}
-        </div>
-      ))
-    }
+    {cards.map((card) => (
+      <div class="event-card interactable" data-type="link">
+        <img src={card.image} alt={card.title} loading="lazy" />
+      </div>
+    ))}
   </div>
 
-  <div class="mx-auto mt-32 w-36 aspect-square bg-white text-black rounded-full grid place-content-center text-center transition-all duration-500 transform hover:scale-110 hover:translate-y-2 hover:shadow-2xl">
+  <div class="mx-auto mt-32 w-36 aspect-square bg-white text-black rounded-full grid place-content-center text-center transition-all duration-300 transform hover:scale-105 hover:translate-y-1 hover:shadow-2xl">
     <span class="font-bold text-lg">
       <a href="/gallery" class="hover:text-white transition-colors duration-300">view more</a>
     </span>
   </div>
   <br>
 </section>
-
 <style>
+    .marquee-text-1 {
+    background: linear-gradient(90deg, #e0eeee 50%, #252525 50%, #e0eeee 50%, #252525 50%);
+    background-size: 200% 100%; /* Ensure the background is wide enough to animate */
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    white-space: nowrap;
+  }
 
 .mx-auto {
     position: relative;
@@ -129,14 +131,6 @@ const cards = [
     }
   }
 
-  .marquee-text-1 {
-    background: linear-gradient(90deg, #e0eeee 50%, #252525 50%, #e0eeee 50%, #252525 50%);
-    background-size: 200% 100%; /* Ensure the background is wide enough to animate */
-    color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    white-space: nowrap;
-  }
 </style>
 
 <script>
@@ -153,7 +147,7 @@ const cards = [
       },
       {
         x: end1X,
-        backgroundPosition: '55% 0', // Animate background to the left
+        backgroundPosition: '22% 0', // Animate background to the left
         ease: 'none',
         scrollTrigger: {
           trigger: '.events-container .marquee-text-1',

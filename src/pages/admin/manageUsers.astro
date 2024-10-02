@@ -1,0 +1,59 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { db } from '@lib/db';
+import { userTable } from '@lib/db/schema';
+
+const users = await db.select().from(userTable).all();
+---
+
+<Layout>
+  <div class="pt-20 text-white">
+    {
+      users.length !== 0 ? (
+        users.map((user: any) => (
+          <div class="flex justify-evenly">
+            <h2>{user.name}</h2>
+            <p>{user.email}</p>
+            <input type="checkbox" name="user" value={user.id} />
+          </div>
+        ))
+      ) : (
+        <p>No users found.</p>
+      )
+    }
+
+    <button class="border-2 border-white" id="dltBtn">Delete user</button>
+    <button class="border-2 border-white" id="changeRoleBtn">Change role</button>
+    <h3 >Select role</h3>
+    <input type="radio" name="role" value="ADMIN" > Admin
+    <input type="radio" name="role" value="MEMBER"> Member
+    <input type="radio" name="role" value="CORE"> Core
+  </div>
+
+  <script>
+    import { actions } from 'astro:actions';
+
+    const deleteBtn = document.getElementById('dltBtn') as HTMLButtonElement;
+    deleteBtn.addEventListener('click', () => {
+      const selectedUsers = document.querySelectorAll('input[name="user"]:checked') as NodeListOf<HTMLInputElement>;
+      if (selectedUsers.length > 0) {
+        const usersList = Array.from(selectedUsers).map((user) => user.value);
+        actions.removeUser({ id: usersList });
+      } else {
+        console.log('No user selected');
+      }
+    });
+
+    const changeRoleBtn = document.getElementById('changeRoleBtn') as HTMLButtonElement;
+    changeRoleBtn.addEventListener('click', () => {
+      const selectedUser = document.querySelector('input[name="user"]:checked') as HTMLInputElement;
+      const roleValue = document.querySelector('input[name="role"]:checked') as HTMLInputElement;
+
+      if (selectedUser) { 
+        actions.changeRole({ id: selectedUser.value ,role: roleValue.value as "CORE" | "MEMBER" | "ADMIN" });
+      } else {
+        console.log('No user selected');
+      }
+    });
+  </script>
+</Layout>

@@ -1,0 +1,29 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { db } from '@lib/db';
+import { eventTable } from '@lib/db/schema';
+
+const events = await db.select().from(eventTable).all();
+---
+
+<Layout>
+  <div class="p-10"></div>
+  <h1>Welcome to Events</h1>
+  <p>1. <a href="events/new-events">Create events</a></p>
+  <p>2. <a href="events/events-info">Manage Events</a></p>
+
+  Events:
+  {
+    events.length !== 0 ? (
+      events.map((event: any,idx) => (
+        <div class="flex justify-evenly">
+          <h2>{idx+1}. {event.name}</h2>
+          <p>{event.description}</p>
+          <a href={`events/${event.id}`}>View</a>
+        </div>
+      ))
+    ) : (
+      <p>No events found.</p>
+    )
+  }
+</Layout>
