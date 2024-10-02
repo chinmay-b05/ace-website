@@ -1,8 +1,8 @@
 import { db } from '@lib/db';
 import { eventTable, teamTable, userTeamTable } from '@lib/db/schema';
-import { ActionError, defineAction, type ActionAPIContext } from 'astro:actions';
+import { ActionError, defineAction } from 'astro:actions';
 import { z } from 'astro/zod';
-import { desc, eq, max, min } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { getSession } from 'auth-astro/server';
 import { uploadImageToCloudinaryFromServer } from '@lib/cloudinary';
 const MAX_FILE_SIZE = 5000000; //5mb

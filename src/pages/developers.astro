@@ -150,7 +150,6 @@ await Astro.glob('/src/assets/images/developers/*.{jpg,png}').then((files) => {
       <div class="flex flex-wrap gap-32 justify-center">
         {
           developers.map((dev) => {
-            console.log(dev);
             return (
               <div class="developer-card">
                 <DeveloperCard
@@ -159,8 +158,8 @@ await Astro.glob('/src/assets/images/developers/*.{jpg,png}').then((files) => {
                   linkedinLink={dev.linkedinLink}
                   githubLink={dev.githubLink}
                   instagramLink={dev.instagramLink}
-                  frontImage={images[dev.frontImage] || sample}
-                  backImage={images[dev.backImage] || sample}
+                  frontImage={images[dev.frontImage]}
+                  backImage={images[dev.backImage]}
                 />
               </div>
             );

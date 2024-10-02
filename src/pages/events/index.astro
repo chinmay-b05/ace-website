@@ -3,16 +3,12 @@ import EventCard from '@components/EventCard.astro';
 import Layout from '@layouts/Layout.astro';
 import { getAllEventsForUser } from 'utils/events';
 
-
-
 // Fetch all events
 const events = await getAllEventsForUser();
 
 if (!events) {
   Astro.redirect('/');
 }
-
-let currentTab = 'published';
 ---
 
 <Layout title='ACE'>
@@ -31,7 +27,7 @@ let currentTab = 'published';
               type="radio"
               id={`tab-${tabName}`}
               value={tabName}
-              checked={tabName === "completed"}
+              checked={tabName === "Completed"}
             />
             <label class="label" for={`tab-${tabName}`}>
               {displayString}

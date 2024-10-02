@@ -1,6 +1,6 @@
 import { db } from '@lib/db';
 import { eventTable, organiserTable, teamTable, userTable, userTeamTable } from '@lib/db/schema';
-import { and, eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 
 export async function getAllEventsForUser() {
   try {

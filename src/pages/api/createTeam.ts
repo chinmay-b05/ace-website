@@ -1,8 +1,8 @@
 import { db } from '@lib/db';
 import { teamTable, userTeamTable } from '@lib/db/schema';
-import type { APIContext, APIRoute } from 'astro';
+import type { APIRoute } from 'astro';
 import { z } from 'astro:schema';
-import { and, eq, sql } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
 const createTeamZ = z.object({
   eventId: z.number(),

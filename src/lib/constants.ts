@@ -7,9 +7,9 @@ export enum ContentType {
   None = 'none',
 }
 
-export const githubLink = 'https://github.com/';
-export const linkedinLink = 'https://www.linkedin.com/';
-export const instagramLink = 'https://www.instagram.com/';
+export const githubLink = 'https://github.com/ACE-NMAMIT/';
+export const linkedinLink = 'https://www.linkedin.com/company/acenmamit/';
+export const instagramLink = 'https://www.instagram.com/ace_nmamit/';
 
 export const faculty = [
   { name: 'Dr. Niranjan N. Chiplunkar', position: 'Principal', image: 'prin' },
