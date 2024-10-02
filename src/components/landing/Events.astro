@@ -1,38 +1,52 @@
 ---
+
+import { Image } from 'astro:assets';
+
 const cards = [
   {
-    title: 'jsddsg',
-    image: '/images/sample.png',
+    title: 'cultural',
+    image: 'cultural',
   },
   {
-    title: 'jsddsg',
-    image: '/images/sample.png',
+    title: 'Placement',
+    image: 'Placement',
   },
   {
-    title: 'jsddsg',
-    image: '/images/sample.png',
+    title: 'incrediaripoff',
+    image: 'incrediaripoff',
   },
   {
-    title: 'jsddsg',
-    image: '/images/sample.png',
+    title: 'techevent',
+    image: 'techevent',
   },
   {
-    title: 'jsddsg',
-    image: '/images/sample.png',
+    title: 'techtainment1',
+    image: 'techtainment1',
   },
   {
-    title: 'jsddsg',
-    image: '/images/sample.png',
+    title: 'gallery',
+    image: 'gallery',
   },
   {
-    title: 'jsddsg',
-    image: '/images/sample.png',
+    title: 'placementtalks2',
+    image: 'placementtalks2',
   },
   {
-    title: 'jsddsg',
-    image: '/images/sample.png',
+    title: 'projectexpo',
+    image: 'projectexpo',
   },
 ];
+
+const images: { [index: string]: ImageMetadata } = {};
+await Astro.glob('/src/assets/images/eventpic/*.jpg').then((files) => {
+  files.forEach((file) => {
+    const name = file.default.src.split('.')[0].split('/').pop();
+    images[name] = file.default;
+  });
+});
+
+
+cards.forEach(card=>console.log(images[card.image]))
 ---
 
 <section class="events-container content-container event-section h-fit my-8 overflow-hidden">
@@ -42,7 +56,12 @@ const cards = [
   <div class="grid grid-cols-1 lg:grid-cols-2 h-fit gap-8 cards-grid">
     {cards.map((card) => (
       <div class="event-card interactable" data-type="link">
-        <img src={card.image} alt={card.title} loading="lazy" />
+
+        <Image
+            src={images[card.image]} alt={card.title} 
+            loading="lazy" 
+            width={900}
+          />
       </div>
     ))}
   </div>
@@ -147,7 +166,7 @@ const cards = [
       },
       {
         x: end1X,
-        backgroundPosition: '24% 0', // Animate background to the left
+        backgroundPosition: '22% 0', // Animate background to the left
         ease: 'none',
         scrollTrigger: {
           trigger: '.events-container .marquee-text-1',

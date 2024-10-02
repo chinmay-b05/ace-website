@@ -11,7 +11,7 @@ console.log( session);
 ---
 
 <Layout>
-  <section class="user-forms h-[90vh] flex justify-center w-full flex-col items-center px-2 overflow-hidden">
+  <section class="user-forms flex justify-center items-center w-full flex-col px-2 overflow-hidden mt-20">
   
 
     <!-- Edit User Form -->
@@ -22,6 +22,9 @@ console.log( session);
 
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" value={session?.user?.email} required />
+
+       <label for="image">Profile pic:</label>
+      <input type="file" id="image" name="image" />
 
       <label for="github">Github:</label>
       <input type="text" id="github" name="github" value={user?.github}  />
@@ -44,11 +47,17 @@ import { toast } from 'sonner';
   document.addEventListener('DOMContentLoaded', function () {
      const submitButton = document.getElementById('submit-btn');
     const editUserForm = document.getElementById('editUserForm');
+    
+    
 
     async function handleEditUser(event: SubmitEvent) {
-
-      event.preventDefault();      
+      event.preventDefault();     
+       
       const formData = new FormData(editUserForm as HTMLFormElement);
+      const image = formData.get('image');
+      
+      console.log(image);
+      
        (submitButton as HTMLButtonElement).disabled = true;
       if (submitButton) {
         submitButton.textContent = 'Loading...';

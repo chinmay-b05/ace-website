@@ -1,0 +1,27 @@
+---
+import Layout from '@layouts/Layout.astro';
+---
+
+<Layout>
+  <div class="grid place-content-center mt-20">
+    <form  id="upload-form" enctype="multipart/form-data" >
+      <input type="file" name="image" required />
+      <button type="submit">Upload</button>
+  </form>
+
+  </div>
+</Layout>
+
+<script>
+import { actions } from "astro:actions";
+
+
+  const form = document.querySelector('#upload-form') as HTMLFormElement;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const result = await actions.uploadToGallery(formData);
+    console.log(result);
+    
+  });
+</script>

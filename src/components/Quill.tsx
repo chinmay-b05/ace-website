@@ -11,7 +11,7 @@ export default function Quill({ initialValue = '', name }: { initialValue?: stri
       <input type="text" defaultValue={value} hidden name={name} />
 
       {/* preview */}
-      <div dangerouslySetInnerHTML={{ __html: value }}></div>
+      {/* <div dangerouslySetInnerHTML={{ __html: value }}></div> */}
     </div>
   );
 }

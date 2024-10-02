@@ -51,38 +51,56 @@ export default function Comments({ blogId, comments, user }: Props) {
   };
 
   return (
-    <div>
-      <form action={submitAction}>
+    <div className="w-full mt-8 p-4 mr-auto text-gray-300 rounded-lg shadow-lg">
+      <form action={submitAction} className="mb-6">
         <input type="text" name="blogId" value={blogId} hidden />
-        <p className="mb-2">Post a comment</p>
-        <div className="flex">
-          <textarea name="content" className="w-full" required />
-          <button className="" disabled={isPending}>
-            Post
-          </button>
-        </div>
-        {error && <p className="text-red-600">Failed: {error}</p>}
+
+        <p className="mb-2 font-semibold text-lg text-gray-400">Post a comment</p>
+
+        <textarea
+          name="content"
+          className="w-full p-3 rounded-lg bg-gray-800 text-gray-200 border border-gray-600 focus:ring-2 focus:ring-indigo-500 outline-none transition duration-200"
+          rows={4}
+          placeholder="Write your comment here..."
+          required
+        />
+
+        <button
+          type="submit"
+          className={`w-full mt-4 p-3 rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 font-semibold transition duration-150 ease-in-out ${isPending ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}`}
+          disabled={isPending}
+        >
+          Post
+        </button>
+
+        {error && <p className="text-red-600 mt-2">Failed: {error}</p>}
       </form>
 
-      {commentList.map((comment) => (
-        <div className="w-full items-start justify-center gap-4" key={comment.createdAt}>
-          <a href={`profile/${comment.userId}`}>
-            <div className="w-10 rounded-full">
-              <img alt={comment.userName} src={comment.userImage ?? ''} />
+      <div className="space-y-6">
+        {commentList.map((comment) => (
+          <div className="flex items-start gap-4 p-4 bg-gray-800 rounded-lg shadow-md" key={comment.createdAt}>
+            <a href={`profile/${comment.userId}`} className="shrink-0">
+              <div className="w-12 h-12 rounded-full overflow-hidden">
+                <img alt={comment.userName} src={comment.userImage ?? ''} className="object-cover w-full h-full" />
+              </div>
+            </a>
+            <div className="flex-grow">
+              <div className="flex items-center justify-between">
+                <a href={`/profile/${comment.userId}`} className="text-lg font-semibold hover:text-indigo-400">
+                  {comment.userName}
+                </a>
+                <time className="text-xs text-gray-500">
+                  {new Intl.DateTimeFormat('en-US', {
+                    dateStyle: 'short',
+                    timeStyle: 'short',
+                  }).format(new Date(comment.createdAt))}
+                </time>
+              </div>
+              <p className="mt-2 text-gray-300">{comment.content}</p>
             </div>
-          </a>
-          <div className="">
-            <a href={`/profile/${comment.userId}`}>{comment.userName}</a>
-            <time className="text-xs">
-              {new Intl.DateTimeFormat('en-US', {
-                dateStyle: 'short',
-                timeStyle: 'short',
-              }).format(new Date(comment.createdAt))}
-            </time>
           </div>
-          <div className="">{comment.content}</div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

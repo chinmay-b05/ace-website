@@ -13,16 +13,18 @@ const user = await getUser(session?.user?.id as string);
 
 
 if(!session || !user ) Astro.redirect('/');
+console.log(user);
+
 const events = await getAllEventsForProfile(session?.user?.id!);
 const blogs= await getAllBlogsForProfile(session?.user?.id!);
-console.log(blogs);
+
 
 const tabNames=["events","blogs"];
 
 ---
 
-<Layout>
-  <section class="profile-container">
+<Layout title='ACE'>
+  <section class="profile-container pt-20">
     <!-- Profile Header -->
     <div class="profile-header">
       <div class=`profile-pic`>
@@ -34,7 +36,7 @@ const tabNames=["events","blogs"];
         <p>Email: {user?.email}</p>
         <p class="border-1">{user?.role}</p>
           <!-- Social Links -->
-      <div class="flex gap-2 items-center">
+      <div class="flex gap-2 items-center justify-center sm:justify-start">
          {user?.linkedIn && (  <a href={`${user.linkedIn}`} target="_blank" class="social-icon linkedin "><Icon size={25} name="mdi:linkedin"/></a>)}
          {user?.github && ( <a href={`${user?.github}`} target="_blank" class="social-icon github"><Icon size={25} name="mdi:github"/></a>)}
          {user?.instagram && (<a href={`${user?.instagram}`} target="_blank" class="social-icon instagram"><Icon size={25} name="mdi:instagram"/></a>)}
@@ -49,7 +51,7 @@ const tabNames=["events","blogs"];
     </div>
 
     <!-- Profile Content -->
-        <section class="tabs content-container">
+        <section class="tabs ">
       <ul>
       {tabNames.map((tabName) => {
         const displayString = tabName === "events" ? "Your Events" : "Your Blogs";
@@ -72,9 +74,9 @@ const tabNames=["events","blogs"];
     </ul>
      <div class="panel-container w-full">
    
-        <div class="panel  flex items-center" data-tabName="events">
-           <button id="scrollLeft" class="scroll-button rounded-xl" > back </button>
-<div class=" panel events-panel flex gap-8 overflow-x-auto whitespace-nowrap p-8" id="events" data-tabName="events">
+        <div class="panel  flex items-center justify-center gap-2" data-tabName="events">
+           <Icon id="scrollLeft"  name="carbon:arrow-left" /> 
+<div class=" panel events-panel flex gap-8 overflow-x-auto whitespace-nowrap py-8 sm:max-w-[600px] max-w-[300px] justify-start" id="events" data-tabName="events">
       
       {events?.length ? (events.map((event)=> (
        <div class="card m-0">
@@ -91,16 +93,16 @@ const tabNames=["events","blogs"];
       ))):(<p>No events found</p>)}
        
      </div>
-      <button id="scrollRight" class="scroll-button" >Next</button>
+      <Icon id="scrollRight" class="scroll-button" name="carbon:arrow-right" />
         </div>
    
-     <div class="panel flex items-center" data-tabName="blogs">
-        <button id="scrollLeftB" class="scroll-button rounded-xl" > back </button>
-<div class="panel blogs-panel overflow-x-auto flex gap-8 whitespace-nowrap p-8" id="blogs" data-tabName="blogs">
+     <div class="panel flex items-center justify-center gap-2" data-tabName="blogs">
+        <Icon id="scrollLeftB" class="scroll-button " name="carbon:arrow-left"  /> 
+<div class="panel blogs-panel overflow-x-auto flex gap-8 whitespace-nowrap py-8" id="blogs" data-tabName="blogs">
        
           {blogs?.length ? (
             blogs.map(blog => (
-             <div class="blog-card">
+             <div class="blog-card max-w-[300px] sm:max-w-[450px]">
                <BlogCard 
                 blog={blog}
               />
@@ -110,7 +112,7 @@ const tabNames=["events","blogs"];
             <p>No blogs found.</p>
           )}
         </div>
-           <button id="scrollRightB" class="scroll-button" >Next</button>
+           <Icon id="scrollRightB" class="scroll-button" name="carbon:arrow-right" />
      </div>
      
     </div>
@@ -122,7 +124,7 @@ const tabNames=["events","blogs"];
 
 <style>
   .profile-container {
-    padding: 5rem;
+    
     background-color: #0000; /* Transparent background */
     display: flex;
     flex-direction: column;
@@ -145,8 +147,8 @@ const tabNames=["events","blogs"];
   }
 
   .profile-pic {
-    width: 120px;
-    height: 120px;
+    width: 115px;
+    height: 70px;
     background-color: #ece5f0;
     border-radius: 50%;
     overflow: hidden;
@@ -202,8 +204,8 @@ const tabNames=["events","blogs"];
     }
 
     .profile-pic {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
       border: 3px solid #22a7f0;
     }
 
@@ -365,25 +367,8 @@ const tabNames=["events","blogs"];
   
 }
 
-.blog-card{
-  flex-shrink: 0;
-  max-width: 450px;
-}
 
-.scroll-button {
-  background-color: #007bff; /* Bootstrap primary color or any color of your choice */
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  margin: 0 10px; /* Space around buttons */
-  border-radius: 20px; /* Optional: Rounded corners */
-  transition: background-color 0.3s ease; /* Smooth background transition */
-}
 
-.scroll-button:hover {
-  background-color: #0056b3; /* Darker shade for hover effect */
-}
 
 .events-panel::-webkit-scrollbar {
   display: none;

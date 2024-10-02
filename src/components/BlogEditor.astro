@@ -15,7 +15,7 @@ const { id } = Astro.props;
 
 let blog;
 
-if (id != 'new') {
+if (id !== 'new') {
   const blogs = await db
     .select({
       id: blogTable.id,
@@ -34,17 +34,32 @@ if (id != 'new') {
 ---
 
 <Layout title="Create Recipe">
-  <form class="flex flex-col gap-4 mx-auto max-w-[500px] p-4 bg-gray-800 shadow-lg rounded-lg" enctype="multipart/form-data" id="blog-form">
-    <h3 class="text-2xl font-bold mb-4 text-white">Create Recipe</h3>
-    
+  <form
+    class="flex flex-col gap-4 mx-auto max-w-[500px] p-4 bg-gray-800 shadow-lg rounded-lg"
+    enctype="multipart/form-data"
+    id="blog-form"
+  >
+    <h3 class="text-2xl font-bold mb-4 text-white">Cook a blog</h3>
+
     <label class="flex flex-col gap-2">
       <span class="text-lg font-semibold text-gray-300">Title</span>
-      <input type="text" name="title" required class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white" value={blog?.title} aria-label="Title" />
+      <input
+        type="text"
+        name="title"
+        required
+        class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        value={blog?.title}
+        aria-label="Title"
+      />
     </label>
 
     <label class="flex flex-col gap-2">
       <span class="text-lg font-semibold text-gray-300">Description</span>
-      <textarea name="description" class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white" aria-label="Description">{blog?.description}</textarea>
+      <textarea
+        name="description"
+        class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+        aria-label="Description">{blog?.description}</textarea
+      >
     </label>
 
     <label class="flex flex-col gap-2">
@@ -54,11 +69,17 @@ if (id != 'new') {
 
     <label>
       <p>Image</p>
-      <input type="file" class="w-full" name="image" required />
+      <input type="file" class="w-full" name="image" required={id === "new"} />
     </label>
 
     <input type="text" name="authorId" hidden value={session!.user!.id!} />
-    <button class="">Submit</button>
+    {id !== 'new' && <input type="text" name="blogId" hidden value={id} />}
+    <button 
+      class="w-full p-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-300"
+      type="submit"
+    >
+      Submit
+    </button>
   </form>
 </Layout>
 
@@ -70,7 +91,8 @@ if (id != 'new') {
     color: #ffffff;
   }
 
-  input, textarea {
+  input,
+  textarea {
     color: white;
   }
 
@@ -90,7 +112,8 @@ if (id != 'new') {
     margin-bottom: 1rem;
   }
 
-  input, textarea {
+  input,
+  textarea {
     width: 100%;
     padding: 0.5rem;
     border: 1px solid #4b5563;
@@ -109,7 +132,8 @@ if (id != 'new') {
       padding: 1rem;
     }
 
-    input, textarea {
+    input,
+    textarea {
       font-size: 0.875rem;
     }
 

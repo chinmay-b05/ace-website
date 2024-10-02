@@ -2,26 +2,24 @@
 import GalleryHero from '@components/GalleryHero.astro';
 import Layout from '@layouts/Layout.astro';
 import { getImages } from '../lib/cloudinary';
-import type { ResourceApiResponse } from 'cloudinary';
-import { Image } from 'astro:assets';
 
-let imagesDetails: ResourceApiResponse | null = null;
-
-try {
-  imagesDetails = await getImages('gallery');
-} catch (err) {
-  console.error(err);
-}
+let imagesDetails = await getImages('gallery');
 ---
 
-<Layout>
+<Layout title="ACE">
   <main>
-    <GalleryHero />
-    <br>
-    <br>
+    <div class="md:hidden mt-32 flex flex-col gap-8 items-center">
+      <h1 class="fade-up uppercase text-6xl mx-auto max-w-screen-lg font-dirtyline">Gallery</h1>
+      <p class="fade-up text-gray-200 font-syne-variable">Opening the memory window..</p>
+    </div>
+    <div class="hidden md:block">
+      <GalleryHero />
+    </div>
+    <br />
+    <br />
     <section class="content-container masonry-grid w-full h-fit">
       {
-        imagesDetails ? (
+        imagesDetails.resources.length ? (
           imagesDetails.resources.map((image, i) => (
             <img src={image.url} alt="" class="gallery-image mb-4 rounded-lg w-full" />
           ))

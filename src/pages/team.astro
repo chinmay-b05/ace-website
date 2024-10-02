@@ -30,7 +30,7 @@ const teamMembers = {
     { name: 'Rohan MP', position: 'Technical Coordinator', image: 'ABI03974-min' },
     { name: 'Satwik Prabhu', position: 'Techincal Coordinator', image: 'ABI03897-min' },
     { name: 'Len Mendonca', position: 'Joint Technical Coordinator', image: 'ABI04492-min' },
-    //why is his name not in teams 
+    //why is his name not in teams
     // { name: 'Varun Pai', position: 'Joint Technical Coordinator', image: '/images/developers/varunpai.jpeg' },
     { name: 'Omkar', position: 'Joint Graphics Design Coordinator', image: 'ABI04469-min' },
     { name: 'Pratham Nayak', position: 'Joint Graphics Design Coordinator', image: 'ABI04475-min' },
@@ -64,10 +64,7 @@ const teamMembers = {
     },
   ],
   2024: [
-    { name: 'James Henry', position: 'HOD', image: 'sample' },
-    { name: 'James Henry', position: 'HOD', image: 'sample' },
-    { name: 'John Doe', position: 'Assistant Professor', image: 'sample' },
-    { name: 'Srinivasa', position: 'Professor II', image: 'sample' },
+    
   ],
   faculty,
 };
@@ -91,8 +88,8 @@ images['sample'] = sample;
 ---
 
 <Layout>
-  <section class="tabs content-container tabs mt-28">
-    <ul>
+  <section class="content-container tabs mx-6 md:mx-0 mt-28">
+    <ul class="text-xs">
       {
         Object.keys(teamMembers).map((tabName) => {
           const displayString = tabName === 'faculty' ? 'Faculty' : `${tabName}-${Number(tabName) + 1}`;
@@ -106,7 +103,7 @@ images['sample'] = sample;
                 value={tabName}
                 checked={tabName === 'faculty'}
               />
-              <label class="label" for={`tab-${tabName}`}>
+              <label class="" for={`tab-${tabName}`}>
                 {displayString}
               </label>
             </li>
@@ -338,7 +335,7 @@ images['sample'] = sample;
       });
     }
 
-    radioButtons.forEach((radio:any) => {
+    radioButtons.forEach((radio: any) => {
       radio.addEventListener('change', () => {
         if (radio.checked) {
           updatePanel(radio.value);

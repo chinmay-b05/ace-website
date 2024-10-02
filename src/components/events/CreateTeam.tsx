@@ -1,6 +1,5 @@
 import { actions } from 'astro:actions';
-import React, { /*useActionState,*/ useEffect, useState, type FunctionComponent } from 'react';
-import { experimental_withState as withState } from '@astrojs/react/actions';
+import React, { useState, type FunctionComponent } from 'react';
 import { toast } from 'sonner';
 
 interface CreateTeamProps {
