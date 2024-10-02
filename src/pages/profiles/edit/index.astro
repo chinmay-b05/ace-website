@@ -63,7 +63,7 @@ import { toast } from 'sonner';
         submitButton.textContent = 'Loading...';
       }
      
-      const { data, error } = await actions.editProfile(formData);
+      const { error } = await actions.editProfile(formData);
          (submitButton as HTMLButtonElement).disabled = false;
      if (submitButton) {
         submitButton.textContent = 'Edit User';
@@ -74,6 +74,7 @@ import { toast } from 'sonner';
         
         toast.error("Failed to update!");
       } else {
+        
         toast.success("Updated successfully");
       }
     }

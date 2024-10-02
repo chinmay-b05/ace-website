@@ -5,7 +5,7 @@ import { db } from '@lib/db';
 import { and, count, eq } from 'drizzle-orm';
 import { blogTable, userTable, commentsTable, viewTable } from '@lib/db/schema';
 import { getSession } from 'auth-astro/server';
-import Comments from '@components/Comments';
+// import Comments from '@components/Comments';
 
 const { slug } = Astro.params;
 
@@ -92,17 +92,17 @@ if (session?.user?.id) {
 }
 
 //comments
-const comments = await db
-  .select({
-    content: commentsTable.content,
-    userName: userTable.name,
-    userId: userTable.id,
-    createdAt: commentsTable.createdAt,
-    userImage: userTable.image,
-  })
-  .from(commentsTable)
-  .innerJoin(userTable, eq(commentsTable.userId, userTable.id))
-  .where(eq(commentsTable.blogId, blog.id));
+// const comments = await db
+//   .select({
+//     content: commentsTable.content,
+//     userName: userTable.name,
+//     userId: userTable.id,
+//     createdAt: commentsTable.createdAt,
+//     userImage: userTable.image,
+//   })
+//   .from(commentsTable)
+//   .innerJoin(userTable, eq(commentsTable.userId, userTable.id))
+//   .where(eq(commentsTable.blogId, blog.id));
 ---
 
 <Layout>
@@ -177,6 +177,8 @@ const comments = await db
   likeButton?.addEventListener('click', async (e) => {
     e.preventDefault();
     const { data, error } = await actions.likeBlog({ blogId: likeButton.dataset.blogid! });
+    console.log(error);
+    
 
     if (data) {
       if (data.liked) {
