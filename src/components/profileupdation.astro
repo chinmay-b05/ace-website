@@ -6,8 +6,6 @@ import '../styles/global.css';
 
 const session = await getSession(Astro.request);
 const user = await getUser(session?.user?.id as string);
-console.log( user)
-console.log( session);
 ---
 
 <Layout>

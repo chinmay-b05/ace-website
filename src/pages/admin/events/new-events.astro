@@ -10,7 +10,7 @@ if (!session?.user) {
 }
 ---
 
-<Layout title='ACE blog-new'>
+<Layout title="ACE blog-new">
   <div class="mt-20">
     <NewEvent />
   </div>
@@ -18,15 +18,13 @@ if (!session?.user) {
 
 <script>
   import { actions } from 'astro:actions';
-  
+
   const form = document.getElementById('new-event-form') as HTMLFormElement;
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const { data, error } = await actions.createEvent(formData);
     console.log(data);
-    
-
     console.log(error);
   });
 </script>

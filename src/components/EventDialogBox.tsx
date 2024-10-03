@@ -239,8 +239,6 @@ const EventDialogBox = ({ email, id, name, eventId, maxTeamSize, eventName }: Di
               <button
                 className="card-button mx-auto w-[40%]"
                 onClick={() => {
-                  console.log('Clicked man');
-
                   setIsCreatingTeam(true);
                 }}
               >
@@ -317,7 +315,6 @@ const EventDialogBox = ({ email, id, name, eventId, maxTeamSize, eventName }: Di
               </div>
             )}
           </div>
-          {console.log(teamData)}
 
           {teamData && (
             <div className="text-sm text-gray-300 mb-6">(Max {JSON.stringify(teamData.event.maxTeamSize)} members)</div>

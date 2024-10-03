@@ -1,5 +1,4 @@
-import { actions } from 'astro:actions';
-import React, { useState, type FunctionComponent } from 'react';
+import { useState, type FunctionComponent } from 'react';
 import { toast } from 'sonner';
 
 interface CreateTeamProps {

@@ -177,7 +177,6 @@ const user = await getUser(session?.user?.id as string);
 <script>
   const { signIn, signOut } = await import('auth-astro/client');
   document.querySelector<HTMLButtonElement>('#login')?.addEventListener('click', () => {
-    console.log('login');
     signIn('google');
   });
   document.querySelector<HTMLButtonElement>('#logout')?.addEventListener('click', async () => await signOut());
