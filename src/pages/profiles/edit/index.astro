@@ -6,80 +6,72 @@ import '../../../styles/global.css';
 
 const session = await getSession(Astro.request);
 const user = await getUser(session?.user?.id as string);
-console.log( user)
-console.log( session);
+console.log(user);
+console.log(session);
 ---
 
 <Layout>
   <section class="user-forms flex justify-center items-center w-full flex-col px-2 overflow-hidden mt-20">
-  
-
     <!-- Edit User Form -->
-       <h3 class="text-3xl font-semibold mb-4">Edit User Info</h3>
-      <form id="editUserForm" class="form-container mt-8 w-full">
+    <h3 class="text-3xl font-semibold mb-4">Edit User Info</h3>
+    <form id="editUserForm" class="form-container mt-8 w-full">
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" value={session?.user?.name} required />
 
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" value={session?.user?.email} required />
 
-       <label for="image">Profile pic:</label>
+      <label for="image">Profile pic:</label>
       <input type="file" id="image" name="image" />
 
       <label for="github">Github:</label>
-      <input type="text" id="github" name="github" value={user?.github}  />
+      <input type="text" id="github" name="github" value={user?.github} />
 
       <label for="linkedIn">LinkedIn:</label>
-      <input type="text" id="linkedIn" name="linkedIn" value={user?.linkedIn}  />
+      <input type="text" id="linkedIn" name="linkedIn" value={user?.linkedIn} />
 
       <label for="instagram">Instagram:</label>
-      <input type="text" id="instagram" name="instagram" value={user?.instagram}  />
+      <input type="text" id="instagram" name="instagram" value={user?.instagram} />
 
       <button type="submit" id="submit-btn">Edit User</button>
     </form>
-    
   </section>
 </Layout>
 
 <script>
   import { actions } from 'astro:actions';
-import { toast } from 'sonner';
-  document.addEventListener('DOMContentLoaded', function () {
-     const submitButton = document.getElementById('submit-btn');
-    const editUserForm = document.getElementById('editUserForm');
-    
-    
+  import { toast } from 'sonner';
+  const submitButton = document.getElementById('submit-btn');
+  const editUserForm = document.getElementById('editUserForm');
 
-    async function handleEditUser(event: SubmitEvent) {
-      event.preventDefault();     
-       
-      const formData = new FormData(editUserForm as HTMLFormElement);
-      const image = formData.get('image');
-      
-      console.log(image);
-      
-       (submitButton as HTMLButtonElement).disabled = true;
-      if (submitButton) {
-        submitButton.textContent = 'Loading...';
-      }
-     
-      const { error } = await actions.editProfile(formData);
-         (submitButton as HTMLButtonElement).disabled = false;
-     if (submitButton) {
-        submitButton.textContent = 'Edit User';
-      }
+  async function handleEditUser(event: SubmitEvent) {
+    event.preventDefault();
 
-      if (error) {
-        console.error(error);
-        
-        toast.error("Failed to update!");
-      } else {
-        
-        toast.success("Updated successfully");
-      }
+    const formData = new FormData(editUserForm as HTMLFormElement);
+    const image = formData.get('image');
+
+    console.log(image);
+
+    (submitButton as HTMLButtonElement).disabled = true;
+    if (submitButton) {
+      submitButton.textContent = 'Loading...';
     }
-    editUserForm?.addEventListener('submit', handleEditUser);
-  });
+
+    const { error } = await actions.editProfile(formData);
+    (submitButton as HTMLButtonElement).disabled = false;
+    if (submitButton) {
+      submitButton.textContent = 'Edit User';
+    }
+
+    if (error) {
+      console.error(error);
+
+      toast.error('Failed to update!');
+    } else {
+      toast.success('Updated successfully');
+    }
+  }
+  editUserForm?.addEventListener('submit', handleEditUser);
 </script>
 
 <style>

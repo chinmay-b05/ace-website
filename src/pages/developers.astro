@@ -33,7 +33,8 @@ const developers = [
   {
     name: 'Rakshith Vijay',
     description: '"Dont touch my daughter"',
-    linkedinLink: 'https://www.linkedin.com/in/rakshith-vijay-0b515b256?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
+    linkedinLink:
+      'https://www.linkedin.com/in/rakshith-vijay-0b515b256?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
     githubLink: 'https://github.com/rakshithx09',
     instagramLink: 'https://www.instagram.com/rakshithx09?igsh=cmgwZThzZWpqYmI4&utm_source=qr',
     frontImage: 'rakshith',
@@ -133,7 +134,7 @@ const developers = [
 ];
 
 const images: { [index: string]: any } = {};
-await Astro.glob('/src/assets/images/developers/*.{jpg,png}').then((files) => {
+await Astro.glob('/src/assets/images/developers/*.{jpg,png,webp}').then((files) => {
   files.forEach((file) => {
     const name = file.default.src.split('.')[0].split('/').pop();
     images[name] = file.default;
@@ -203,31 +204,28 @@ await Astro.glob('/src/assets/images/developers/*.{jpg,png}').then((files) => {
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const cards = gsap.utils.toArray('.developer-card') as HTMLDivElement[];
+  const cards = gsap.utils.toArray('.developer-card') as HTMLDivElement[];
 
-    window.gsapContext.add(() => {
-      cards.forEach((element, i) => {
-        gsap.set(element, { opacity: 0 });
-        gsap.from(element, {
-          y: 200,
-          duration: 0.5,
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 100%',
-          },
-        });
+  window.gsapContext.add(() => {
+    cards.forEach((element, i) => {
+      gsap.set(element, { opacity: 0 });
+      gsap.from(element, {
+        y: 200,
+        duration: 0.5,
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 100%',
+        },
       });
+    });
 
-      ScrollTrigger.batch('.developer-card', {
-        onEnter: (batch) =>
-          gsap.to(batch, { opacity: 1, y: 0, stagger: { each: 0.15, grid: [1, 3] }, overwrite: true }),
-        onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 100, overwrite: true }),
-      });
+    ScrollTrigger.batch('.developer-card', {
+      onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, stagger: { each: 0.15, grid: [1, 3] }, overwrite: true }),
+      onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 100, overwrite: true }),
+    });
 
-      ScrollTrigger.addEventListener('refreshInit', () => {
-        gsap.set('.developer-card', { y: 0 });
-      });
+    ScrollTrigger.addEventListener('refreshInit', () => {
+      gsap.set('.developer-card', { y: 0 });
     });
   });
 </script>

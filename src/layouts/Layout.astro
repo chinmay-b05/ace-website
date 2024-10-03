@@ -70,9 +70,9 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 
   window.gsapContext = ctx;
 
-  // document.addEventListener('DOMContentLoaded', () => {
-  //   if (ctx != null) {
-  //     ctx.revert();
-  //   }
-  // });
+  document.addEventListener('DOMContentLoaded', () => {
+    if (ctx != null) {
+      ctx.revert();
+    }
+  });
 </script>

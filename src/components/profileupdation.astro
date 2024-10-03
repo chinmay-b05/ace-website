@@ -31,22 +31,20 @@ const user = await getUser(session?.user?.id as string);
 
 <script>
   import { actions } from 'astro:actions';
-  document.addEventListener('DOMContentLoaded', function () {
-    const editUserForm = document.getElementById('editUserForm');
+  const editUserForm = document.getElementById('editUserForm');
 
-    async function handleEditUser(event: SubmitEvent) {
-      event.preventDefault();
-      const formData = new FormData(editUserForm as HTMLFormElement);
-      const { data, error } = await actions.editProfile(formData);
+  async function handleEditUser(event: SubmitEvent) {
+    event.preventDefault();
+    const formData = new FormData(editUserForm as HTMLFormElement);
+    const { data, error } = await actions.editProfile(formData);
 
-      if (error) {
-        console.error('Error updating user:', error);
-      } else {
-        console.log('Updated user data:', data);
-      }
+    if (error) {
+      console.error('Error updating user:', error);
+    } else {
+      console.log('Updated user data:', data);
     }
-    editUserForm?.addEventListener('submit', handleEditUser);
-  });
+  }
+  editUserForm?.addEventListener('submit', handleEditUser);
 </script>
 
 <style>

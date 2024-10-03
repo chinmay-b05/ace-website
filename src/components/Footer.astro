@@ -41,7 +41,11 @@ import { Icon } from 'astro-icon/components';
 </footer>
 
 <div class="torch relative w-full h-fit hidden md:block mb-4">
-  <img src="/images/aceweb2.png" alt="ACE" class="object-center torch-img w-full md:w-auto mx-auto object-fill pointer-events-none" />
+  <img
+    src="/images/aceweb2.png"
+    alt="ACE"
+    class="object-center torch-img w-full md:w-auto mx-auto object-fill pointer-events-none"
+  />
 </div>
 
 <style>
@@ -57,7 +61,7 @@ import { Icon } from 'astro-icon/components';
     mask-image: radial-gradient(
       circle at var(--x) var(--y),
       rgba(192, 131, 0, 0.95) var(--radius),
-      var(--mask-color)  calc(var(--radius) + var(--radius) / 2)
+      var(--mask-color) calc(var(--radius) + var(--radius) / 2)
     );
     cursor: url('/images/torch.png'), auto;
   }
@@ -93,16 +97,14 @@ import { Icon } from 'astro-icon/components';
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector(".scrollTop")?.addEventListener("click",()=>{
-      window.scrollTo({top:0,behavior:"smooth"});
-    })
-    const torchDiv = document.querySelector<HTMLDivElement>('.torch');
-    torchDiv?.addEventListener('mousemove', (e) => {
-      const xPercentage = Math.round((e.offsetX / torchDiv.getBoundingClientRect().width) * 100);
-      const yPercentage = Math.round((e.offsetY / torchDiv.getBoundingClientRect().height) * 100);
-      torchDiv.style.setProperty('--x', `${xPercentage}%`);
-      torchDiv.style.setProperty('--y', `${yPercentage}%`);
-    });
+  document.querySelector('.scrollTop')?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  const torchDiv = document.querySelector<HTMLDivElement>('.torch');
+  torchDiv?.addEventListener('mousemove', (e) => {
+    const xPercentage = Math.round((e.offsetX / torchDiv.getBoundingClientRect().width) * 100);
+    const yPercentage = Math.round((e.offsetY / torchDiv.getBoundingClientRect().height) * 100);
+    torchDiv.style.setProperty('--x', `${xPercentage}%`);
+    torchDiv.style.setProperty('--y', `${yPercentage}%`);
   });
 </script>

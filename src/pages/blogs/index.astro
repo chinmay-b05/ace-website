@@ -21,7 +21,7 @@ const blogs = await db
   .innerJoin(userTable, eq(blogTable.authorId, userTable.id));
 ---
 
-<Layout title=" ACE blogs">
+<Layout title="ACE | blogs">
   <main class="content-container">
     <section class="mt-16 flex flex-col items-center">
       <div class="lg:py-18 py-12 sm:py-14 md:py-16 xl:py-20 flex flex-col items-center gap-6 text-center">
@@ -90,31 +90,28 @@ const blogs = await db
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const cards = gsap.utils.toArray('.blog-card') as HTMLDivElement[];
+  const cards = gsap.utils.toArray('.blog-card') as HTMLDivElement[];
 
-    window.gsapContext.add(() => {
-      cards.forEach((element, i) => {
-        gsap.set(element, { opacity: 0 });
-        gsap.from(element, {
-          y: 200,
-          duration: 0.75,
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 100%',
-          },
-        });
+  window.gsapContext.add(() => {
+    cards.forEach((element, i) => {
+      gsap.set(element, { opacity: 0 });
+      gsap.from(element, {
+        y: 200,
+        duration: 0.75,
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 100%',
+        },
       });
+    });
 
-      ScrollTrigger.batch('.blog-card', {
-        onEnter: (batch) =>
-          gsap.to(batch, { opacity: 1, y: 0, stagger: { each: 0.15, grid: [1, 1] }, overwrite: true }),
-        onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 100, overwrite: true }),
-      });
+    ScrollTrigger.batch('.blog-card', {
+      onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, stagger: { each: 0.15, grid: [1, 1] }, overwrite: true }),
+      onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 100, overwrite: true }),
+    });
 
-      ScrollTrigger.addEventListener('refreshInit', () => {
-        gsap.set('.blog-card', { y: 0 });
-      });
+    ScrollTrigger.addEventListener('refreshInit', () => {
+      gsap.set('.blog-card', { y: 0 });
     });
   });
 </script>

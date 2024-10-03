@@ -68,39 +68,34 @@
     trailerIcon.innerHTML = getIcon(icon) ?? '';
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    window.addEventListener('mousemove', (e) => {
-      const interactable = e.target instanceof HTMLElement ? e.target?.closest('.interactable') : null;
-      const intersecting = interactable !== null;
-      const x = e.clientX - trailer.offsetWidth / 2;
-      const y = e.clientY - trailer.offsetHeight / 2;
+  window.addEventListener('mousemove', (e) => {
+    const interactable = e.target instanceof HTMLElement ? e.target?.closest('.interactable') : null;
+    const intersecting = interactable !== null;
+    const x = e.clientX - trailer.offsetWidth / 2;
+    const y = e.clientY - trailer.offsetHeight / 2;
 
+    const keyFrames = {
+      transform: `translate(${x}px,${y}px) scale(${intersecting ? '4' : '1'})`,
+    };
 
-      const keyFrames = {
-        transform: `translate(${x}px,${y}px) scale(${intersecting ? '4' : '1'})`,
-      };
-
-      trailer.animate([keyFrames], {
-        duration: intersecting ? 200 : 800,
-        fill: 'forwards',
-      });
-
-      if (intersecting) {
-        if (interactable instanceof HTMLElement) {
-          const icon = getContentType(interactable.dataset.type);
-          if (icon !== null) {
-            document.documentElement.style.cursor = 'none';
-          } else {
-            document.documentElement.style.cursor = 'auto';
-          }
-          setTrailerIcon(icon);
-        }
-      } else {
-        document.documentElement.style.cursor = 'auto';
-        setTrailerIcon(ContentType.None);
-      }
+    trailer.animate([keyFrames], {
+      duration: intersecting ? 200 : 800,
+      fill: 'forwards',
     });
-  });
 
-  
+    if (intersecting) {
+      if (interactable instanceof HTMLElement) {
+        const icon = getContentType(interactable.dataset.type);
+        if (icon !== null) {
+          document.documentElement.style.cursor = 'none';
+        } else {
+          document.documentElement.style.cursor = 'auto';
+        }
+        setTrailerIcon(icon);
+      }
+    } else {
+      document.documentElement.style.cursor = 'auto';
+      setTrailerIcon(ContentType.None);
+    }
+  });
 </script>

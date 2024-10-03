@@ -31,32 +31,6 @@ let imagesDetails = await getImages('gallery');
   </main>
 </Layout>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const images = gsap.utils.toArray('.gallery-image') as HTMLImageElement[];
-
-    images.forEach((element) => {
-      gsap.fromTo(
-        element,
-        {
-          filter: 'blur(10px)',
-          scale: 0.95,
-        },
-        {
-          duration: 0.5,
-          scale: 1.0,
-          filter: 'blur(0px)',
-          scrollTrigger: {
-            start: 'top 70%',
-            trigger: element,
-            toggleActions: 'restart none none none',
-          },
-        }
-      );
-    });
-  });
-</script>
-
 <style>
   .masonry-grid {
     column-count: 1;
@@ -90,3 +64,27 @@ let imagesDetails = await getImages('gallery');
     }
   }
 </style>
+
+<script>
+  const images = gsap.utils.toArray('.gallery-image') as HTMLImageElement[];
+
+  images.forEach((element) => {
+    gsap.fromTo(
+      element,
+      {
+        filter: 'blur(10px)',
+        scale: 0.95,
+      },
+      {
+        duration: 0.5,
+        scale: 1.0,
+        filter: 'blur(0px)',
+        scrollTrigger: {
+          start: 'top 70%',
+          trigger: element,
+          toggleActions: 'restart none none none',
+        },
+      }
+    );
+  });
+</script>

@@ -3,7 +3,7 @@ import { getSession } from 'auth-astro/server';
 import Layout from '../../layouts/Layout.astro';
 import { getUser } from 'utils/getUser';
 import { Icon } from 'astro-icon/components';
-import { getAllEventsForProfile } from "utils/events"
+import { getAllEventsForProfile } from 'utils/events';
 import { getAllBlogsForProfile } from 'utils/blogs';
 import EventCard from '@components/EventCard.astro';
 import BlogCard from '@components/BlogCard.astro';
@@ -11,117 +11,144 @@ import BlogCard from '@components/BlogCard.astro';
 const session = await getSession(Astro.request);
 const user = await getUser(session?.user?.id as string);
 
-
-if(!session || !user ) Astro.redirect('/');
+if (!session || !user) Astro.redirect('/');
 console.log(user);
 
 const events = await getAllEventsForProfile(session?.user?.id!);
-const blogs= await getAllBlogsForProfile(session?.user?.id!);
-const tabNames=["events","blogs"];
+const blogs = await getAllBlogsForProfile(session?.user?.id!);
+const tabNames = ['events', 'blogs'];
 ---
 
-<Layout title='ACE'>
+<Layout title="ACE">
   <section class="profile-container pt-20">
     <!-- Profile Header -->
     <div class="profile-header">
       <div class=`profile-pic`>
-        <img src={user?.image} alt="Hello"  class="w-[100%] m-auto">
+        <img src={user?.image} alt="Hello" class="w-[100%] m-auto" />
         <!-- Profile picture placeholder -->
       </div>
       <div class="profile-info justify-start">
         <h1>{user?.name}</h1>
         <p>Email: {user?.email}</p>
         <p class="border-1">{user?.role}</p>
-          <!-- Social Links -->
-      <div class="flex gap-2 items-center justify-center sm:justify-start">
-         {user?.linkedIn && (  <a href={`${user.linkedIn}`} target="_blank" class="social-icon linkedin "><Icon size={25} name="mdi:linkedin"/></a>)}
-         {user?.github && ( <a href={`${user?.github}`} target="_blank" class="social-icon github"><Icon size={25} name="mdi:github"/></a>)}
-         {user?.instagram && (<a href={`${user?.instagram}`} target="_blank" class="social-icon instagram"><Icon size={25} name="mdi:instagram"/></a>)}
-      </div>
-        
+        <!-- Social Links -->
+        <div class="flex gap-2 items-center justify-center sm:justify-start">
+          {
+            user?.linkedIn && (
+              <a href={`${user.linkedIn}`} target="_blank" class="social-icon linkedin ">
+                <Icon size={25} name="mdi:linkedin" />
+              </a>
+            )
+          }
+          {
+            user?.github && (
+              <a href={`${user?.github}`} target="_blank" class="social-icon github">
+                <Icon size={25} name="mdi:github" />
+              </a>
+            )
+          }
+          {
+            user?.instagram && (
+              <a href={`${user?.instagram}`} target="_blank" class="social-icon instagram">
+                <Icon size={25} name="mdi:instagram" />
+              </a>
+            )
+          }
+        </div>
       </div>
       <div class="profile-actions flex flex-col justify-center items-center">
-          <a href="edit" class="w-full">
-            <button class="edit-btn w-full h-full">Edit</button>
-          </a>
+        <a href="edit" class="w-full">
+          <button class="edit-btn w-full h-full">Edit</button>
+        </a>
       </div>
     </div>
 
     <!-- Profile Content -->
-        <section class="tabs ">
+    <section class="tabs">
       <ul>
-      {tabNames.map((tabName) => {
-        const displayString = tabName === "events" ? "Your Events" : "Your Blogs";
-        return (
-          <li>
-            <input
-              class="input"
-              name="tabs"
-              type="radio"
-              id={`tab-${tabName}`}
-              value={tabName}
-              checked={tabName === "events"}
-            />
-            <label class="label" for={`tab-${tabName}`}>
-              {displayString}
-            </label>
-          </li>
-        );
-      })}
-    </ul>
-     <div class="panel-container w-full">
-   
-        <div class="panel  flex items-center justify-center gap-2" data-tabName="events">
-           <Icon id="scrollLeft"  name="carbon:arrow-left" /> 
-<div class=" panel events-panel flex gap-8 overflow-x-auto whitespace-nowrap py-8 sm:max-w-[600px] max-w-[300px] justify-start" id="events" data-tabName="events">
-      
-      {events?.length ? (events.map((event)=> (
-       <div class="card m-0">
-        <a href={`/events/${event.id}`}> <EventCard 
-              eventName={event.name}
-              category={event.category}
-              date={event.fromDate}
-              venue={event.venue}
-              id={event.id}
-              state={event.state}
-              maxTeamSize={event.maxTeamSize} 
-            /></a>
-       </div>      
-      ))):(<p>No events found</p>)}
-       
-     </div>
-      <Icon id="scrollRight" class="scroll-button" name="carbon:arrow-right" />
+        {
+          tabNames.map((tabName) => {
+            const displayString = tabName === 'events' ? 'Your Events' : 'Your Blogs';
+            return (
+              <li>
+                <input
+                  class="input"
+                  name="tabs"
+                  type="radio"
+                  id={`tab-${tabName}`}
+                  value={tabName}
+                  checked={tabName === 'events'}
+                />
+                <label class="label" for={`tab-${tabName}`}>
+                  {displayString}
+                </label>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <div class="panel-container w-full">
+        <div class="panel flex items-center justify-center gap-2" data-tabName="events">
+          <Icon id="scrollLeft" name="carbon:arrow-left" />
+          <div
+            class="panel events-panel flex gap-8 overflow-x-auto whitespace-nowrap py-8 sm:max-w-[600px] max-w-[300px] justify-start"
+            id="events"
+            data-tabName="events"
+          >
+            {
+              events?.length ? (
+                events.map((event) => (
+                  <div class="card m-0">
+                    <a href={`/events/${event.id}`}>
+                      {' '}
+                      <EventCard
+                        eventName={event.name}
+                        category={event.category}
+                        date={event.fromDate}
+                        venue={event.venue}
+                        id={event.id}
+                        state={event.state}
+                        maxTeamSize={event.maxTeamSize}
+                      />
+                    </a>
+                  </div>
+                ))
+              ) : (
+                <p>No events found</p>
+              )
+            }
+          </div>
+          <Icon id="scrollRight" class="scroll-button" name="carbon:arrow-right" />
         </div>
-   
-     <div class="panel flex items-center justify-center gap-2" data-tabName="blogs">
-        <Icon id="scrollLeftB" class="scroll-button " name="carbon:arrow-left"  /> 
-<div class="panel blogs-panel overflow-x-auto flex gap-8 whitespace-nowrap py-8" id="blogs" data-tabName="blogs">
-       
-          {blogs?.length ? (
-            blogs.map(blog => (
-             <div class="blog-card max-w-[300px] sm:max-w-[450px]">
-               <BlogCard 
-                blog={blog}
-              />
-             </div>
-            ))
-          ) : (
-            <p>No blogs found.</p>
-          )}
-        </div>
-           <Icon id="scrollRightB" class="scroll-button" name="carbon:arrow-right" />
-     </div>
-     
-    </div>
-     </section>
 
+        <div class="panel flex items-center justify-center gap-2" data-tabName="blogs">
+          <Icon id="scrollLeftB" class="scroll-button" name="carbon:arrow-left" />
+          <div
+            class="panel blogs-panel overflow-x-auto flex gap-8 whitespace-nowrap py-8"
+            id="blogs"
+            data-tabName="blogs"
+          >
+            {
+              blogs?.length ? (
+                blogs.map((blog) => (
+                  <div class="blog-card max-w-[300px] sm:max-w-[450px]">
+                    <BlogCard blog={blog} />
+                  </div>
+                ))
+              ) : (
+                <p>No blogs found.</p>
+              )
+            }
+          </div>
+          <Icon id="scrollRightB" class="scroll-button" name="carbon:arrow-right" />
+        </div>
+      </div>
+    </section>
   </section>
 </Layout>
 
-
 <style>
   .profile-container {
-    
     background-color: #0000; /* Transparent background */
     display: flex;
     flex-direction: column;
@@ -158,7 +185,8 @@ const tabNames=["events","blogs"];
     padding: 0 20px;
   }
 
-  .profile-info h1, .profile-info p {
+  .profile-info h1,
+  .profile-info p {
     margin: 5px;
     color: white;
   }
@@ -188,8 +216,6 @@ const tabNames=["events","blogs"];
     display: flex;
     gap: 10px;
   }
-
-
 
   /* Responsive Design for Mobile */
   @media (max-width: 768px) {
@@ -223,7 +249,7 @@ const tabNames=["events","blogs"];
 
   .profile-content {
     display: flex;
-   
+
     align-items: center;
     padding: 20px;
     gap: 2rem;
@@ -231,7 +257,9 @@ const tabNames=["events","blogs"];
     max-width: 900px;
   }
 
-  .blogs, .events, .certificates {
+  .blogs,
+  .events,
+  .certificates {
     display: block;
     text-transform: capitalize;
     position: relative;
@@ -242,7 +270,9 @@ const tabNames=["events","blogs"];
   }
 
   /* Underline Effect */
-  .blogs::after, .events::after, .certificates::after {
+  .blogs::after,
+  .events::after,
+  .certificates::after {
     content: '';
     position: absolute;
     left: 0;
@@ -256,179 +286,176 @@ const tabNames=["events","blogs"];
   }
 
   /* Hover Effect */
-  .blogs:hover::after, .events:hover::after, .certificates:hover::after {
+  .blogs:hover::after,
+  .events:hover::after,
+  .certificates:hover::after {
     transform: scaleX(1);
   }
 
-  .blogs:hover, .events:hover, .certificates:hover {
+  .blogs:hover,
+  .events:hover,
+  .certificates:hover {
     transform: scale(1.1);
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.87);
   }
-/* Tab Content */
-.panel-container {
-  display: flex;
-  flex-direction: column;
-  overflow-x: auto;
-  width: 100%;
-}
+  /* Tab Content */
+  .panel-container {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    width: 100%;
+  }
 
-.tab-panel {
-  display: none;
-}
+  .tab-panel {
+    display: none;
+  }
 
-.tab-panel.active {
-  display: block;
-}
-/* Horizontal Scrolling */
-.tabs {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
+  .tab-panel.active {
+    display: block;
+  }
+  /* Horizontal Scrolling */
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
 
-.tabs ul{
-  margin: 3rem 0 0 0;
-  display: flex;
-  justify-content: center;
-  gap: 8rem;
-  list-style-type: none;
-}
+  .tabs ul {
+    margin: 3rem 0 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 8rem;
+    list-style-type: none;
+  }
 
-.tabs ul li label {
-  display: block;
-  padding: 10px 15px;
-  text-align: center;
-  cursor: pointer;
-  color: rgb(233, 227, 227);
-  font-size: 18px;
-  background: none;
-  border: none;
-  position: relative;
-  overflow: hidden;
-  transition: color 0.3s, font-weight 0s;
-}
-.tabs ul li label::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(to right, #00f, rgb(46, 144, 235));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease-out;
-  border-radius: 0 0 5px 5px;
-}
+  .tabs ul li label {
+    display: block;
+    padding: 10px 15px;
+    text-align: center;
+    cursor: pointer;
+    color: rgb(233, 227, 227);
+    font-size: 18px;
+    background: none;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    transition:
+      color 0.3s,
+      font-weight 0s;
+  }
+  .tabs ul li label::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, #00f, rgb(46, 144, 235));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-out;
+    border-radius: 0 0 5px 5px;
+  }
 
-.tabs ul li input[type="radio"]:checked + label{
-  font-weight: 700;
-}
+  .tabs ul li input[type='radio']:checked + label {
+    font-weight: 700;
+  }
 
-.tabs ul li input[type="radio"]:not(:checked) + label:hover::after {
-  transform: scaleX(1);
-}
+  .tabs ul li input[type='radio']:not(:checked) + label:hover::after {
+    transform: scaleX(1);
+  }
 
-.tabs ul li input[type="radio"]:checked + label:hover::after{
-  transform: none;
-} 
+  .tabs ul li input[type='radio']:checked + label:hover::after {
+    transform: none;
+  }
 
-.tabs ul li input[type="radio"]:checked + label::after {
-  transform: scaleX(1);
-}
+  .tabs ul li input[type='radio']:checked + label::after {
+    transform: scaleX(1);
+  }
 
-.tabs input[type="radio"]{
-  display: none;
-}
-.profile-info h1 {
-  font-size: 2rem;
-}
+  .tabs input[type='radio'] {
+    display: none;
+  }
+  .profile-info h1 {
+    font-size: 2rem;
+  }
 
-.panel-container {
-  width: 100%;
-  margin-top: 20px;
-}
+  .panel-container {
+    width: 100%;
+    margin-top: 20px;
+  }
 
-.panel {
-  display: none;
-}
+  .panel {
+    display: none;
+  }
 
+  .show-panel {
+    display: flex;
+  }
 
+  .card {
+    flex-shrink: 0;
+  }
 
-.show-panel {
-  display: flex;
-}
+  .events-panel::-webkit-scrollbar {
+    display: none;
+  }
 
-.card {
-  flex-shrink: 0;
-  
-}
-
-
-
-
-.events-panel::-webkit-scrollbar {
-  display: none;
-}
-
-.blogs-panel::-webkit-scrollbar {
-  display: none;
-}
+  .blogs-panel::-webkit-scrollbar {
+    display: none;
+  }
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-      const radioButtons = document.querySelectorAll('input[name="tabs"]');
-      const panels = document.querySelectorAll('.panel');
-    
+  const radioButtons = document.querySelectorAll('input[name="tabs"]');
+  const panels = document.querySelectorAll('.panel');
 
-      function updatePanel(tabName:any) {
-      panels.forEach((panel) => {
-        //@ts-ignore
-        if (panel.dataset.tabname === tabName) {
-          panel.classList.add('show-panel');
-        } else {
-          panel.classList.remove('show-panel');
-        }
-      });
-    }
-
-     const checkedRadio = document.querySelector('input[name="tabs"]:checked');
-    if (checkedRadio) {
+  function updatePanel(tabName: any) {
+    panels.forEach((panel) => {
       //@ts-ignore
-      updatePanel(checkedRadio.value);
-    }
-
-    radioButtons.forEach((radio) => {
-      radio.addEventListener('change', () => {
-        //@ts-ignore
-        if (radio.checked) {
-          //@ts-ignore
-          updatePanel(radio.value);
-        }
-      });
+      if (panel.dataset.tabname === tabName) {
+        panel.classList.add('show-panel');
+      } else {
+        panel.classList.remove('show-panel');
+      }
     });
+  }
 
-    const scrollAmount = 350; // Amount to scroll each click (adjust as necessary)
+  const checkedRadio = document.querySelector('input[name="tabs"]:checked');
+  if (checkedRadio) {
+    //@ts-ignore
+    updatePanel(checkedRadio.value);
+  }
 
-document.getElementById('scrollLeft')?.addEventListener('click', function () {
-  const eventsPanel = document.getElementById('events');
-  eventsPanel?.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-});
+  radioButtons.forEach((radio) => {
+    radio.addEventListener('change', () => {
+      //@ts-ignore
+      if (radio.checked) {
+        //@ts-ignore
+        updatePanel(radio.value);
+      }
+    });
+  });
 
-document.getElementById('scrollRight')?.addEventListener('click', function () {
-  const eventsPanel = document.getElementById('events');
-  eventsPanel?.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-});
+  const scrollAmount = 350; // Amount to scroll each click (adjust as necessary)
 
-document.getElementById('scrollLeftB')?.addEventListener('click', function () {
-  const eventsPanel = document.getElementById('blogs');
-  eventsPanel?.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-});
+  document.getElementById('scrollLeft')?.addEventListener('click', function () {
+    const eventsPanel = document.getElementById('events');
+    eventsPanel?.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
 
-document.getElementById('scrollRightB')?.addEventListener('click', function () {
-  const eventsPanel = document.getElementById('blogs');
-  eventsPanel?.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-});
-});
+  document.getElementById('scrollRight')?.addEventListener('click', function () {
+    const eventsPanel = document.getElementById('events');
+    eventsPanel?.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+
+  document.getElementById('scrollLeftB')?.addEventListener('click', function () {
+    const eventsPanel = document.getElementById('blogs');
+    eventsPanel?.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+
+  document.getElementById('scrollRightB')?.addEventListener('click', function () {
+    const eventsPanel = document.getElementById('blogs');
+    eventsPanel?.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
 </script>

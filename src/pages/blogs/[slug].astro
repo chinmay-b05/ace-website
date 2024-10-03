@@ -105,7 +105,7 @@ if (session?.user?.id) {
 //   .where(eq(commentsTable.blogId, blog.id));
 ---
 
-<Layout>
+<Layout title={`ACE | ${blog.title}`}>
   <main class="content-container mt-24">
     <div class="mx-auto w-full max-w-screen-lg md:-mb-10 lg:-mb-12 xl:-mb-16">
       <img src={blog.image} alt="bg" class="min-h-[240px] w-full object-cover aspect-[16/7]" />
