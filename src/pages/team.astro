@@ -4,10 +4,8 @@ import { teamMembers } from '@lib/constants';
 import { Image } from 'astro:assets';
 import sample from '../assets/images/sample.png';
 
-export const prerender = true;
-
 const images: { [index: string]: ImageMetadata } = {};
-await Astro.glob('/src/assets/images/faculty/*.{jpg,png,webp}').then((files) => {
+await Astro.glob('/src/assets/images/team/**/*.webp').then((files) => {
   files.forEach((file) => {
     const name = file.default.src.split('.')[0].split('/').pop();
     images[name] = file.default;

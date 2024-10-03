@@ -37,14 +37,12 @@ const cards = [
 ];
 
 const images: { [index: string]: ImageMetadata } = {};
-await Astro.glob('/src/assets/images/eventpic/*.jpg').then((files) => {
+await Astro.glob('/src/assets/images/eventpic/*.webp').then((files) => {
   files.forEach((file) => {
     const name = file.default.src.split('.')[0].split('/').pop();
     images[name] = file.default;
   });
 });
-
-cards.forEach((card) => console.log(images[card.image]));
 ---
 
 <section class="events-container content-container event-section h-fit my-8 overflow-hidden">

@@ -3,7 +3,7 @@ import Layout from '@layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
 import { db } from '@lib/db';
 import { and, count, eq } from 'drizzle-orm';
-import { blogTable, userTable, commentsTable, viewTable } from '@lib/db/schema';
+import { blogTable, userTable, viewTable } from '@lib/db/schema';
 import { getSession } from 'auth-astro/server';
 // import Comments from '@components/Comments';
 
@@ -77,19 +77,19 @@ if (session?.user?.id) {
   }
 }
 
-let user: {
-  id: string;
-  image: string | null;
-  name: string;
-} | null = null;
+// let user: {
+//   id: string;
+//   image: string | null;
+//   name: string;
+// } | null = null;
 
-if (session?.user?.id) {
-  user = {
-    id: session!.user!.id,
-    name: session!.user!.name!,
-    image: session!.user!.image!,
-  };
-}
+// if (session?.user?.id) {
+//   user = {
+//     id: session!.user!.id,
+//     name: session!.user!.name!,
+//     image: session!.user!.image!,
+//   };
+// }
 
 //comments
 // const comments = await db
@@ -178,7 +178,6 @@ if (session?.user?.id) {
     e.preventDefault();
     const { data, error } = await actions.likeBlog({ blogId: likeButton.dataset.blogid! });
     console.log(error);
-    
 
     if (data) {
       if (data.liked) {

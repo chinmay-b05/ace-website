@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 
 let images: ImageMetadata[] = [];
-await Astro.glob('/src/assets/images/eventpic/*.{jpg,JPG}').then((files) => {
+await Astro.glob('/src/assets/images/eventpic/*.webp').then((files) => {
   files.forEach((file) => {
     images.push(file.default);
   });

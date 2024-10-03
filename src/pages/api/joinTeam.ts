@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { z } from 'astro:schema';
 import { db } from '@lib/db';
-import { eventTable, teamTable, userTable, userTeamTable } from '@lib/db/schema';
+import { eventTable, teamTable, userTeamTable } from '@lib/db/schema';
 import { and, eq, sql } from 'drizzle-orm';
 
 // Define Zod validation schema for input

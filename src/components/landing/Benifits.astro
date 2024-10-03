@@ -29,7 +29,7 @@ const cards = [
   },
 ];
 const images: { [index: string]: ImageMetadata } = {};
-await Astro.glob('/src/assets/images/Benifits/*.png').then((files) => {
+await Astro.glob('/src/assets/images/Benifits/*.webp').then((files) => {
   files.forEach((file) => {
     const name = file.default.src.split('.')[0].split('/').pop();
     images[name] = file.default;
