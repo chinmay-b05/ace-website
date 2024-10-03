@@ -7,12 +7,12 @@ await Astro.glob('/src/assets/images/eventpic/*.{jpg,JPG}').then((files) => {
     images.push(file.default);
   });
 });
-
 ---
+
 <section class="overflow-hidden gallery-parent hidden md:block">
   <div class="gallery-container w-full h-full space-y-4">
     <div class="flex gap-4 h-[75%] m-auto image-row">
-      { 
+      {
         images.map((img) => {
           return <Image src={img} alt="fndf" />;
         })
@@ -20,7 +20,7 @@ await Astro.glob('/src/assets/images/eventpic/*.{jpg,JPG}').then((files) => {
     </div>
 
     <div class="flex gap-4 h-[75%] m-auto image-row">
-      { 
+      {
         images.map((img) => {
           return <Image src={img} alt="fndf" />;
         })
@@ -28,7 +28,7 @@ await Astro.glob('/src/assets/images/eventpic/*.{jpg,JPG}').then((files) => {
     </div>
 
     <div class="flex gap-4 h-[75%] m-auto image-row">
-      { 
+      {
         images.map((img) => {
           return <Image src={img} alt="fndf" />;
         })
@@ -50,21 +50,19 @@ await Astro.glob('/src/assets/images/eventpic/*.{jpg,JPG}').then((files) => {
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    let targets = gsap.utils.toArray('.image-row');
-    gsap.fromTo(
-      targets,
-      {
-        x: (i) => (i % 2 ? '20%' : '-80%'),
+  let targets = gsap.utils.toArray('.image-row');
+  gsap.fromTo(
+    targets,
+    {
+      x: (i) => (i % 2 ? '20%' : '-80%'),
+    },
+    {
+      x: (i) => (i % 2 ? '-80%' : '20%'),
+      scrollTrigger: {
+        scrub: 0.3,
+        trigger: '.gallery-parent',
+        toggleActions: 'play none none none',
       },
-      {
-        x: (i) => (i % 2 ? '-80%' : '20%'),
-        scrollTrigger: {
-          scrub: 0.3,
-          trigger: '.gallery-parent',
-          toggleActions: 'play none none none',
-        },
-      }
-    );
-  });
+    }
+  );
 </script>
