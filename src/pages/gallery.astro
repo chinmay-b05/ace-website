@@ -20,7 +20,7 @@ let imagesDetails = await getImages('gallery');
     <section class="content-container masonry-grid w-full h-fit">
       {
         imagesDetails.resources.length ? (
-          imagesDetails.resources.map((image, i) => (
+          imagesDetails.resources.map((image) => (
             <img src={image.url} alt="" class="gallery-image mb-4 rounded-lg w-full" />
           ))
         ) : (

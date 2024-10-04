@@ -4,8 +4,9 @@ import { getSession } from 'auth-astro/server';
 import closeIcon from '@assets/icons/close.svg';
 import menuIcon from '@assets/icons/menu.svg';
 import { getUser } from 'utils/getUser';
+
 const session = await getSession(Astro.request);
-const user = await getUser(session?.user?.id as string);
+let user = session?.user?.id ? await getUser(session.user.id) : null;
 ---
 
 <header class="header" transition:persist>
@@ -24,7 +25,7 @@ const user = await getUser(session?.user?.id as string);
       <a href="/team" class="nav-link">Team</a>
       <a href="/gallery" class="nav-link">gallery</a>
       <a href="/developers" class="nav-link">dev-team</a>
-      
+
       {
         session ? (
           <div class="relative cursor-pointer profile-container" tabindex="0">

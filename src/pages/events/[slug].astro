@@ -1,27 +1,22 @@
 ---
-const {slug} = Astro.params;
 import DialogBoxSkeleton from '@components/DialogBoxSkeleton';
 import Layout from '@layouts/Layout.astro';
-import sample from '../../assets/images/sample.png'
-import { Image } from 'astro:assets'
+import sample from '../../assets/images/sample.png';
+import { Image } from 'astro:assets';
 import DialogBox from '@components/EventDialogBox';
 import { getEventById } from 'utils/events';
-import Events from '@components/landing/Events.astro';
+
+const { slug } = Astro.params;
 
 const event = await getEventById(parseInt(slug!));
-if(!event){
+if (!event) {
   Astro.redirect('/404');
 }
 
-const {name,email,id} = Astro.locals;
-
-
-
-
-
+const { name, email, id } = Astro.locals;
 ---
 
-<Layout title='ACE'>
+<Layout title="ACE">
   <section class="content-container mx-auto mt-28">
     <h1 class="title text-6xl text-center mb-4 font-dirtyline">{event.name}</h1>
     <div class="container mx-auto">
@@ -33,7 +28,7 @@ const {name,email,id} = Astro.locals;
         <h2 class="text-2xl font-dirtyline">{event.name}</h2>
         <p class="text-left font-dirtyline text-sm mt-4">Description:</p>
         <p>
-         {event.description}
+          {event.description}
         </p>
       </div>
 
@@ -53,43 +48,58 @@ const {name,email,id} = Astro.locals;
           </p>
         </div>
 
-        {event.state === "PUBLISHED" && (
-           <>
-           {id === undefined || id === null || id === "undefined" ?
-      
-      <div id="registerB1" class="register-button card text-2xl font-dirtyline" data-id={`${id}`}>Login To Register</div>:
-      <div id="registerB" class="register-button card text-2xl font-dirtyline" data-id={`${id}`}>Register</div>}
-           </>
-         )}
+        {
+          event.state === 'PUBLISHED' && (
+            <>
+              {id === undefined || id === null || id === 'undefined' ? (
+                <div id="registerB1" class="register-button card text-2xl font-dirtyline" data-id={`${id}`}>
+                  Login To Register
+                </div>
+              ) : (
+                <div id="registerB" class="register-button card text-2xl font-dirtyline" data-id={`${id}`}>
+                  Register
+                </div>
+              )}
+            </>
+          )
+        }
 
-         {event.state === "COMPLETED" && (
-           <>
-      <div class="register-button card text-2xl font-dirtyline">COMPLETED</div>
-      
-           </>
-         )}
-
+        {
+          event.state === 'COMPLETED' && (
+            <>
+              <div class="register-button card text-2xl font-dirtyline">COMPLETED</div>
+            </>
+          )
+        }
 
         <DialogBoxSkeleton client:load>
-
-         <DialogBox email={email} name={name} id={id} eventId={parseInt(slug!)} maxTeamSize={event.maxTeamSize} eventName={event.name} client:load />
+          <DialogBox
+            email={email}
+            name={name}
+            id={id}
+            eventId={parseInt(slug!)}
+            maxTeamSize={event.maxTeamSize}
+            eventName={event.name}
+            client:load
+          />
         </DialogBoxSkeleton>
-       
-       
-        
 
-      
-         <div class="organizer card">
+        <div class="organizer card">
           <p class="text-2xl font-dirtyline">Organiser details</p>
           <ul>
-            {event.organisers? event.organisers.map((organizer) => (
-              <li>
-                <p>{organizer.name}</p>
-              </li>
-            )): (<p>Team Ace</p>)}
+            {
+              event.organisers ? (
+                event.organisers.map((organizer) => (
+                  <li>
+                    <p>{organizer.name}</p>
+                  </li>
+                ))
+              ) : (
+                <p>Team Ace</p>
+              )
+            }
           </ul>
         </div>
-       
       </div>
     </div>
   </section>
@@ -338,25 +348,22 @@ const {name,email,id} = Astro.locals;
   }
 </style>
 <script>
-import { dialogOpen,dialogClose } from "dialogStore";
+  import { dialogOpen, dialogClose } from 'dialogStore';
 
-const loginButton = document.getElementById('registerB1');
-loginButton?.addEventListener('click', async(e) => {
-  const { signIn } = await import('auth-astro/client');
-  signIn('google');
-});
+  const loginButton = document.getElementById('registerB1');
+  loginButton?.addEventListener('click', async (e) => {
+    const { signIn } = await import('auth-astro/client');
+    signIn('google');
+  });
 
-const registerButton = document.getElementById('registerB');
-registerButton?.addEventListener('click', (e) => {
-  
-  const id = registerButton.getAttribute('data-id');
-  console.log("ID",id);
-  if(id === undefined || id === null || id === "undefined"){
-    
-    dialogClose();
-  }else{
-    dialogOpen();
-  }
-  
-});
+  const registerButton = document.getElementById('registerB');
+  registerButton?.addEventListener('click', (e) => {
+    const id = registerButton.getAttribute('data-id');
+    console.log('ID', id);
+    if (id === undefined || id === null || id === 'undefined') {
+      dialogClose();
+    } else {
+      dialogOpen();
+    }
+  });
 </script>
