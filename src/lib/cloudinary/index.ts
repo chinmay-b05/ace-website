@@ -35,6 +35,6 @@ export async function getImages(asset_folder: string, nextCursor?: string) {
   return cloudinary.api.resources_by_asset_folder(asset_folder, {
     max_results: 20,
     next_cursor: nextCursor,
-    transformation: [{ quality: 'q_auto' }],
+    transformation: [{ quality: 'auto' }],
   });
 }
