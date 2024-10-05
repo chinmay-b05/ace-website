@@ -67,6 +67,7 @@ let user = session?.user?.id ? await getUser(session.user.id) : null;
     height: 100%;
     background-color: #1418234f;
     backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
     z-index: -1;
   }
 
