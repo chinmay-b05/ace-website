@@ -1,0 +1,85 @@
+<div>
+    <strong>Main Image</strong>
+  <label class="picture" for="picture__input">
+    <span class="picture__image grid place-content-center"></span>
+    <input id="picture__input" type="file" class="w-full hidden" name="image" />
+  </label>
+</div>
+
+<style>
+  .picture {
+    background: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    border: 2px dashed currentcolor;
+    cursor: pointer;
+    font-family: sans-serif;
+    transition:
+      color 300ms ease-in-out,
+      background 300ms ease-in-out;
+
+    @apply w-full aspect-video max-w-[400px] overflow-hidden outline-none m-auto;
+  }
+
+  .picture:hover {
+    color: #777;
+    background: #ccc;
+  }
+
+  .picture:active {
+    border-color: turquoise;
+    color: turquoise;
+    background: #eee;
+  }
+
+  .picture:focus {
+    color: #777;
+    background: #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .picture__img {
+    max-width: 100%;
+  }
+</style>
+
+<script>
+  const inputFile = document.querySelector<HTMLInputElement>('#picture__input')!;
+  const pictureImage = document.querySelector<HTMLSpanElement>('.picture__image')!;
+  const pictureImageTxt = 'Choose an image';
+  pictureImage.textContent = pictureImageTxt;
+
+  inputFile.addEventListener('change', function (e) {
+    const inputTarget = e.target as HTMLInputElement;
+    let file;
+
+    if (inputTarget.files?.length) {
+      file = inputTarget.files[0];
+    }
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.addEventListener('load', function (e) {
+        const readerTarget = e.target;
+
+        if (readerTarget?.result) {
+          const img = document.createElement('img');
+          //@ts-ignore
+          img.src = readerTarget.result;
+          img.classList.add('picture__img');
+
+          pictureImage.innerHTML = '';
+          pictureImage.appendChild(img);
+        }
+      });
+
+      reader.readAsDataURL(file);
+    } else {
+      pictureImage.innerHTML = '';
+      pictureImage.textContent = pictureImageTxt;
+    }
+  });
+</script>

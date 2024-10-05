@@ -11,6 +11,10 @@ const { slug } = Astro.params;
 
 const session = await getSession(Astro.request);
 
+if (!session?.user?.id) {
+  return Astro.redirect('/blogs/');
+}
+
 const blogs = await db
   .select({
     id: blogTable.id,
@@ -77,20 +81,6 @@ if (session?.user?.id) {
   }
 }
 
-// let user: {
-//   id: string;
-//   image: string | null;
-//   name: string;
-// } | null = null;
-
-// if (session?.user?.id) {
-//   user = {
-//     id: session!.user!.id,
-//     name: session!.user!.name!,
-//     image: session!.user!.image!,
-//   };
-// }
-
 //comments
 // const comments = await db
 //   .select({
@@ -139,15 +129,14 @@ if (session?.user?.id) {
             </div>
             {blog.authorName}
           </a>
+
+          <p class="text-gray-200">
+            {blog.description}
+          </p>
         </section>
 
-        <hr class="border-gray-700 w-full -mx-20" />
-        <article
-          class="min-w-full indent-10 capitalize text-justify text-gray-400 leading-7 break-words max-w-[90%] mx-auto"
-        >
-          {blog.description}
-        </article>
-        <hr class="border-gray-700 w-full -mx-20" />
+        <hr class="border-gray-700 w-full" />
+
         <div class="flex gap-8 items-center mr-auto">
           <button class="text-center" id="likeButton" data-blogid={blog.id}>
             <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
@@ -157,6 +146,13 @@ if (session?.user?.id) {
             ><Icon name="mdi:eye" size={20} class:list={'inline-block mr-2'} />{viewCount ?? 0}</span
           >
         </div>
+
+        <hr class="border-gray-700 w-full" />
+
+        <article
+          class="min-w-full indent-10 capitalize text-justify text-gray-400 leading-7 break-words max-w-[90%] mx-auto"
+          set:html={blog.content}
+        />
 
         <!-- <Comments blogId={blog.id.toString()} comments={comments} client:visible user={user} /> -->
       </div>

@@ -9,13 +9,12 @@ import EventCard from '@components/EventCard.astro';
 import BlogCard from '@components/BlogCard.astro';
 
 const session = await getSession(Astro.request);
+if (!session?.user?.id) return Astro.redirect('/');
 const user = await getUser(session?.user?.id as string);
+if (!user) return Astro.redirect('/');
 
-if (!session || !user) Astro.redirect('/');
-console.log(user);
-
-const events = await getAllEventsForProfile(session?.user?.id!);
-const blogs = await getAllBlogsForProfile(session?.user?.id!);
+const events = await getAllEventsForProfile(session.user.id);
+const blogs = await getAllBlogsForProfile(session.user.id);
 const tabNames = ['events', 'blogs'];
 ---
 
@@ -23,8 +22,8 @@ const tabNames = ['events', 'blogs'];
   <section class="profile-container pt-20">
     <!-- Profile Header -->
     <div class="profile-header">
-      <div class=`profile-pic`>
-        <img src={user?.image} alt="Hello" class="w-[100%] m-auto" />
+      <div class="profile-pic border-4 border-blue-500 rounded-full overflow-hidden">
+        <img src={user?.image} alt="Hello" class="w-16 m-auto aspect-square object-cover rounded-full" />
         <!-- Profile picture placeholder -->
       </div>
       <div class="profile-info justify-start">
@@ -168,16 +167,6 @@ const tabNames = ['events', 'blogs'];
     border-radius: 15px;
     color: white;
     gap: 20px;
-  }
-
-  .profile-pic {
-    width: 115px;
-    height: 70px;
-    background-color: #ece5f0;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 4px solid #22a7f0;
-    position: relative;
   }
 
   .profile-info {

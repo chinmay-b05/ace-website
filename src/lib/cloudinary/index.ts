@@ -1,4 +1,4 @@
-import { v2 as cloudinary, type UploadApiOptions, type ResourceApiResponse } from 'cloudinary';
+import { v2 as cloudinary, type UploadApiOptions } from 'cloudinary';
 
 type UploadResponse = {
   secure_url: string;
@@ -29,14 +29,6 @@ export const fileToBuffer = async (file: File) => {
 export async function uploadImageToCloudinaryFromServer(file: File, options: UploadApiOptions) {
   const buffer = await fileToBuffer(file);
   return await uploadStream(buffer, options);
-}
-
-function svgStringToUint8Array(svgString: string) {
-  // Convert the SVG string to a Buffer
-  const buffer = Buffer.from(svgString, 'utf-8');
-  // Create a Uint8Array from the Buffer
-  const uint8Array = new Uint8Array(buffer);
-  return uint8Array;
 }
 
 export async function getImages(asset_folder: string, nextCursor?: string) {

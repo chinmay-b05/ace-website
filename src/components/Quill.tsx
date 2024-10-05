@@ -6,12 +6,16 @@ export default function Quill({ initialValue = '', name }: { initialValue?: stri
   const [value, setValue] = useState(initialValue);
 
   return (
-    <div>
+    <>
       <ReactQuill theme="snow" value={value} onChange={setValue} />
       <input type="text" defaultValue={value} hidden name={name} />
 
-      {/* preview */}
-      {/* <div dangerouslySetInnerHTML={{ __html: value }}></div> */}
-    </div>
+      <strong className="mt-4">Preview</strong>
+      {value == '' ? (
+        <p className="text-gray-400">write something in the editor...</p>
+      ) : (
+        <div dangerouslySetInnerHTML={{ __html: value }}></div>
+      )}
+    </>
   );
 }
