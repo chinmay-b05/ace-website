@@ -33,13 +33,14 @@ const { title, description, image = "/favicon.png" } = Astro.props;
 <meta property="og:url" content="https://acenmamit.vercel.app" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content="/android-chrome-192x192.png" />
+<meta property="og:image" content="https://acenmamit.vercel.app/android-chrome-192x192.png" />
 
 <!-- Twitter -->
-<!-- <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} /> -->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="acenmamit.vercel.app">
+<meta property="twitter:url" content="https://acenmamit.vercel.app/">
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content="https://acenmamit.vercel.app/android-chrome-192x192.png"
 
 
