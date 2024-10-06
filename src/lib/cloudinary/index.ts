@@ -33,8 +33,8 @@ export async function uploadImageToCloudinaryFromServer(file: File, options: Upl
 
 export async function getImages(asset_folder: string, nextCursor?: string) {
   return cloudinary.api.resources_by_asset_folder(asset_folder, {
-    max_results: 20,
     next_cursor: nextCursor,
+    max_results: 999,
     transformation: [{ quality: 'auto' }],
   });
 }
