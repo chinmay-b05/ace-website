@@ -59,14 +59,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
     if (!session?.user) {
       console.log('no user');
-
-      toast.error('You are not authorized to access this page');
       return context.redirect('/');
     } else if (session?.user && locals.role !== 'ADMIN') {
       {
         console.log('no admin');
-
-        toast.error('You are not authorized to access this page');
         return context.redirect('/');
       }
     }
