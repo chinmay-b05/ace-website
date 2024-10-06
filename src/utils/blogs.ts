@@ -15,7 +15,7 @@ export const getAllBlogsForProfile = async (id: string) => {
       authorImage: userTable.image,
     })
     .from(blogTable)
-    .innerJoin(userTable, eq(blogTable.authorId, userTable.id));
+    .innerJoin(userTable, eq(blogTable.authorId, id));
 
   return blogs;
 };
