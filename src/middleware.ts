@@ -3,6 +3,7 @@ import { userTable } from '@lib/db/schema';
 import { defineMiddleware } from 'astro:middleware';
 import { getSession } from 'auth-astro/server';
 import { eq } from 'drizzle-orm';
+import { toast } from 'sonner';
 import { decrypt, encrypt } from 'utils/crypto';
 
 export const onRequest = defineMiddleware(async (context, next) => {
@@ -51,5 +52,25 @@ export const onRequest = defineMiddleware(async (context, next) => {
       }
     }
   }
+  console.log(locals.role);
+
+  if (context.url.pathname.includes('admin')) {
+    console.log('Hi');
+
+    if (!session?.user) {
+      console.log('no user');
+
+      toast.error('You are not authorized to access this page');
+      return context.redirect('/');
+    } else if (session?.user && locals.role !== 'ADMIN') {
+      {
+        console.log('no admin');
+
+        toast.error('You are not authorized to access this page');
+        return context.redirect('/');
+      }
+    }
+  }
+
   return next();
 });
