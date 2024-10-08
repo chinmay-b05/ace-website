@@ -22,8 +22,8 @@ The **Association of Computer Engineers (ACE)** at Nitte is a student-driven org
 
 - **Framework:** [Astro](https://astro.build/)
 - **Languages:** HTML, CSS, JavaScript, TypeScript
-- **Styling:** Tailwind CSS (if used)
-- **Database:** (Specify any database if used, otherwise remove this section)
+- **Styling:** Tailwind CSS 
+- **Database:** Turso , SQLlite
 
 ---
 
