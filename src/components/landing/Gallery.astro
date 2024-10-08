@@ -50,9 +50,13 @@ await Astro.glob('/src/assets/images/eventpic/*.webp').then((files) => {
 </style>
 
 <script>
-  let targets = gsap.utils.toArray('.image-row');
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const elements = document.querySelectorAll('.image-row');
   gsap.fromTo(
-    targets,
+    elements,
     {
       x: (i) => (i % 2 ? '20%' : '-80%'),
     },

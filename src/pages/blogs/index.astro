@@ -90,28 +90,30 @@ const blogs = await db
 </style>
 
 <script>
-  const cards = gsap.utils.toArray('.blog-card') as HTMLDivElement[];
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
 
-  window.gsapContext.add(() => {
-    cards.forEach((element, i) => {
-      gsap.set(element, { opacity: 0 });
-      gsap.from(element, {
-        y: 200,
-        duration: 0.75,
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 100%',
-        },
-      });
-    });
+  const cards = gsap.utils.toArray<HTMLDivElement>('.blog-card');
 
-    ScrollTrigger.batch('.blog-card', {
-      onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, stagger: { each: 0.15, grid: [1, 1] }, overwrite: true }),
-      onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 100, overwrite: true }),
+  cards.forEach((element, i) => {
+    gsap.set(element, { opacity: 0 });
+    gsap.from(element, {
+      y: 200,
+      duration: 0.75,
+      scrollTrigger: {
+        trigger: element,
+        start: 'top 100%',
+      },
     });
+  });
 
-    ScrollTrigger.addEventListener('refreshInit', () => {
-      gsap.set('.blog-card', { y: 0 });
-    });
+  ScrollTrigger.batch('.blog-card', {
+    onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, stagger: { each: 0.15, grid: [1, 1] }, overwrite: true }),
+    onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 100, overwrite: true }),
+  });
+
+  ScrollTrigger.addEventListener('refreshInit', () => {
+    gsap.set('.blog-card', { y: 0 });
   });
 </script>

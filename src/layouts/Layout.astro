@@ -22,9 +22,9 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
     <BaseHead title={title} description={description} />
   </head>
   <body class="font-syne-variable">
-    <Toaster client:load/>
+    <Toaster client:load />
     <MouseTrailer />
-    <FluidEffect/>
+    <FluidEffect />
     <Header />
     <slot />
     <Footer />
@@ -62,13 +62,13 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const ctx = gsap.context(() => {});
+  // const ctx = gsap.context(() => {});
 
-  window.gsapContext = ctx;
+  // window.gsapContext = ctx;
 
-  document.addEventListener('DOMContentLoaded', () => {
-    if (ctx != null) {
-      ctx.revert();
-    }
-  });
+  // document.addEventListener('DOMContentLoaded', () => {
+  //   if (ctx != null) {
+  //     ctx.revert();
+  //   }
+  // });
 </script>

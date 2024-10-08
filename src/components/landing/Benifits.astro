@@ -135,66 +135,60 @@ await Astro.glob('/src/assets/images/Benifits/*.webp').then((files) => {
   //left cards
   const leftCards = document.querySelectorAll('.benifit-row:nth-child(odd) .benifit-card');
 
-  window.gsapContext.add(() => {
-    Array.from(leftCards).forEach((card) => {
-      gsap.fromTo(
-        card,
-        {
-          x: -300,
-          opacity: 0,
-          rotate: '-45deg',
-        },
-        {
-          x: 0,
-          opacity: 1,
-          rotate: '0deg',
-          ease: 'power4.inOut',
-          scrollTrigger: {
-            scrub: 0.3,
-            trigger: card,
-            end: 'center center',
-            start: 'top 100%',
-            toggleActions: 'restart none none none',
-          },
-        }
-      );
-    });
-  });
-  //right cards
-  const rightCards = document.querySelectorAll('.benifit-row:nth-child(even) .benifit-card');
-  window.gsapContext.add(() => {
-    Array.from(rightCards).forEach((card) => {
-      gsap.from(card, {
-        x: 300,
+  Array.from(leftCards).forEach((card) => {
+    gsap.fromTo(
+      card,
+      {
+        x: -300,
         opacity: 0,
-        rotate: '45deg',
+        rotate: '-45deg',
+      },
+      {
+        x: 0,
+        opacity: 1,
+        rotate: '0deg',
         ease: 'power4.inOut',
         scrollTrigger: {
           scrub: 0.3,
           trigger: card,
           end: 'center center',
-          toggleActions: 'play none none none',
+          start: 'top 100%',
+          toggleActions: 'restart none none none',
         },
-      });
+      }
+    );
+  });
+  //right cards
+  const rightCards = document.querySelectorAll('.benifit-row:nth-child(even) .benifit-card');
+  Array.from(rightCards).forEach((card) => {
+    gsap.from(card, {
+      x: 300,
+      opacity: 0,
+      rotate: '45deg',
+      ease: 'power4.inOut',
+      scrollTrigger: {
+        scrub: 0.3,
+        trigger: card,
+        end: 'center center',
+        toggleActions: 'play none none none',
+      },
     });
   });
 
   const texts = document.querySelectorAll('.benifit-text');
-  window.gsapContext.add(() => {
-    Array.from(texts).forEach((text) => {
-      gsap.from(text, {
-        y: '100%',
-        opacity: 0.3,
-        duration: 0.5,
-        ease: 'power4.inOut',
-        scrollTrigger: {
-          scrub: 0.1,
-          trigger: text,
-          start: 'top bottom',
-          end: 'top center',
-          toggleActions: 'play none none none',
-        },
-      });
+  Array.from(texts).forEach((text) => {
+    gsap.from(text, {
+      y: '100%',
+      opacity: 0.3,
+      duration: 0.5,
+      ease: 'power4.inOut',
+      scrollTrigger: {
+        scrub: 0.1,
+        trigger: text,
+        start: 'top bottom',
+        end: 'top center',
+        toggleActions: 'play none none none',
+      },
     });
   });
 </script>

@@ -13,7 +13,6 @@ const cards = [
   {
     title: 'freshers',
     image: 'freshers',
-    
   },
   {
     title: 'respawn',
@@ -173,48 +172,44 @@ await Astro.glob('/src/assets/images/eventpic/*.webp').then((files) => {
   //left cards
   const leftCards = document.querySelectorAll('.event-card:nth-child(odd)');
 
-  window.gsapContext.add(() => {
-    Array.from(leftCards).forEach((card) => {
-      gsap.fromTo(
-        card,
-        {
-          x: -300,
-          opacity: 0,
-          rotate: '-45deg',
-        },
-        {
-          x: 0,
-          opacity: 1,
-          rotate: '0deg',
-          ease: 'power4.inOut',
-          scrollTrigger: {
-            scrub: 0.3,
-            trigger: card,
-            end: 'center center',
-            start: 'top 100%',
-            toggleActions: 'restart none none none',
-          },
-        }
-      );
-    });
-  });
-
-  //right cards
-  const rightCards = document.querySelectorAll('.event-card:nth-child(even)');
-  window.gsapContext.add(() => {
-    Array.from(rightCards).forEach((card) => {
-      gsap.from(card, {
-        x: 300,
+  Array.from(leftCards).forEach((card) => {
+    gsap.fromTo(
+      card,
+      {
+        x: -300,
         opacity: 0,
-        rotate: '45deg',
+        rotate: '-45deg',
+      },
+      {
+        x: 0,
+        opacity: 1,
+        rotate: '0deg',
         ease: 'power4.inOut',
         scrollTrigger: {
           scrub: 0.3,
           trigger: card,
           end: 'center center',
-          toggleActions: 'play none none none',
+          start: 'top 100%',
+          toggleActions: 'restart none none none',
         },
-      });
+      }
+    );
+  });
+
+  //right cards
+  const rightCards = document.querySelectorAll('.event-card:nth-child(even)');
+  Array.from(rightCards).forEach((card) => {
+    gsap.from(card, {
+      x: 300,
+      opacity: 0,
+      rotate: '45deg',
+      ease: 'power4.inOut',
+      scrollTrigger: {
+        scrub: 0.3,
+        trigger: card,
+        end: 'center center',
+        toggleActions: 'play none none none',
+      },
     });
   });
 </script>

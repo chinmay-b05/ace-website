@@ -204,28 +204,30 @@ await Astro.glob('/src/assets/images/developers/*.{jpg,png,webp}').then((files) 
 </style>
 
 <script>
-  const cards = gsap.utils.toArray('.developer-card') as HTMLDivElement[];
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
 
-  window.gsapContext.add(() => {
-    cards.forEach((element, i) => {
-      gsap.set(element, { opacity: 0 });
-      gsap.from(element, {
-        y: 200,
-        duration: 0.5,
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 100%',
-        },
-      });
-    });
+  const cards = gsap.utils.toArray<HTMLDivElement>('.developer-card');
 
-    ScrollTrigger.batch('.developer-card', {
-      onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, stagger: { each: 0.15, grid: [1, 3] }, overwrite: true }),
-      onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 100, overwrite: true }),
+  cards.forEach((element, i) => {
+    gsap.set(element, { opacity: 0 });
+    gsap.from(element, {
+      y: 200,
+      duration: 0.5,
+      scrollTrigger: {
+        trigger: element,
+        start: 'top 100%',
+      },
     });
+  });
 
-    ScrollTrigger.addEventListener('refreshInit', () => {
-      gsap.set('.developer-card', { y: 0 });
-    });
+  ScrollTrigger.batch('.developer-card', {
+    onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, stagger: { each: 0.15, grid: [1, 3] }, overwrite: true }),
+    onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 100, overwrite: true }),
+  });
+
+  ScrollTrigger.addEventListener('refreshInit', () => {
+    gsap.set('.developer-card', { y: 0 });
   });
 </script>
