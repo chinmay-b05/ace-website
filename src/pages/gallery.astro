@@ -3,11 +3,15 @@ import GalleryHero from '@components/GalleryHero.astro';
 import Layout from '@layouts/Layout.astro';
 import { getImages } from '../lib/cloudinary';
 
-let imagesDetails = await getImages('gallery');
+let { images, nextCursor } = await getImages('gallery');
 ---
 
 <Layout title="ACE">
   <main>
+    <template id="image-template">
+      <img src="" alt="" class="gallery-image mb-4 rounded-lg w-full image" />
+    </template>
+
     <div class="md:hidden mt-32 flex flex-col gap-8 items-center">
       <h1 class="fade-up uppercase text-6xl mx-auto max-w-screen-lg font-dirtyline">Gallery</h1>
       <p class="fade-up text-gray-200 font-syne-variable">Opening the memory window..</p>
@@ -17,12 +21,10 @@ let imagesDetails = await getImages('gallery');
     </div>
     <br />
     <br />
-    <section class="content-container masonry-grid w-full h-fit">
+    <section class="content-container masonry-grid w-full h-fit" id="images-container" data-next-cursor={nextCursor}>
       {
-        imagesDetails.resources.length ? (
-          imagesDetails.resources.map((image) => (
-            <img src={image.url} alt="" class="gallery-image mb-4 rounded-lg w-full" />
-          ))
+        images.length ? (
+          images.map((image) => <img src={image} alt="" class="gallery-image mb-4 rounded-lg w-full image" />)
         ) : (
           <p>No Images</p>
         )
@@ -68,6 +70,7 @@ let imagesDetails = await getImages('gallery');
 <script>
   import gsap from 'gsap';
   import ScrollTrigger from 'gsap/ScrollTrigger';
+  import { toast } from 'sonner';
   gsap.registerPlugin(ScrollTrigger);
 
   const images = gsap.utils.toArray<HTMLImageElement>('.gallery-image');
@@ -91,4 +94,71 @@ let imagesDetails = await getImages('gallery');
       }
     );
   });
+
+  type ImageDetail = {
+    nextCursor: string;
+    images: string[];
+  };
+
+  const template = document.querySelector<HTMLTemplateElement>('#image-template');
+  const imagesContainer = document.querySelector<HTMLDivElement>('#images-container')!;
+  let image = document.querySelector('.image:last-of-type');
+  let nextCursor = imagesContainer.dataset.nextCursor;
+
+  const addImages = (imageDetail: ImageDetail) => {
+    if (!template) return;
+
+    imageDetail.images.forEach((image) => {
+      const clone = template.content.cloneNode(true);
+      //@ts-ignore
+      const img: HTMLImageElement = clone.querySelector('img');
+      img.src = image;
+
+      imagesContainer.appendChild(clone);
+    });
+
+    nextCursor = imageDetail.nextCursor;
+    if (nextCursor) {
+      image = document.querySelector('.image:last-of-type');
+      image && observer.observe(image);
+    }
+  };
+
+  const fetchImages = async (): Promise<void> => {
+    try {
+      const response = await fetch('/api/gallery', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nextCursor,
+        }),
+      });
+      if (!response.ok) {
+        toast.error('couldnot able to fetch images');
+      }
+
+      const data: ImageDetail = await response.json();
+      addImages(data);
+    } catch (err) {
+      toast.error(String(err));
+    }
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          observer.unobserve(entry.target);
+          fetchImages();
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+    }
+  );
+
+  nextCursor && image && observer.observe(image);
 </script>

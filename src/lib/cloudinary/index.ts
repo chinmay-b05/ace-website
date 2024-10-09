@@ -31,10 +31,15 @@ export async function uploadImageToCloudinaryFromServer(file: File, options: Upl
   return await uploadStream(buffer, options);
 }
 
-export async function getImages(asset_folder: string, nextCursor?: string) {
-  return cloudinary.api.resources_by_asset_folder(asset_folder, {
+export async function getImages(assetFolder: string, nextCursor?: string, max_results: number = 2) {
+  const images = await cloudinary.api.resources_by_asset_folder(assetFolder, {
     next_cursor: nextCursor,
-    max_results: 999,
+    max_results: max_results,
     transformation: [{ quality: 'auto' }],
   });
+
+  return {
+    nextCursor: images.next_cursor,
+    images: images.resources.map((image) => image.url),
+  };
 }
