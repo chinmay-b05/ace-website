@@ -41,13 +41,13 @@ await Astro.glob('/src/assets/images/eventpic/*.webp').then((files) => {
 });
 ---
 
-<section class="events-container content-container event-section h-fit my-8 overflow-hidden">
+<section class="events-container content-container h-fit my-8 overflow-hidden">
   <div
     class="marquee-container overflow-visible w-[100%] relative whitespace-nowrap h-[70vh] flex justify-center text-7xl md:text-9xl flex-col gap-0"
   >
     <h1 class="marquee-text-1 inline-block whitespace-nowrap font-dirtyline font-medium">Events</h1>
   </div>
-  <div class="grid grid-cols-1 lg:grid-cols-2 h-fit gap-8 cards-grid">
+  <div class="grid grid-cols-1 lg:grid-cols-2 h-fit gap-8 cards-grid event-section">
     {
       cards.map((card) => (
         <div class="event-card interactable" data-type="link">
@@ -57,13 +57,12 @@ await Astro.glob('/src/assets/images/eventpic/*.webp').then((files) => {
     }
   </div>
 
-  <div
-    class="mx-auto mt-32 w-36 aspect-square bg-white text-black rounded-full grid place-content-center text-center transition-all duration-300 transform hover:scale-105 hover:translate-y-1 hover:shadow-2xl"
+  <a
+    href="/gallery"
+    class="mx-auto my-28 w-36 aspect-square bg-white text-black rounded-full grid place-content-center text-center transition-all duration-300 transform hover:scale-105 hover:translate-y-1 hover:shadow-2xl"
   >
-    <span class="font-bold text-lg">
-      <a href="/gallery" class="hover:text-white transition-colors duration-300">view more</a>
-    </span>
-  </div>
+    <span class="font-bold text-lg hover:text-white transition-colors duration-300">view more</span>
+  </a>
   <br />
 </section>
 <style>
@@ -116,7 +115,7 @@ await Astro.glob('/src/assets/images/eventpic/*.webp').then((files) => {
 
   .event-section {
     --card-height: 400px;
-    margin-bottom: calc(var(--card-height) / 2);
+    /* margin-bottom: calc(var(--card-height) / 2); */
   }
 
   .cards-column {
@@ -140,7 +139,7 @@ await Astro.glob('/src/assets/images/eventpic/*.webp').then((files) => {
       margin-bottom: calc(-1 * var(--card-height) / 2);
     }
     .cards-grid {
-      padding-bottom: calc(var(--card-height) / 2);
+      /*padding-bottom: calc(var(--card-height) / 2); */
     }
   }
 </style>

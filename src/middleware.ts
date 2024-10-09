@@ -29,13 +29,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
       }
     }
 
-    // if (context.url.pathname.includes('admin')) {
-    //   if (user) {
-    //     return redirect('/');
-    //   }
-    //   return next();
-    // }
-
     if (!userRole) {
       const res = await db.query.userTable.findFirst({
         where: eq(userTable.email, session.user.email as string),
@@ -55,14 +48,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
   console.log(locals.role);
 
   if (context.url.pathname.includes('admin')) {
-    console.log('Hi');
-
     if (!session?.user) {
-      console.log('no user');
       return context.redirect('/');
     } else if (session?.user && locals.role !== 'ADMIN') {
       {
-        console.log('no admin');
         return context.redirect('/');
       }
     }

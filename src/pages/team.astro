@@ -16,53 +16,62 @@ images['sample'] = sample;
 ---
 
 <Layout>
-  <section class="content-container tabs mx-6 md:mx-0 mt-28">
-    <ul class="text-xs">
-      {
-        Object.keys(teamMembers).map((tabName) => {
-          const displayString = tabName === 'faculty' ? 'Faculty' : `${tabName}-${Number(tabName) + 1}`;
-          return (
-            <li>
-              <input
-                class="input"
-                name="tabs"
-                type="radio"
-                id={`tab-${tabName}`}
-                value={tabName}
-                checked={tabName === 'faculty'}
-              />
-              <label class="" for={`tab-${tabName}`}>
-                {displayString}
-              </label>
-            </li>
-          );
-        })
-      }
-    </ul>
+  <main>
+    <section class="content-container tabs mt-28">
+      <ul class="text-xs flex gap-4 flex-wrap items-center">
+        {
+          Object.keys(teamMembers).map((tabName) => {
+            const displayString = tabName === 'faculty' ? 'Faculty' : `${tabName}-${Number(tabName) + 1}`;
+            return (
+              <li>
+                <input
+                  class="input"
+                  name="tabs"
+                  type="radio"
+                  id={`tab-${tabName}`}
+                  value={tabName}
+                  checked={tabName === 'faculty'}
+                />
+                <label class="" for={`tab-${tabName}`}>
+                  {displayString}
+                </label>
+              </li>
+            );
+          })
+        }
+      </ul>
 
-    <div class="panel-container w-full">
-      {
-        Object.entries(teamMembers).map(([tabName, members]) => (
-          <div class="panel w-full flex flex-wrap justify-center gap-4 hide-panel" data-tabname={tabName}>
-            {members.map((member) => (
-              <div class="card">
-                <div class="imgBx">
-                  {/*@ts-ignore*/}
-                  <Image src={images[member.image]} alt={member.name} loading="lazy" />
-                </div>
-                <div class="content">
-                  <div class="contentBx">
-                    <h3 style="text-align: center;">{member.name}</h3>
-                    <span style="text-align: center;">{member.position}</span>
+      <div class="panel-container w-full">
+        {
+          Object.entries(teamMembers).map(([tabName, members]) => (
+            <div
+              class=" gap-8 grid  w-fit mx-auto md:grid-cols-2 lg:grid-cols-3 panel justify-items-center"
+              data-tabname={tabName}
+            >
+              {members.map((member) => (
+                <div class="card  w-[300px] grid grid-rows-10 rounded-2xl  h-max gap-2">
+                  <div class="row-span-6 row-start-1 grid place-content-center p-12 pb-0">
+                    <Image
+                      src={images[member.image]}
+                      alt={member.name}
+                      loading="lazy"
+                      class="w-[200px] aspect-square rounded-full"
+                      width={200}
+                      height={200}
+                    />
+                  </div>
+                  <div class="content w-full row-start-7 row-span-4">
+                    <h3 class="uppercase font-bold text-lg">{member.name}</h3>
+                    <span>{member.position}</span>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        ))
-      }
-    </div>
-  </section>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </main>
 </Layout>
 
 <style>
@@ -142,17 +151,7 @@ images['sample'] = sample;
   }
 
   .show-panel {
-    display: flex;
-  }
-
-  /* Cards and Layout */
-  .card_Container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 40px 0;
-    gap: 50px;
+    display: grid;
   }
 
   @keyframes fadeInUp {
@@ -167,15 +166,6 @@ images['sample'] = sample;
   }
 
   .card {
-    position: relative;
-    width: 300px;
-    height: 400px;
-    margin: 20px;
-    overflow: hidden;
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background: linear-gradient(
       45deg,
       #64cfe243 40%,
@@ -198,26 +188,7 @@ images['sample'] = sample;
     transform: translateY(0);
   }
 
-  .card .imgBx {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 7rem;
-  }
-
-  .card .imgBx img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
   .card .content {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 160px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -228,17 +199,6 @@ images['sample'] = sample;
     border-radius: 15px;
     text-align: center;
   }
-
-  .content .contentBx h3 {
-    text-transform: uppercase;
-    color: #fff;
-    letter-spacing: 2px;
-    font-weight: 500;
-    font-size: 18px;
-    text-align: center;
-    margin: 20px 0 15px;
-    line-height: 1.1em;
-  }
 </style>
 
 <script>
@@ -247,7 +207,6 @@ images['sample'] = sample;
 
   function updatePanel(tabName: string) {
     panels.forEach((panel) => {
-      //@ts-ignore
       if (panel.dataset.tabname === tabName) {
         panel.classList.add('show-panel');
       } else {

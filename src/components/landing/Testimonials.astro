@@ -1,34 +1,17 @@
 ---
-const testimonials = [
-  
-  { name: 'Karthik', message: '@Varshith layout fixed; If they give attendence im in', imageUrl: 'images/sample.png' },
-  { name: 'Avaneesh', message: 'If youre into solving probs and building sick stuff, this is where the magic happens!', imageUrl: 'images/sample.png' },
-  { name: 'Shashank B N', message: 'Use VIM', imageUrl: 'images/sample.png' },
-  { name: 'Satwik Prabhu', message: 'i know where you live', imageUrl: 'images/sample.png' },
-  { name: 'wisdom--1', message: 'Fullfill 85% attendance criteria', imageUrl: 'images/sample.png' },
-  { name: 'Unknown', message: 'Satwik Prabhu is a cutie', imageUrl: 'images/sample.png' },
-  { name: 'Vasudha Bhat', message: 'Association of Computer Engineers (ACE ) is a dedicated organisation for Computer Science department.  Dedicated organisation that helps students to develop both Technical and non-technical skills including Sports. It was always great working with ACE. Thanks for the opportunity', imageUrl: 'images/sample.png' },
-  { name: 'Varshith Pawar H R', message: ' y I did this format-visit : https://orm.drizzle.team/', imageUrl: 'images/sample.png' },
-  { name: 'akhil', message: 'will never know!!', imageUrl: 'images/sample.png' },
-  {
-    name: 'Prashasti Pandey',
-    message:
-      'ACE was an amazing experience at nitte, right from starting the face space to sitting at the budget meetings for our incridea events , from organising Improv to making rangolis for ayudh puja from planning freshers to receiving our farewell, we shared good memories . P.S. youll always be good books of every proff.  Also , plan your events before that one branch implements it ;)m?',
-    imageUrl: 'images/sample.png',
-  },
-  { name: 'Varun pai', message: 'Learn Flutter', imageUrl: 'images/sample.png' },
-  { name: 'Ameesha', message: 'Work more on your side projects ', imageUrl: 'images/sample.png' },
-  
-];
+import { testimonials } from '@lib/constants';
+import { Image } from 'astro:assets';
 ---
+
+<h3 class="title-glow font-dirtyline lowercase text-3xl md:text-6xl text-center mb-32">Words from the Wise</h3>
 <!-- use h-fit to make all cards visible -->
-<section class="content-container ">
-  <ul class="mx-auto w-fit columns-1 md:columns-2 lg:columns-3 ">
+<section class="content-container h-fit">
+  <ul class="mx-auto w-fit columns-1 md:columns-2 lg:columns-3">
     {
       testimonials.map((testimonial) => (
-        <li class="testimonial-card flex flex-col gap-4 p-8 rounded-lg break-inside-avoid mb-4 hover:scale-105 transition-transform ">
+        <li class="testimonial-card flex flex-col gap-4 p-8 rounded-lg break-inside-avoid mb-4 hover:scale-105 transition-transform ease-in-out ">
           <div class="flex gap-4 items-center">
-            <img
+            <Image
               src={testimonial.imageUrl}
               alt={testimonial.name}
               class="w-10 aspect-square rounded-full object-cover object-center"
@@ -50,7 +33,30 @@ const testimonials = [
     max-width: 320px;
     box-shadow: 0 20px 30px -20px rgba(181, 180, 180, 0.426);
   }
-  ul{
+  ul {
     transform: translateY(-100px);
+  }
+
+  .title-glow {
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
+  }
+
+  .title-glow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 180, 216, 0.4), transparent);
+    transform: translate(-50%, -50%) scale(0.8);
+    transition:
+      transform 0.5s ease,
+      opacity 0.5s ease;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
   }
 </style>

@@ -59,7 +59,6 @@ export const faculty = [
   { name: 'Ms. Anupama H C', position: 'Assistant Professor Gd-I', image: 't45' },
 ];
 
-
 export const teamMembers = {
   2023: [
     { name: 'Vasudha G', position: 'President', image: 'President-min' },
@@ -123,3 +122,43 @@ export const teamMembers = {
   2024: [],
   faculty,
 };
+
+import KarthikImage from '@assets/images/developers/karthik.webp';
+import varunPaiImage from '@assets/images/developers/varunpai.webp';
+import varshithPawarImage from '@assets/images/developers/varshith.webp';
+import akhilImage from '@assets/images/developers/akhil.webp';
+import ameeshaImage from '@assets/images/developers/ameesha.webp';
+import sampleImage from '@assets/images/sample.png';
+
+export const testimonials = [
+  { name: 'Karthik', message: '@Varshith layout fixed; If they give attendence im in', imageUrl: KarthikImage },
+  {
+    name: 'Avaneesh',
+    message: 'If youre into solving probs and building sick stuff, this is where the magic happens!',
+    imageUrl: sampleImage,
+  },
+  { name: 'Shashank B N', message: 'Use VIM', imageUrl: sampleImage },
+  { name: 'Satwik Prabhu', message: 'i know where you live', imageUrl: sampleImage },
+  { name: 'wisdom--1', message: 'Fullfill 85% attendance criteria', imageUrl: sampleImage },
+  { name: 'Unknown', message: 'Satwik Prabhu is a cutie', imageUrl: sampleImage },
+  {
+    name: 'Vasudha Bhat',
+    message:
+      'Association of Computer Engineers (ACE ) is a dedicated organisation for Computer Science department.  Dedicated organisation that helps students to develop both Technical and non-technical skills including Sports. It was always great working with ACE. Thanks for the opportunity',
+    imageUrl: sampleImage,
+  },
+  {
+    name: 'Varshith Pawar H R',
+    message: ' y I did this format-visit : https://orm.drizzle.team/',
+    imageUrl: varshithPawarImage,
+  },
+  { name: 'akhil', message: 'will never know!!', imageUrl: akhilImage },
+  {
+    name: 'Prashasti Pandey',
+    message:
+      'ACE was an amazing experience at nitte, right from starting the face space to sitting at the budget meetings for our incridea events , from organising Improv to making rangolis for ayudh puja from planning freshers to receiving our farewell, we shared good memories . P.S. youll always be good books of every proff.  Also , plan your events before that one branch implements it ;)m?',
+    imageUrl: sampleImage,
+  },
+  { name: 'Varun pai', message: 'Learn Flutter', imageUrl: varunPaiImage },
+  { name: 'Ameesha', message: 'Work more on your side projects ', imageUrl: ameeshaImage },
+];
