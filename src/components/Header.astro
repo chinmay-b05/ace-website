@@ -29,7 +29,7 @@ let user = session?.user?.id ? await getUser(session.user.id) : null;
       {
         session ? (
           <div class="relative cursor-pointer profile-container" tabindex="0">
-            <img src={user?.image} alt={session.user?.name} class="rounded-full w-8 aspect-square" />
+            <img src={user?.image} alt={session.user?.name} class="rounded-full w-8 aspect-square object-cover" />
             <div class="profile-dropdown flex flex-col gap-2 absolute p-4 rounded-md">
               <a href={`/profiles/${session.user?.id}`}>View Profile</a>
               <button id="logout">Logout</button>

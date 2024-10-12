@@ -10,16 +10,17 @@ if (!session?.user) {
 }
 ---
 
-<Layout title='ACE | Create Blog'>
-  <div class="mt-20">
+<Layout title="ACE | Create Blog">
+  <main class="content-container mt-20">
+    <h3 class="text-3xl font-bold mb-4 text-center">Cook a blog</h3>
     <BlogEditor id="new" />
-  </div>
+  </main>
 </Layout>
 
 <script>
   import { actions } from 'astro:actions';
   import { navigate } from 'astro:transitions/client';
-  
+
   const form = document.querySelector('#blog-form') as HTMLFormElement;
   form.addEventListener('submit', async (e) => {
     e.preventDefault();

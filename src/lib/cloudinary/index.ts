@@ -31,7 +31,7 @@ export async function uploadImageToCloudinaryFromServer(file: File, options: Upl
   return await uploadStream(buffer, options);
 }
 
-export async function getImages(assetFolder: string, nextCursor?: string, max_results: number = 2) {
+export async function getImages(assetFolder: string, nextCursor?: string, max_results: number = 100) {
   const images = await cloudinary.api.resources_by_asset_folder(assetFolder, {
     next_cursor: nextCursor,
     max_results: max_results,

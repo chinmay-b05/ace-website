@@ -140,7 +140,7 @@ if (session?.user?.id) {
         <div class="flex gap-8 items-center mr-auto">
           <button class="text-center" id="likeButton" data-blogid={blog.id}>
             <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
-            <span class="text-white">{likeCount ?? 0}</span>
+            <span class="text-white" id="like-text">{likeCount ?? 0}</span>
           </button>
           <span class="text-center"
             ><Icon name="mdi:eye" size={20} class:list={'inline-block mr-2'} />{viewCount ?? 0}</span
@@ -170,16 +170,19 @@ if (session?.user?.id) {
   import { actions } from 'astro:actions';
 
   const likeButton = document.querySelector<HTMLButtonElement>('#likeButton');
+  const likeText = document.querySelector<HTMLButtonElement>('#like-text')!;
+
   likeButton?.addEventListener('click', async (e) => {
     e.preventDefault();
-    const { data, error } = await actions.likeBlog({ blogId: likeButton.dataset.blogid! });
-    console.log(error);
+    const { data } = await actions.likeBlog({ blogId: likeButton.dataset.blogid! });
 
     if (data) {
       if (data.liked) {
         likeButton.classList.add('liked');
+        likeText.textContent = String(Number(likeButton.textContent) + 1);
       } else {
         likeButton.classList.remove('liked');
+        likeText.textContent = String(Number(likeButton.textContent) - 1);
       }
     }
   });
