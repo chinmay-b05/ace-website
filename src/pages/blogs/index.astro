@@ -3,8 +3,8 @@ import Layout from '@layouts/Layout.astro';
 import BlogCard from '@components/BlogCard.astro';
 
 import { db } from '@lib/db';
-import { blogTable, userTable } from '@lib/db/schema';
-import { eq } from 'drizzle-orm';
+import { blogTable, userTable, viewTable } from '@lib/db/schema';
+import { count, desc, eq, sql } from 'drizzle-orm';
 
 const blogs = await db
   .select({
@@ -19,6 +19,20 @@ const blogs = await db
   })
   .from(blogTable)
   .innerJoin(userTable, eq(blogTable.authorId, userTable.id));
+
+const topLikedBlogs = await db
+  .select({
+    id: blogTable.id,
+    title: blogTable.title,
+    likeCount: count(viewTable.liked).as('likeCount'),
+  })
+  .from(blogTable)
+  .leftJoin(viewTable, sql`${blogTable.id} = ${viewTable.blogId}`)
+  .groupBy(blogTable.id)
+  .orderBy(desc(sql`likeCount`))
+  .limit(3);
+
+console.log(topLikedBlogs);
 ---
 
 <Layout title="ACE | blogs">
@@ -35,23 +49,15 @@ const blogs = await db
         <aside class="lg:w-56 xl:max-w-sm lg:sticky lg:top-14 h-fit">
           <div class="p-2 lg:p-4 xl:p-8 lg:border-b border-gray-700">
             <h2 class="text-2xl">Popular posts</h2>
+
             <ul class="mt-4 space-y-4 text-gray-400">
-              <li>
-                <a
-                  href="https://medium.com/@the_infinity/master-c-like-a-pro-the-ultimate-guide-for-beginners-and-experts-alike-5e6aa5ebf7da"
-                  >Master C++ like a pro!</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://medium.com/techskill-brew/what-is-blockchain-technology-part-1-blockchain-basics-e44847198c94"
-                  >What is Blockchain technology?</a
-                >
-              </li>
-              <li>
-                <a href="https://poojasinhaa.medium.com/beginners-guide-to-ui-ux-design-da728760f22b">UI/UX Designing</a
-                >
-              </li>
+              {
+                topLikedBlogs.map((blog) => (
+                  <li>
+                    <a href={`/blogs/${blog.id}`}>{blog.title}</a>
+                  </li>
+                ))
+              }
             </ul>
           </div>
           <div class="lg:border-b border-gray-700 p-2 lg:p-4 xl:p-8">
@@ -96,7 +102,7 @@ const blogs = await db
 
   const cards = gsap.utils.toArray<HTMLDivElement>('.blog-card');
 
-  cards.forEach((element, i) => {
+  cards.forEach((element, _) => {
     gsap.set(element, { opacity: 0 });
     gsap.from(element, {
       y: 200,
