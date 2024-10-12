@@ -72,3 +72,4 @@ The **Association of Computer Engineers (ACE)** at Nitte is a student-driven org
 │   ├── styles/     # Global styles
 │   ├── data/       # Static data files
 └── package.json    # Project dependencies and scripts
+
