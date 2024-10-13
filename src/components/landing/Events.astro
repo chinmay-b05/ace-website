@@ -59,10 +59,11 @@ await Astro.glob('/src/assets/images/eventpic/*.webp').then((files) => {
 
   <a
     href="/gallery"
-    class="mx-auto my-28 w-36 aspect-square bg-white text-black rounded-full grid place-content-center text-center transition-all duration-300 transform hover:scale-105 hover:translate-y-1 hover:shadow-2xl"
+    class="circle mx-auto my-28 w-36 aspect-square bg-white text-black rounded-full grid place-content-center text-center transition-all duration-300 transform hover:scale-105 hover:translate-y-1 hover:shadow-2xl"
   >
     <span class="font-bold text-lg hover:text-white transition-colors duration-300">view more</span>
   </a>
+
   <br />
 </section>
 <style>
@@ -75,9 +76,7 @@ await Astro.glob('/src/assets/images/eventpic/*.webp').then((files) => {
     white-space: nowrap;
   }
 
-  .mx-auto {
-    position: relative;
-    overflow: hidden;
+  .circle {
     background: linear-gradient(45deg, transparent, rgb(6, 100, 252) 40%, rgb(6, 100, 252), #b0d1ff 60%, transparent);
     background-size: 400% 400%;
     animation: liquidGradient 6s ease infinite;
@@ -145,6 +144,8 @@ await Astro.glob('/src/assets/images/eventpic/*.webp').then((files) => {
 </style>
 
 <script>
+  import type { MouseEvent } from 'react';
+
   gsap.registerPlugin(ScrollTrigger);
   const start1X = -250;
   const end1X = -10;
