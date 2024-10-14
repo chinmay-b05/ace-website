@@ -6,14 +6,12 @@ import { and, count, eq } from 'drizzle-orm';
 import { blogTable, userTable, viewTable } from '@lib/db/schema';
 import { getSession } from 'auth-astro/server';
 // import Comments from '@components/Comments';
+import { SignIn } from 'auth-astro/components';
+import ProtectedComponent from '@components/ProtectedComponent.astro';
 
 const { slug } = Astro.params;
 
 const session = await getSession(Astro.request);
-
-if (!session?.user?.id) {
-  return Astro.redirect('/blogs/');
-}
 
 const blogs = await db
   .select({
@@ -101,12 +99,14 @@ if (session?.user?.id) {
       <img src={blog.image} alt="bg" class="min-h-[240px] w-full object-cover aspect-[16/7]" />
     </div>
 
-    <div class="relative mx-auto max-w-4xl z-10 px-2 md:px-8">
+    <div class="relative mx-auto max-w-4xl z-10 px-7">
       <div
-        class="mx-auto md:space-y-12 max-w-full bg-[#13151a] py-8 md:px-4 lg:p-12 lg:py-16 xl:py-20 xl:px-16 flex flex-col justify-center items-center"
+        class="mx-auto space-y-4 md:space-y-12 max-w-full bg-[#13151a] py-8 md:px-4 lg:p-12 lg:py-16 xl:py-20 xl:px-16 flex flex-col justify-center items-center"
       >
-        <section class="mx-auto w-full max-w-prose text-center flex justify-center items-center flex-col space-y-6">
-          <time class="text-gray-300 text-2xl text-center">
+        <section
+          class="mx-auto w-full max-w-prose text-justify flex justify-center items-center flex-col space-y-6 overflow-hidden"
+        >
+          <time class="text-gray-300 text-2xl">
             {
               new Intl.DateTimeFormat('en-US', {
                 dateStyle: 'medium',
@@ -137,10 +137,28 @@ if (session?.user?.id) {
 
         <hr class="border-gray-700 w-full" />
 
-        <div class="flex gap-8 items-center mr-auto">
+        <div class="flex gap-8 items-center mr-auto p-5 md:p-0">
           <button class="text-center" id="likeButton" data-blogid={blog.id}>
-            <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
-            <span class="text-white">{likeCount ?? 0}</span>
+            {
+              session?.user?.id ? (
+                <>
+                  <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
+                  <span class="text-white" id="like-text">
+                    {likeCount ?? 0}
+                  </span>
+                </>
+              ) : (
+                <SignIn provider="google">
+                  <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
+                  <span class="text-white">{likeCount ?? 0}</span>
+                </SignIn>
+              )
+            }
+
+            <!-- <ProtectedComponent>
+              <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
+              <span class="text-white">{likeCount ?? 0}</span>
+            </ProtectedComponent> -->
           </button>
           <span class="text-center"
             ><Icon name="mdi:eye" size={20} class:list={'inline-block mr-2'} />{viewCount ?? 0}</span
@@ -150,7 +168,7 @@ if (session?.user?.id) {
         <hr class="border-gray-700 w-full" />
 
         <article
-          class="min-w-full indent-10 capitalize text-justify text-gray-400 leading-7 break-words max-w-[90%] mx-auto"
+          class="min-w-full capitalize text-justify text-gray-400 leading-7 break-words max-w-[90%] mx-auto"
           set:html={blog.content}
         />
 
@@ -170,16 +188,19 @@ if (session?.user?.id) {
   import { actions } from 'astro:actions';
 
   const likeButton = document.querySelector<HTMLButtonElement>('#likeButton');
+  const likeText = document.querySelector<HTMLButtonElement>('#like-text')!;
+
   likeButton?.addEventListener('click', async (e) => {
     e.preventDefault();
-    const { data, error } = await actions.likeBlog({ blogId: likeButton.dataset.blogid! });
-    console.log(error);
+    const { data } = await actions.likeBlog({ blogId: likeButton.dataset.blogid! });
 
     if (data) {
       if (data.liked) {
         likeButton.classList.add('liked');
+        likeText.textContent = String(Number(likeButton.textContent) + 1);
       } else {
         likeButton.classList.remove('liked');
+        likeText.textContent = String(Number(likeButton.textContent) - 1);
       }
     }
   });

@@ -1,6 +1,5 @@
 ---
 import Quill from '@components/Quill';
-import Layout from '@layouts/Layout.astro';
 import { db } from '@lib/db';
 import { blogTable } from '@lib/db/schema';
 import { getSession } from 'auth-astro/server';
@@ -34,59 +33,48 @@ if (id !== 'new') {
 }
 ---
 
-<Layout title="ACE | Create Blog">
-  <main class="content-container ">
-    <h3 class="text-3xl font-bold mb-4 text-center">Cook a blog</h3>
-    <form
-      class="flex flex-col gap-4 mx-auto max-w-[712px] p-4 bg-gray-800 shadow-lg rounded-lg"
-      enctype="multipart/form-data"
-      id="blog-form"
+<form
+  class="flex flex-col gap-4 mx-auto max-w-[712px] p-4 bg-gray-800 shadow-lg rounded-lg"
+  enctype="multipart/form-data"
+  id="blog-form"
+>
+  <label class="flex flex-col gap-2">
+    <span class="text-lg font-semibold text-gray-300">Title</span>
+    <input
+      type="text"
+      name="title"
+      required
+      class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+      value={blog?.title}
+      aria-label="Title"
+    />
+  </label>
+
+  <label class="flex flex-col gap-2">
+    <span class="text-lg font-semibold text-gray-300">Description</span>
+    <textarea
+      name="description"
+      class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
+      aria-label="Description">{blog?.description}</textarea
     >
+  </label>
 
-      <label class="flex flex-col gap-2">
-        <span class="text-lg font-semibold text-gray-300">Title</span>
-        <input
-          type="text"
-          name="title"
-          required
-          class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
-          value={blog?.title}
-          aria-label="Title"
-        />
-      </label>
+  <label class="flex flex-col gap-2">
+    <span class="text-lg font-semibold text-gray-300">Content</span>
+    <Quill client:only="react" initialValue={blog?.content} name="content" />
+  </label>
 
-      <label class="flex flex-col gap-2">
-        <span class="text-lg font-semibold text-gray-300">Description</span>
-        <textarea
-          name="description"
-          class="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white"
-          aria-label="Description">{blog?.description}</textarea
-        >
-      </label>
+  <ImageUpload />
 
-      <label class="flex flex-col gap-2">
-        <span class="text-lg font-semibold text-gray-300">Content</span>
-        <Quill client:only="react" initialValue={blog?.content} name="content" />
-      </label>
-
-      <!-- <label>
-        <p>Image</p>
-        <input type="file" class="w-full" name="image" required={id === 'new'} />
-      </label> -->
-
-      <ImageUpload/>
-
-      <input type="text" name="authorId" hidden value={session!.user!.id!} />
-      {id !== 'new' && <input type="text" name="blogId" hidden value={id} />}
-      <button
-        class="w-full p-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-300"
-        type="submit"
-      >
-        Submit
-      </button>
-    </form>
-  </main>
-</Layout>
+  <input type="text" name="authorId" hidden value={session!.user!.id!} />
+  {id !== 'new' && <input type="text" name="blogId" hidden value={id} />}
+  <button
+    class="w-full p-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-300"
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
 
 <style is:global>
   /* Global Styles */

@@ -7,10 +7,12 @@ import { getAllEventsForProfile } from 'utils/events';
 import { getAllBlogsForProfile } from 'utils/blogs';
 import EventCard from '@components/EventCard.astro';
 import BlogCard from '@components/BlogCard.astro';
+import ProfileEditor from '@components/ProfileEditor.astro';
+import ProfileImageDialog from '@components/ProfileImageDialog.astro';
 
 const session = await getSession(Astro.request);
 if (!session?.user?.id) return Astro.redirect('/');
-const user = await getUser(session?.user?.id as string);
+const user = await getUser(session.user.id);
 if (!user) return Astro.redirect('/');
 
 const events = await getAllEventsForProfile(session.user.id);
@@ -22,9 +24,16 @@ const tabNames = ['events', 'blogs'];
   <section class="profile-container pt-20">
     <!-- Profile Header -->
     <div class="profile-header">
-      <div class="profile-pic border-4 border-blue-500 rounded-full overflow-hidden">
-        <img src={user?.image} alt="Hello" class="w-16 m-auto aspect-square object-cover rounded-full" />
-        <!-- Profile picture placeholder -->
+      <div class="w-fit h-fit relative">
+        <img
+          src={user.image}
+          alt={user.name}
+          class="w-28 m-auto aspect-square object-cover border-4 border-blue-500 rounded-full"
+        />
+        <button
+          class="absolute bottom-[10%] left-0 text-sm bg-slate-600/85 text-white px-2 py-1 rounded"
+          id="edit-profile-image-button">Edit</button
+        >
       </div>
       <div class="profile-info justify-start">
         <h1>{user?.name}</h1>
@@ -56,11 +65,18 @@ const tabNames = ['events', 'blogs'];
         </div>
       </div>
       <div class="profile-actions flex flex-col justify-center items-center">
-        <a href="edit" class="w-full">
-          <button class="edit-btn w-full h-full">Edit</button>
-        </a>
+        <button class="edit-btn w-full h-full" id="edit-button">Edit</button>
       </div>
     </div>
+
+    <ProfileEditor
+      name={user.name}
+      email={user.email}
+      instagram={user.instagram}
+      linkedIn={user.linkedIn}
+      github={user.github}
+    />
+    <ProfileImageDialog userImage={user.image} />
 
     <!-- Profile Content -->
     <section class="tabs">
@@ -168,7 +184,7 @@ const tabNames = ['events', 'blogs'];
     color: white;
     gap: 20px;
   }
-  4c23aa3d5a642561fe2aed3a2fab5f9166fbef18 .profile-info {
+  .profile-info {
     flex-grow: 1;
     padding: 0 20px;
   }
@@ -445,5 +461,19 @@ const tabNames = ['events', 'blogs'];
   document.getElementById('scrollRightB')?.addEventListener('click', function () {
     const eventsPanel = document.getElementById('blogs');
     eventsPanel?.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+
+  const editProfileDialog = document.querySelector<HTMLDialogElement>('#edit-profile-dialog')!;
+
+  const editButton = document.getElementById('edit-button');
+  editButton?.addEventListener('click', () => {
+    editProfileDialog.showModal();
+  });
+
+  const editProfileImageDialog = document.querySelector<HTMLDialogElement>('#profile-image-dialog')!;
+
+  const editProfileImageButton = document.getElementById('edit-profile-image-button');
+  editProfileImageButton?.addEventListener('click', () => {
+    editProfileImageDialog.showModal();
   });
 </script>

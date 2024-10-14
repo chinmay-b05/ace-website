@@ -4,24 +4,26 @@ import Layout from '@layouts/Layout.astro';
 
 <Layout>
   <div class="grid place-content-center mt-20">
-    <form  id="upload-form" enctype="multipart/form-data" >
+    <form id="upload-form" enctype="multipart/form-data">
       <input type="file" name="image" required />
       <button type="submit">Upload</button>
-  </form>
-
+    </form>
   </div>
 </Layout>
 
 <script>
-import { actions } from "astro:actions";
-
+  import { actions } from 'astro:actions';
+  import { toast } from 'sonner';
 
   const form = document.querySelector('#upload-form') as HTMLFormElement;
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const result = await actions.uploadToGallery(formData);
-    console.log(result);
-    
+    const { error } = await actions.uploadToGallery(formData);
+    if (error) {
+      toast.error('could not upload Image');
+    } else {
+      toast.success('image uploaded successfully');
+    }
   });
 </script>

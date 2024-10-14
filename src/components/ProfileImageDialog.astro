@@ -1,0 +1,125 @@
+---
+import { Icon } from 'astro-icon/components';
+const { userImage } = Astro.props;
+---
+
+<dialog class="rounded-md z-10 h-fit relative" id="profile-image-dialog">
+  <div class="dialog-container flex flex-col gap-4 relative">
+    <form method="dialog" class="absolute top-4 right-4">
+      <button class="text-red-600 font-bold"><Icon name="mdi:window-close" /></button>
+    </form>
+    <strong class="font-bold text-2xl text-center">Update Profile Image</strong>
+    <label>
+      <span class="mb-4">Upload Image</span>
+      <input id="picture-input" type="file" class="w-full" name="image" />
+    </label>
+
+    <div>
+      Profile Image Preview
+      <img
+        src={userImage}
+        alt="preview image"
+        id="preview-img"
+        data-realImage={userImage}
+        class="w-28 m-auto aspect-square object-cover border-4 border-blue-500 rounded-full"
+      />
+    </div>
+
+    <div>
+      <button class="w-full bg-blue-500 p-2 rounded" id="update-btn">Update</button>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  dialog {
+    background-color: rgb(21, 27, 35);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    color: inherit;
+  }
+
+  input {
+    @apply p-1 rounded border border-gray-700 bg-slate-600 text-white;
+  }
+
+  .dialog-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    width: 80vw;
+    margin: 0 auto;
+    padding: 20px;
+  }
+</style>
+
+<script>
+  const inputFile = document.querySelector<HTMLInputElement>('#picture-input')!;
+  const pictureImage = document.querySelector<HTMLImageElement>('#preview-img')!;
+
+  let changed = false;
+
+  inputFile.addEventListener('change', function (e) {
+    const inputTarget = e.target as HTMLInputElement;
+    let file;
+
+    if (inputTarget.files?.length) {
+      file = inputTarget.files[0];
+    }
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.addEventListener('load', function (e) {
+        const readerTarget = e.target;
+
+        if (readerTarget?.result) {
+          changed = true;
+          //@ts-ignore
+          pictureImage.src = readerTarget.result;
+        }
+      });
+
+      reader.readAsDataURL(file);
+    } else {
+      pictureImage.src = '';
+    }
+  });
+
+  import { actions } from 'astro:actions';
+import { navigate } from 'astro:transitions/client';
+  import { toast } from 'sonner';
+  const updateButton = document.querySelector<HTMLButtonElement>('#update-btn');
+
+  async function handleEditUser() {
+    const formData = new FormData();
+    if (!inputFile.files || !changed) {
+      toast.warning("image not changed");
+      return;
+    }
+
+    if (updateButton) {
+      updateButton.disabled = true;
+      updateButton.textContent = 'updating...';
+    }
+
+    formData.append('image', inputFile.files[0]);
+
+    const { error } = await actions.updateProfilePic(formData);
+
+    if (updateButton) {
+      updateButton.disabled = false;
+      updateButton.textContent = 'Update';
+    }
+
+    if (error) {
+      console.error(error);
+
+      toast.error('Failed to update!');
+    } else {
+      // toast.success('Updated successfully');
+      navigate(window.location.pathname)
+    }
+  }
+  updateButton?.addEventListener('click', handleEditUser);
+</script>

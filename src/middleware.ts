@@ -3,7 +3,6 @@ import { userTable } from '@lib/db/schema';
 import { defineMiddleware } from 'astro:middleware';
 import { getSession } from 'auth-astro/server';
 import { eq } from 'drizzle-orm';
-import { toast } from 'sonner';
 import { decrypt, encrypt } from 'utils/crypto';
 
 export const onRequest = defineMiddleware(async (context, next) => {

@@ -1,0 +1,21 @@
+---
+import type { Session } from '@auth/core/types';
+import { Auth } from 'auth-astro/components';
+import { SignIn } from 'auth-astro/components';
+---
+
+<Auth>
+  {
+    (session: Session) => {
+      session ? (
+        <SignIn provider="google">
+          <slot />
+        </SignIn>
+      ) : (
+        <slot />
+      );
+    }
+  }
+</Auth>
+
+<> </>
