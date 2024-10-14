@@ -120,9 +120,9 @@ export const teamMembers = {
     },
   ],
   2024: [
-    { name: 'U Sai Vikram', position: 'President', image: 'President-min' },
-    { name: 'Aaric Johan Rodrigues', position: 'Vice President', image: 'President-min' },
-    { name: 'Tejas Jain', position: 'Branch Captain', image: 'President-min' },
+    { name: 'U Sai Vikram', position: 'President', image: 'Sai Vikram_President' },
+    { name: 'Aaric Johan Rodrigues', position: 'Vice President', image: 'Aaric Johan Rodrigues - Vice President' },
+    { name: 'Tejas Jain', position: 'Branch Captain', image: 'TEJAS JAIN' },
     { name: 'Hebbar Prathamesh', position: 'Branch secretary', image: 'President-min' },
     { name: 'Varun suresh', position: 'Treasurer', image: 'President-min' },
     { name: 'Liya Nanaiah', position: 'join secretary', image: 'President-min' },
