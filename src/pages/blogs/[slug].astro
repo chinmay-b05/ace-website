@@ -6,14 +6,12 @@ import { and, count, eq } from 'drizzle-orm';
 import { blogTable, userTable, viewTable } from '@lib/db/schema';
 import { getSession } from 'auth-astro/server';
 // import Comments from '@components/Comments';
+import { SignIn } from 'auth-astro/components';
+import ProtectedComponent from '@components/ProtectedComponent.astro';
 
 const { slug } = Astro.params;
 
 const session = await getSession(Astro.request);
-
-if (!session?.user?.id) {
-  return Astro.redirect('/blogs/');
-}
 
 const blogs = await db
   .select({
@@ -139,8 +137,26 @@ if (session?.user?.id) {
 
         <div class="flex gap-8 items-center mr-auto">
           <button class="text-center" id="likeButton" data-blogid={blog.id}>
-            <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
-            <span class="text-white" id="like-text">{likeCount ?? 0}</span>
+            {
+              session?.user?.id ? (
+                <>
+                  <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
+                  <span class="text-white" id="like-text">
+                    {likeCount ?? 0}
+                  </span>
+                </>
+              ) : (
+                <SignIn provider="google">
+                  <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
+                  <span class="text-white">{likeCount ?? 0}</span>
+                </SignIn>
+              )
+            }
+
+            <!-- <ProtectedComponent>
+              <Icon name="mdi:heart" size={20} class={`inline-block mr-2 ${liked ? 'liked' : ''}`} />
+              <span class="text-white">{likeCount ?? 0}</span>
+            </ProtectedComponent> -->
           </button>
           <span class="text-center"
             ><Icon name="mdi:eye" size={20} class:list={'inline-block mr-2'} />{viewCount ?? 0}</span

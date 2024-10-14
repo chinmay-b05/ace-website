@@ -5,6 +5,8 @@ import BlogCard from '@components/BlogCard.astro';
 import { db } from '@lib/db';
 import { blogTable, userTable, viewTable } from '@lib/db/schema';
 import { count, desc, eq, sql } from 'drizzle-orm';
+import { getSession } from 'auth-astro/server';
+import { SignIn } from 'auth-astro/components';
 
 const blogs = await db
   .select({
@@ -32,7 +34,7 @@ const topLikedBlogs = await db
   .orderBy(desc(sql`likeCount`))
   .limit(3);
 
-console.log(topLikedBlogs);
+const session = await getSession(Astro.request);
 ---
 
 <Layout title="ACE | blogs">
@@ -65,7 +67,14 @@ console.log(topLikedBlogs);
             <p class="mb-6 mt-4 text-gray-400">
               Start writing your blogs here and be a part of the vibrant ACE community!
             </p>
-            <a href="/blogs/new"> Write a blog ✍🏻</a>
+
+            {
+              session?.user?.id ? (
+                <a href="/blogs/new"> Write a blog ✍🏻</a>
+              ) : (
+                <SignIn provider="google">Write a blog ✍🏻</SignIn>
+              )
+            }
           </div>
         </aside>
 
