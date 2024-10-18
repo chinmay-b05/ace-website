@@ -50,16 +50,18 @@ images['sample'] = sample;
             >
               {members.map((member) => (
                 <div class="card  w-[300px] grid grid-rows-10 rounded-2xl  h-max gap-2">
-                  <div class="row-span-6 row-start-1 grid place-content-center p-12 pb-0">
-                    <Image
-                      src={images[member.image]}
-                      alt={member.name}
-                      loading="lazy"
-                      class="w-[200px] aspect-square rounded-full object-cover"
-                      width={200}
-                      height={200}
-                    />
-                  </div>
+                 <div class="row-span-6 row-start-1 grid place-content-center p-12 pb-0">
+  <Image
+    src={images[member.image]}
+    alt={member.name}
+    loading="lazy"
+    class="w-[200px] aspect-square rounded-full object-cover object-center"
+    style={{ objectPosition: 'top' }} 
+    width={200}
+    height={200}
+  />
+</div>
+
                   <div class="content w-full row-start-7 row-span-4">
                     <h3 class="uppercase font-bold text-lg">{member.name}</h3>
                     <span>{member.position}</span>
