@@ -45,8 +45,8 @@ export const teamMembers = {
     { name: 'Rohan MP', position: 'Technical Coordinator', image: 'ABI03974-min' },
     { name: 'Satwik Prabhu', position: 'Techincal Coordinator', image: 'ABI03897-min' },
     { name: 'Len Mendonca', position: 'Joint Technical Coordinator', image: 'ABI04492-min' },
-    //why is his name not in teams
-    // { name: 'Varun Pai', position: 'Joint Technical Coordinator', image: '/images/developers/varunpai.jpeg' },
+
+    { name: 'Varun Pai', position: 'Joint Technical Coordinator', image: 'ABI04447-min' },
     { name: 'Omkar', position: 'Joint Graphics Design Coordinator', image: 'ABI04469-min' },
     { name: 'Pratham Nayak', position: 'Joint Graphics Design Coordinator', image: 'ABI04475-min' },
     { name: 'Akhil Manoj', position: 'Joint Graphics Design Coordinator', image: 'ABI04467-min' },
@@ -134,11 +134,11 @@ export const teamMembers = {
       position: 'Photography & Video Coordinator',
       image: 'Athul N Rao_Photography and Videography coordinator_',
     },
-    // {
-    //   name: 'Arkal Varun Hegde',
-    //   position: 'Photography & Video Coordinator',
-    //   image: 'Arkal Varun Hegde Photography & Video',
-    // },
+    {
+      name: 'Arkal Varun Hegde',
+      position: 'Photography & Video Coordinator',
+      image: 'Arkal Varun Hegde',
+    },
     { name: 'Shifali Mada', position: 'Social Media Coordinator', image: 'Shifali mada-social media coordinator' },
     { name: 'Paras Savera', position: 'Social Media Coordinator', image: 'Paras savera Social media coordinator ' },
     { name: 'Abhiram N udupa', position: 'Jt cultural secretary', image: 'Abhiram N Udupa_JointCulturalSecretary' },
