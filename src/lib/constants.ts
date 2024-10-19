@@ -134,11 +134,11 @@ export const teamMembers = {
       position: 'Photography & Video Coordinator',
       image: 'Athul N Rao_Photography and Videography coordinator_',
     },
-    {
-      name: 'Arkal Varun Hegde',
-      position: 'Photography & Video Coordinator',
-      image: 'Arkal Varun Hegde Photography & Video',
-    },
+    // {
+    //   name: 'Arkal Varun Hegde',
+    //   position: 'Photography & Video Coordinator',
+    //   image: 'Arkal Varun Hegde Photography & Video',
+    // },
     { name: 'Shifali Mada', position: 'Social Media Coordinator', image: 'Shifali mada-social media coordinator' },
     { name: 'Paras Savera', position: 'Social Media Coordinator', image: 'Paras savera Social media coordinator ' },
     { name: 'Abhiram N udupa', position: 'Jt cultural secretary', image: 'Abhiram N Udupa_JointCulturalSecretary' },
