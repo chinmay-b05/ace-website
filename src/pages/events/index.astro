@@ -28,7 +28,7 @@ if (!events) {
                   type="radio"
                   id={`tab-${tabName}`}
                   value={tabName}
-                  checked={tabName === 'Completed'}
+                  checked={tabName === 'completed'}
                 />
                 <label class="label" for={`tab-${tabName}`}>
                   {displayString}
@@ -46,6 +46,7 @@ if (!events) {
                 <div class="card">
                   <a href={`/events/${member.id}`}>
                     <EventCard
+                    image={member.image}
                       class:list={'card'}
                       eventName={member.name}
                       category={member.category}

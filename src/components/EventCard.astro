@@ -10,8 +10,22 @@ interface Props {
   state: string;
   maxTeamSize: number;
   className?: string;
+  image:string;
 }
-const {eventName,category,date,venue,id,state,maxTeamSize,className}=Astro.props;
+const {eventName,category,date:dateRecieved,venue,id,state,maxTeamSize,className,image}=Astro.props;
+
+const date = () => {
+  const date = new Date(dateRecieved);
+  const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
+  const formattedDate = date.toLocaleDateString('en-US', options);
+  const hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const formattedTime = `${(hours % 12 || 12)}:${minutes} ${ampm}`;
+
+  return `${formattedDate} ${formattedTime}`;
+};
+
 
 
 
@@ -22,7 +36,7 @@ const {eventName,category,date,venue,id,state,maxTeamSize,className}=Astro.props
   <div class="card-image w-full h-[50%] max-h-[50%] overflow-hidden">
     <img 
     class="h-full object-center w-full object-fill"
-    src="/src/assets/images/sample.png"
+    src={image}
 />
   </div>
    
