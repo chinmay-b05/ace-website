@@ -12,10 +12,10 @@ export const linkedinLink = 'https://www.linkedin.com/company/acenmamit/';
 export const instagramLink = 'https://www.instagram.com/ace_nmamit/';
 
 export const faculty = [
-  { name: 'Dr. Pradeep Kanchan', position: 'AFaculy Co-ordinator', image: 't18' },
-  { name: 'Dr. Keerthana B Chigateri', position: 'AFaculy Co-ordinator', image: 't19' },
-  { name: 'Mr. Pawan Hegde', position: 'Faculy Co-ordinator', image: 't25' },
-  { name: 'Mr. Ashwin Shenoy', position: 'Faculy Co-ordinator', image: 't32' },
+  { name: 'Dr. Pradeep Kanchan', position: 'Faculty Co-ordinator', image: 't18' },
+  { name: 'Dr. Keerthana B Chigateri', position: 'Faculty Co-ordinator', image: 't19' },
+  { name: 'Mr. Pawan Hegde', position: 'Faculty Co-ordinator', image: 't25' },
+  { name: 'Mr. Ashwin Shenoy', position: 'Faculty Co-ordinator', image: 't32' },
 ];
 
 export const teamMembers = {
@@ -84,7 +84,7 @@ export const teamMembers = {
     { name: 'Tejas Jain', position: 'Branch Captain', image: 'TEJAS JAIN' },
     { name: 'Hebbar Prathamesh', position: 'Branch secretary', image: 'Hebbar Prathamesh branch secretary ' },
     { name: 'Varun suresh', position: 'Treasurer', image: 'Varun Shetty_Treasurer' },
-    { name: 'Liya Nanaiah', position: 'join secretary', image: 'sample' },
+    { name: 'Liya Nanaiah', position: 'join secretary', image: 'ABI04504-min' },
     { name: 'Harshith D S', position: 'Cultural Secretary', image: 'HarshithDS_CulturalSecretary' },
     { name: 'Aastha Nikin Shetty', position: 'Cultural Secretary', image: 'AasthaNikinShetty_culturalsecretary ' },
     { name: 'Len Danieo Thomas Mendonca', position: 'Technical cordinator', image: 'Len-technicalLead' },
@@ -94,7 +94,7 @@ export const teamMembers = {
       position: 'Technical cordinator',
       image: 'Chinmay Dinesh Billava_Technical Coordinator',
     },
-    { name: 'Diya R Kamath', position: 'Sports Coordinator', image: 'Diya R Kamath_Sports Coordinator ' },
+    { name: 'Diya R Kamath', position: 'Sports Coordinator', image: 'Diya R Kamath_Sports Coordinator' },
     { name: 'Abhi S Kamath', position: 'Sports Coordinator', image: 'Abhi S Kamath - Sports Coordinator_' },
     { name: 'Dilshan Divan Dsouza', position: 'Sports Coordinator', image: 'Dilshan Dsouza_Sports Coordinator' },
     { name: 'Jovian Rodrigues', position: 'Sports Coordinator', image: 'sample' },
@@ -128,7 +128,7 @@ export const teamMembers = {
       position: 'Graphics Design Coordinator',
       image: 'Karthik Ail_Main Graphic design Coordinator_',
     },
-    { name: 'Omkar Arun Sanil', position: 'Graphics Design Coordinator', image: 'sample' },
+    { name: 'Omkar Arun Sanil', position: 'Graphics Design Coordinator', image: 'ABI04469-min' },
     {
       name: 'Athul N Rao',
       position: 'Photography & Video Coordinator',
