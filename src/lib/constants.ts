@@ -162,11 +162,11 @@ export const teamMembers = {
       image: 'Aditi H Nayak_Joint Graphics Design Coordinator',
     },
     { name: 'Krithi', position: 'Graphic design Coordinator', image: 'Krithi_JointGraphicsDesignCoordinator' },
-    {
-      name: 'Shashwath J Shetty',
-      position: 'Jt Photography and videography Coordinator',
-      image: 'Shashwath J Shetty_Joint Photography & Videography Coordinator ',
-    },
+    // {
+    //   name: 'Shashwath J Shetty',
+    //   position: 'Jt Photography and videography Coordinator',
+    //   image: 'Shashwath J Shetty_Joint Photography & Videography Coordinator ',
+    // },
     { name: 'Sujan S', position: 'Jt Social Media Coordinator', image: 'Sujan S- Joint social media coordinator_' },
     {
       name: 'Rachana Narayan',
