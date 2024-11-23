@@ -174,7 +174,6 @@ export const teamMembers = {
       image: 'Rachana_joint social media coordinator',
     },
   ],
-  faculty,
 };
 
 import KarthikImage from '@assets/images/developers/karthik.webp';
