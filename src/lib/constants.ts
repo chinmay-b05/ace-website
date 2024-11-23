@@ -11,7 +11,7 @@ export const githubLink = 'https://github.com/ACE-NMAMIT/';
 export const linkedinLink = 'https://www.linkedin.com/company/acenmamit/';
 export const instagramLink = 'https://www.instagram.com/ace_nmamit/';
 
-export const faculty = [
+export const aceFaculty = [
   { name: 'Dr. Pradeep Kanchan', position: 'Faculty Co-ordinator', image: 't18' },
   { name: 'Dr. Keerthana B Chigateri', position: 'Faculty Co-ordinator', image: 't19' },
   { name: 'Mr. Pawan Hegde', position: 'Faculty Co-ordinator', image: 't25' },
@@ -174,6 +174,7 @@ export const teamMembers = {
       image: 'Rachana_joint social media coordinator',
     },
   ],
+  aceFaculty,
 };
 
 import KarthikImage from '@assets/images/developers/karthik.webp';
