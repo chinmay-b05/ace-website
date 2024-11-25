@@ -1,9 +1,9 @@
 ---
 import DialogBoxSkeleton from '@components/DialogBoxSkeleton';
 import Layout from '@layouts/Layout.astro';
-import { Image } from 'astro:assets';
 import DialogBox from '@components/EventDialogBox';
 import { getEventById } from 'utils/events';
+import FormattedDate from '@components/FormattedDate.astro';
 
 const { slug } = Astro.params;
 
@@ -11,19 +11,6 @@ const event = await getEventById(parseInt(slug!));
 if (!event) {
   Astro.redirect('/404');
 }
-
-const date = () => {
-  const date = new Date(event.fromDate);
-  const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
-  const formattedDate = date.toLocaleDateString('en-US', options);
-  const hours = date.getUTCHours();
-  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-  const formattedTime = `${(hours % 12 || 12)}:${minutes} ${ampm}`;
-
-  return `${formattedDate} ${formattedTime}`;
-};
-
 
 const { name, email, id } = Astro.locals;
 ---
@@ -39,23 +26,23 @@ const { name, email, id } = Astro.locals;
       <div class="description">
         <h2 class="text-2xl font-dirtyline">{event.name}</h2>
         <p class="text-left font-dirtyline text-sm mt-4">Description:</p>
-        <p>
+        <pre>
           {event.description}
-        </p>
+        </pre>
       </div>
 
       <div class="sidebar">
         <div class="sidebar-item">
           <h3 class="text-2xl font-dirtyline">VENUE</h3>
           <p>{event.venue}</p>
-          <p>{date}</p>
+          <FormattedDate date={event.fromDate} />
         </div>
 
         <div class="sidebar-item">
           <p class="text-2xl font-dirtyline">Rules:</p>
-          <p>
+          <pre>
             {event.description}
-          </p>
+          </pre>
         </div>
 
         {

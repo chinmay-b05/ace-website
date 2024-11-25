@@ -67,37 +67,6 @@ const EventDialogBox = ({ email, id, name, eventId, maxTeamSize, eventName }: Di
   };
 
   useEffect(() => {
-    if (teamData) {
-      console.log('Team data', teamData);
-    }
-  }, [teamData]);
-
-  useEffect(() => {
-    const fetchTeamData = async () => {
-      try {
-        const response = await fetch('/api/userInATeam', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: id,
-            eventId: eventId,
-          }),
-        });
-
-        if (!response.ok) {
-          toast.error('Failed to fetch team data');
-          throw new Error('Failed to fetch team data');
-        }
-
-        const result: TeamDetails = await response.json();
-
-        setTeamData(result);
-      } catch (err) {
-        toast.error(String(err));
-      }
-    };
     fetchTeamData();
   }, []);
 
