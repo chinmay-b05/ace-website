@@ -1,4 +1,5 @@
 ---
+import { ContentType } from '@lib/constants';
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 
@@ -18,7 +19,7 @@ type Props = {
 const { blog }: Props = Astro.props;
 ---
 
-<a href={`/blogs/${blog.id}`} class="block transform transition-transform duration-300 ease-out hover:scale-[1.03]">
+<a href={`/blogs/${blog.id}`} class="block transform transition-transform duration-300 ease-out hover:scale-[1.03] interactable" data-type={ContentType.CardLink}>
   <article class="border blog-card border-gray-700 bg-gray-800 p-4 outline-gray-700">
     <header class="flex justify-between items-center">
       <time class="text-gray-200 truncate max-w-[50%] sm:max-w-[100%]">{blog.createdAt}</time>

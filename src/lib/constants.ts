@@ -11,6 +11,14 @@ export const githubLink = 'https://github.com/ACE-NMAMIT/';
 export const linkedinLink = 'https://www.linkedin.com/company/acenmamit/';
 export const instagramLink = 'https://www.instagram.com/ace_nmamit/';
 
+export const aceFaculty = [
+  { name: 'Dr. Pradeep Kanchan', position: 'Faculty Co-ordinator', image: 't18' },
+  { name: 'Dr. Keerthana B Chigateri', position: 'Faculty Co-ordinator', image: 't19' },
+  { name: 'Mr. Pawan Hegde', position: 'Faculty Co-ordinator', image: 't25' },
+  { name: 'Mr. Ashwin Shenoy', position: 'Faculty Co-ordinator', image: 't32' },
+];
+
+
 export const faculty = [
   { name: 'Dr. Niranjan N. Chiplunkar', position: 'Principal', image: 'prin' },
   { name: 'Dr. Jyothi Shetty', position: 'Professor & Head', image: 'hod' },
@@ -86,8 +94,8 @@ export const teamMembers = {
     { name: 'Rohan MP', position: 'Technical Coordinator', image: 'ABI03974-min' },
     { name: 'Satwik Prabhu', position: 'Techincal Coordinator', image: 'ABI03897-min' },
     { name: 'Len Mendonca', position: 'Joint Technical Coordinator', image: 'ABI04492-min' },
-    //why is his name not in teams
-    // { name: 'Varun Pai', position: 'Joint Technical Coordinator', image: '/images/developers/varunpai.jpeg' },
+
+    { name: 'Varun Pai', position: 'Joint Technical Coordinator', image: 'ABI04447-min' },
     { name: 'Omkar', position: 'Joint Graphics Design Coordinator', image: 'ABI04469-min' },
     { name: 'Pratham Nayak', position: 'Joint Graphics Design Coordinator', image: 'ABI04475-min' },
     { name: 'Akhil Manoj', position: 'Joint Graphics Design Coordinator', image: 'ABI04467-min' },
@@ -119,8 +127,103 @@ export const teamMembers = {
       image: 'ABI04484-min',
     },
   ],
-  2024: [],
-  faculty,
+  2024: [
+    { name: 'U Sai Vikram', position: 'President', image: 'Sai Vikram_President' },
+    { name: 'Aaric Johan Rodrigues', position: 'Vice President', image: 'Aaric Johan Rodrigues - Vice President' },
+    { name: 'Tejas Jain', position: 'Branch Captain', image: 'TEJAS JAIN' },
+    { name: 'Hebbar Prathamesh', position: 'Branch secretary', image: 'Hebbar Prathamesh branch secretary ' },
+    { name: 'Varun suresh', position: 'Treasurer', image: 'Varun Shetty_Treasurer' },
+    { name: 'Liya Nanaiah', position: 'join secretary', image: 'ABI04504-min' },
+    { name: 'Harshith D S', position: 'Cultural Secretary', image: 'HarshithDS_CulturalSecretary' },
+    { name: 'Aastha Nikin Shetty', position: 'Cultural Secretary', image: 'AasthaNikinShetty_culturalsecretary ' },
+    { name: 'Len Danieo Thomas Mendonca', position: 'Technical cordinator', image: 'Len-technicalLead' },
+    { name: 'Chinmayee Bhat', position: 'Technical cordinator', image: 'CHINMAYEE BHAT_Technical Lead' },
+    {
+      name: 'Chinmay Dinesh Billava',
+      position: 'Technical cordinator',
+      image: 'Chinmay Dinesh Billava_Technical Coordinator',
+    },
+    { name: 'Diya R Kamath', position: 'Sports Coordinator', image: 'Diya R Kamath_Sports Coordinator' },
+    { name: 'Abhi S Kamath', position: 'Sports Coordinator', image: 'Abhi S Kamath - Sports Coordinator_' },
+    { name: 'Dilshan Divan Dsouza', position: 'Sports Coordinator', image: 'Dilshan Dsouza_Sports Coordinator' },
+    { name: 'Jovian Rodrigues', position: 'Sports Coordinator', image: 'sample' },
+    { name: 'Amrutha R Rao', position: 'Magazine Coordinator', image: 'Amrutha R Rao_Magazine coordinator_' },
+    { name: 'Disha Budale', position: 'Magazine Coordinator', image: 'Disha Budale_MagazineCoordinator' },
+    {
+      name: 'Sanjana Santosh Gunaga',
+      position: 'Magazine Coordinator',
+      image: 'Sanjana Gunaga_Magazine Coordinator_page-0001',
+    },
+    { name: 'K Shailesh Rao', position: 'Magazine Coordinator', image: 'K Shailesh Rao_MagazineCoordinator' },
+    { name: 'Riya S Shetty', position: 'Magazine Coordinator', image: 'Riya S Shetty_Magazine Coordinator' },
+    {
+      name: 'Pratham Sridasa Nayak',
+      position: 'Social Event Coordinator',
+      image: 'Pratham Sridas Nayak_Social Event Coordinator_',
+    },
+    {
+      name: 'Shetty Sakshi Sujit',
+      position: 'Social Event Coordinator',
+      image: 'Shetty Sakshi Sujit_Social Event Coordinator',
+    },
+    { name: 'Charith', position: 'Social Event Coordinator', image: 'Charith-Social Event Coordinator' },
+    {
+      name: 'Vaishnavi Kamath',
+      position: 'Social Event Coordinator',
+      image: 'Vaishnavi Kamath_Social Event Coordinator_',
+    },
+    {
+      name: 'Karthick Ail',
+      position: 'Graphics Design Coordinator',
+      image: 'Karthik Ail_Main Graphic design Coordinator_',
+    },
+    { name: 'Omkar Arun Sanil', position: 'Graphics Design Coordinator', image: 'ABI04469-min' },
+    {
+      name: 'Athul N Rao',
+      position: 'Photography & Video Coordinator',
+      image: 'Athul N Rao_Photography and Videography coordinator_',
+    },
+    {
+      name: 'Arkal Varun Hegde',
+      position: 'Photography & Video Coordinator',
+      image: 'Arkal Varun Hegde',
+    },
+    { name: 'Shifali Mada', position: 'Social Media Coordinator', image: 'Shifali mada-social media coordinator' },
+    { name: 'Paras Savera', position: 'Social Media Coordinator', image: 'Paras savera Social media coordinator ' },
+    { name: 'Abhiram N udupa', position: 'Jt cultural secretary', image: 'Abhiram N Udupa_JointCulturalSecretary' },
+    { name: 'Namana B K', position: 'Jt cultural secretary', image: 'Namana B K _ Joint Cultural Coordinator_' },
+    {
+      name: 'Aston Prince  Mathias',
+      position: 'Jt Technical coordinator',
+      image: 'Ashton Mathias_Joint Technical Coordinator',
+    },
+    { name: 'Moulya shetty', position: 'Jt sports Coordinator', image: 'Moulya Shetty_Joint sports coordinator ' },
+    { name: 'Janvi Hegde', position: 'Jt magazine Coordinator', image: 'Janvi Hegde _ Joint magazine coordinator' },
+    { name: 'Poorvi Kalyani', position: 'Jt magazine Coordinator', image: 'POORVI KALYANI_joint magazine coordinator' },
+    {
+      name: 'Samuel Rodrigues',
+      position: 'Jt social event Coordinator',
+      image: 'Samuel Rodrigues _Joint Social Event Coordinator_',
+    },
+    {
+      name: 'Adithi H Nayak',
+      position: 'Graphic design Coordinator',
+      image: 'Aditi H Nayak_Joint Graphics Design Coordinator',
+    },
+    { name: 'Krithi', position: 'Graphic design Coordinator', image: 'Krithi_JointGraphicsDesignCoordinator' },
+    // {
+    //   name: 'Shashwath J Shetty',
+    //   position: 'Jt Photography and videography Coordinator',
+    //   image: 'Shashwath J Shetty_Joint Photography & Videography Coordinator ',
+    // },
+    { name: 'Sujan S', position: 'Jt Social Media Coordinator', image: 'Sujan S- Joint social media coordinator_' },
+    {
+      name: 'Rachana Narayan',
+      position: 'Jt Social Media Coordinator',
+      image: 'Rachana_joint social media coordinator',
+    },
+  ],
+  "faculty":aceFaculty,
 };
 
 import KarthikImage from '@assets/images/developers/karthik.webp';
@@ -140,7 +243,7 @@ export const testimonials = [
   { name: 'Shashank B N', message: 'Use VIM', imageUrl: sampleImage },
   { name: 'Satwik Prabhu', message: 'i know where you live', imageUrl: sampleImage },
   { name: 'wisdom--1', message: 'Fullfill 85% attendance criteria', imageUrl: sampleImage },
-  { name: 'Unknown', message: 'Satwik Prabhu is a cutie', imageUrl: sampleImage },
+  { name: 'Unknown', message: 'Ace it', imageUrl: sampleImage },
   {
     name: 'Vasudha Bhat',
     message:

@@ -2,7 +2,7 @@
 
 ---
 
-<div id="trailer" transition:persist>
+<div id="trailer" transition:persist class="hidden sm:grid place-content-center">
   <div id="trailer-icon"></div>
 </div>
 
@@ -16,7 +16,6 @@
     top: 0;
     left: 0;
     z-index: 10000;
-
     pointer-events: none;
     opacity: 0;
     transition: opacity 500ms ease;
@@ -32,11 +31,11 @@
   }
 
   #trailer-icon {
-    font-size: 6px;
-    line-height: 4px;
+    font-size: 12px;
     opacity: 0;
     transition: opacity 400ms ease;
     background: transparent;
+    color: black;
   }
 </style>
 
@@ -53,7 +52,7 @@
   function getIcon(icon: ContentType | null) {
     switch (icon) {
       case ContentType.CardLink:
-        return 'link'; //<MoveUpRight />;
+        return '↗'; //<MoveUpRight />;
       case ContentType.Video:
         return 'video'; // <Play />;
       default:
@@ -61,41 +60,45 @@
     }
   }
 
-  const trailer = document.getElementById('trailer') as HTMLDivElement;
-  const trailerIcon = document.getElementById('trailer-icon') as HTMLDivElement;
+  const trailer = document.querySelector<HTMLDivElement>('#trailer');
+  const trailerIcon = document.querySelector<HTMLDivElement>('#trailer-icon');
 
   function setTrailerIcon(icon: ContentType) {
-    trailerIcon.innerHTML = getIcon(icon) ?? '';
+    if (trailerIcon) {
+      trailerIcon.innerHTML = getIcon(icon) ?? '';
+    }
   }
 
-  window.addEventListener('mousemove', (e) => {
-    const interactable = e.target instanceof HTMLElement ? e.target?.closest('.interactable') : null;
-    const intersecting = interactable !== null;
-    const x = e.clientX - trailer.offsetWidth / 2;
-    const y = e.clientY - trailer.offsetHeight / 2;
+  if (trailer && trailerIcon) {
+    window.addEventListener('mousemove', (e) => {
+      const interactable = e.target instanceof HTMLElement ? e.target?.closest('.interactable') : null;
+      const intersecting = interactable !== null;
+      const x = e.clientX - trailer.offsetWidth / 2;
+      const y = e.clientY - trailer.offsetHeight / 2;
 
-    const keyFrames = {
-      transform: `translate(${x}px,${y}px) scale(${intersecting ? '4' : '1'})`,
-    };
+      const keyFrames = {
+        transform: `translate(${x}px,${y}px) scale(${intersecting ? '4' : '1'})`,
+      };
 
-    trailer.animate([keyFrames], {
-      duration: intersecting ? 200 : 800,
-      fill: 'forwards',
-    });
+      trailer.animate([keyFrames], {
+        duration: intersecting ? 200 : 800,
+        fill: 'forwards',
+      });
 
-    if (intersecting) {
-      if (interactable instanceof HTMLElement) {
-        const icon = getContentType(interactable.dataset.type);
-        if (icon !== null) {
-          document.documentElement.style.cursor = 'none';
-        } else {
-          document.documentElement.style.cursor = 'auto';
+      if (intersecting) {
+        if (interactable instanceof HTMLElement) {
+          const icon = getContentType(interactable.dataset.type);
+          if (icon !== null) {
+            document.documentElement.style.cursor = 'none';
+          } else {
+            document.documentElement.style.cursor = 'auto';
+          }
+          setTrailerIcon(icon);
         }
-        setTrailerIcon(icon);
+      } else {
+        document.documentElement.style.cursor = 'auto';
+        setTrailerIcon(ContentType.None);
       }
-    } else {
-      document.documentElement.style.cursor = 'auto';
-      setTrailerIcon(ContentType.None);
-    }
-  });
+    });
+  }
 </script>

@@ -1,6 +1,5 @@
 ---
-import { Image } from 'astro:assets';
-import sample from '../assets/images/sample.png'
+import FormattedDate from './FormattedDate.astro';
 interface Props {
   eventName: string;
   category: string;
@@ -10,41 +9,39 @@ interface Props {
   state: string;
   maxTeamSize: number;
   className?: string;
+  image: string;
 }
-const {eventName,category,date,venue,id,state,maxTeamSize,className}=Astro.props;
-
-
-
+const { eventName, category, date: dateRecieved, venue, id, state, maxTeamSize, className, image } = Astro.props;
 ---
-
 
 <div class={`card max-w-[300px] w-[300px] h-[410px] rounded-xl relative bg-[#1b1b1b] ${className}`}>
   <div class="card-image w-full h-[50%] max-h-[50%] overflow-hidden">
-    <img 
-    class="h-full object-center w-full object-fill"
-    src="/src/assets/images/sample.png"
-/>
+    <img class="h-full object-center w-full object-fill" src={image} />
   </div>
-   
- 
-    {state==="PUBLISHED" && ( <div class="card-price-tag"> <span class="price-value">Register</span></div>) }
-    {state==="COMPLETED" && ( <div class="card-price-tag"><span class="price-value">View</span></div>) }
-   
-  
- 
+
+  <div class="card-price-tag"><span class="price-value">{state === 'COMPLETED' ? 'View' : 'Register'}</span></div>
+
   <div class="card-info">
     <div class="left-info">
       <span class="product-title truncate text-lg pt-2">{eventName}</span>
       <p class="feature-sub-title text-sm font-bold">Type</p>
       <span class="feature-desc">{category}</span>
-      {maxTeamSize==1 && (<p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">SOLO</p>)}
-      {maxTeamSize>1 && (<p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">TEAM</p>)}
+      {
+        maxTeamSize == 1 && (
+          <p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">SOLO</p>
+        )
+      }
+      {
+        maxTeamSize > 1 && (
+          <p class="font-extrabold bg-[#0664FC] rounded-full w-fit text-white px-2 py-1 text-lg">TEAM</p>
+        )
+      }
     </div>
     <div class="right-info">
       <ul class="features-list">
         <li class="list-item text-xs">
           <p class="feature-sub-title pt-1">Date</p>
-          <span class="feature-desc">{date}</span>
+          <FormattedDate date={dateRecieved} />
         </li>
         <li class="list-item">
           <p class="feature-sub-title">Venue</p>
@@ -54,9 +51,9 @@ const {eventName,category,date,venue,id,state,maxTeamSize,className}=Astro.props
     </div>
   </div>
   <div class="add-to-cart-btn">
-    <button class=" mr-9">View Event</button>
+    <button class="mr-9">View Event</button>
   </div>
-</a>
+</div>
 
 <style>
   .card {

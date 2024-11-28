@@ -55,11 +55,13 @@ images['sample'] = sample;
                       src={images[member.image]}
                       alt={member.name}
                       loading="lazy"
-                      class="w-[200px] aspect-square rounded-full object-cover"
-                      width={200}
-                      height={200}
+                      class="w-[200px] aspect-square rounded-full object-cover object-center"
+                      style={{ objectPosition: 'top' }}
+                      width={300}
+                      height={300}
                     />
                   </div>
+
                   <div class="content w-full row-start-7 row-span-4">
                     <h3 class="uppercase font-bold text-lg">{member.name}</h3>
                     <span>{member.position}</span>
